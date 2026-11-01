@@ -252,9 +252,11 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
         Flow.track('CompleteRegistration',{content_name:'Diagnosis Questionnaire'}); Flow.ga('questionnaire_submit');
         setTimeout(function(){ Flow.go('/done/'); },200);
       })
-      .catch(function(){
+      .catch(function(e){
         nextB.disabled=false; nextB.textContent='Submit My Answers →';
-        err.innerHTML='Couldn\'t send right now. Your answers are saved — try again, or WhatsApp <a href="https://wa.me/919464151610" style="color:#FEB704">+91 94641 51610</a>.';
+        var code=(e&&e.error)||'network';
+        Flow.custom('QuestionnaireError',{code:code});
+        err.innerHTML='Couldn\'t send right now. Your answers are saved — try again, or WhatsApp <a href="https://wa.me/919464151610" style="color:#FEB704">+91 94641 51610</a>.<br><span style="color:#777;font-size:12px">Error code: '+String(code).replace(/[<>&"]/g,'')+'</span>';
       });
   });
 })();
