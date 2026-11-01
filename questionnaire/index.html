@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pre-Call Questionnaire | Gaurang Misra</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/img/logo-white.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Roboto:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/flow.css">
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','3715194611950305');fbq('track','PageView');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQBDR8Z7WP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-HQBDR8Z7WP');</script>
+<script src="/assets/flow.js"></script>
+<style>
+.prog{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin-bottom:8px}
+.prog b{color:var(--gold)}
+.bar{height:6px;background:#2a2826;border-radius:3px;overflow:hidden;margin-bottom:6px}
+.bar i{display:block;height:100%;width:20%;background:var(--gold);transition:width .3s ease}
+.page{display:none;animation:fade .25s ease}
+.page.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.page h2{font-size:clamp(22px,5.6vw,28px);margin:6px 0 4px}
+.page .sub{color:var(--fg-2);font-size:15px;margin-bottom:16px}
+.f{margin-bottom:16px}
+.f>label,.f>.q{display:block;font-weight:700;font-size:16px;margin-bottom:4px}
+.hint{display:block;font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:400}
+.req{color:var(--red);margin-left:2px}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;background:#0a0909;border:1px solid #3a3634;border-radius:10px;color:#fff;font:inherit;font-size:16px;padding:12px 14px;outline:none}
+textarea{min-height:120px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 20px) 52%,calc(100% - 14px) 52%;background-size:6px 6px;background-repeat:no-repeat;padding-right:38px}
+.grid2{display:grid;gap:0 12px}
+@media (min-width:560px){.grid2{grid-template-columns:1fr 1fr}}
+.choices{display:grid;gap:8px}
+.choice{display:flex;gap:10px;align-items:flex-start;background:#0a0909;border:1px solid #2e2b29;border-radius:10px;padding:11px 12px;cursor:pointer;font-size:15px;color:var(--fg-2)}
+.choice input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--gold)}
+.choice:has(input:checked){border-color:var(--gold);color:#fff;background:#1c1606}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--fg-2);margin:4px 0 4px}
+.consent input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--gold)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.invalid{border-color:#ff6b6b!important}
+.ferr{color:#ff6b6b;font-size:14px;margin-top:10px;min-height:1em;text-align:center}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="track" aria-hidden="true"><span class="done"></span><span class="done"></span><span class="on"></span></div>
+  <div class="track-l"><span>1 · Book</span><span>2 · Prepare</span><b>3 · Questions</b></div>
+
+  <div class="prog"><span id="prog-l">Question set <b>1</b> of 5</span><span>~5 min · only I see this</span></div>
+  <div class="bar"><i id="bar"></i></div>
+
+  <form id="q" novalidate>
+    <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <div class="card key">
+      <!-- 1 -->
+      <section class="page on" data-step="1">
+        <h2 class="h">About <span class="gold">You</span></h2>
+        <p class="sub">So I know who I'm talking to.</p>
+        <div class="grid2">
+          <div class="f"><label for="name">Full name<span class="req">*</span></label><input type="text" id="name" name="name" autocomplete="name" required></div>
+          <div class="f"><label for="whatsapp">WhatsApp number<span class="req">*</span></label><input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" required></div>
+          <div class="f"><label for="email">Email<span class="req">*</span></label><input type="email" id="email" name="email" autocomplete="email" required></div>
+          <div class="f"><label for="city">City<span class="req">*</span></label><input type="text" id="city" name="city" autocomplete="address-level2" required></div>
+          <div class="f"><label for="age">Age<span class="req">*</span></label>
+            <select id="age" name="age" required><option value="">Select</option><option>Under 21</option><option>21–25</option><option>26–30</option><option>31–40</option><option>41–50</option><option>50+</option></select></div>
+          <div class="f"><label for="occupation">What do you do?<span class="req">*</span></label>
+            <select id="occupation" name="occupation" required><option value="">Select</option><option>Founder / Business owner</option><option>Senior executive / Manager</option><option>Salaried professional</option><option>Sales / Business development</option><option>Coach / Consultant / Freelancer</option><option>Student</option><option>Other</option></select></div>
+        </div>
+        <div class="f"><label for="role">Your role and industry, in one line</label><input type="text" id="role" name="role" placeholder="e.g. Co-founder, real-estate firm, 12-person team"></div>
+      </section>
+
+      <!-- 2 -->
+      <section class="page" data-step="2">
+        <h2 class="h">The <span class="gold">Situation</span></h2>
+        <p class="sub">One real moment. Short and honest beats long and careful.</p>
+        <div class="f"><label for="situation">Describe ONE situation you want diagnosed<span class="req">*</span></label><span class="hint">A deal you lost, a room that overlooked you, a conversation you still replay.</span><textarea id="situation" name="situation" required></textarea></div>
+        <div class="f"><label for="moment">In that exact moment, what did you feel — and do?<span class="req">*</span></label><span class="hint">e.g. "I started over-explaining", "My mind went blank", "I agreed just to end it"</span><textarea id="moment" name="moment" required></textarea></div>
+      </section>
+
+      <!-- 3 -->
+      <section class="page" data-step="3">
+        <h2 class="h">The <span class="gold">Pattern</span></h2>
+        <p class="sub">Go with your first instinct.</p>
+        <div class="f"><span class="q">How often does this show up?<span class="req">*</span></span>
+          <div class="choices" data-required>
+            <label class="choice"><input type="radio" name="frequency" value="Daily">Daily</label>
+            <label class="choice"><input type="radio" name="frequency" value="Weekly">Weekly</label>
+            <label class="choice"><input type="radio" name="frequency" value="Only in high-stakes moments">Only in high-stakes moments</label>
+            <label class="choice"><input type="radio" name="frequency" value="Rarely, but it costs me a lot">Rarely, but it costs me a lot</label>
+          </div></div>
+        <div class="f"><span class="q">Which of these feel familiar?</span><span class="hint">Pick all that apply.</span>
+          <div class="choices">
+            <label class="choice"><input type="checkbox" name="patterns" value="Three-Second Verdict">People size me up wrong before I've said much</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="Flinch Test">I fold or soften when someone pushes back</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="Silent Objection">People say "let me think about it" and disappear</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="Approval Leak">I care too much what they think of me in the moment</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="Convincing Trap">I over-explain and over-justify my value</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="The Blank">My mind goes blank exactly when it matters</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="Not sure">Not sure — that's why I'm here</label>
+          </div></div>
+        <div class="f"><span class="q">When you speak, people usually…<span class="req">*</span></span>
+          <div class="choices" data-required>
+            <label class="choice"><input type="radio" name="response" value="Listen and act on it">Listen and act on it</label>
+            <label class="choice"><input type="radio" name="response" value="Listen, but don't act">Listen, but don't act</label>
+            <label class="choice"><input type="radio" name="response" value="Interrupt or talk over me">Interrupt or talk over me</label>
+            <label class="choice"><input type="radio" name="response" value="Forget or ignore what I said">Forget or ignore what I said</label>
+          </div></div>
+      </section>
+
+      <!-- 4 -->
+      <section class="page" data-step="4">
+        <h2 class="h">Where It <span class="gold">Costs You</span></h2>
+        <p class="sub">Be specific — this is where we'll aim.</p>
+        <div class="f"><span class="q">Where does it cost you the most?<span class="req">*</span></span><span class="hint">Pick all that apply.</span>
+          <div class="choices" data-required>
+            <label class="choice"><input type="checkbox" name="arenas" value="Sales and closing">Sales and closing</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Negotiations">Negotiations</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Meetings and boardrooms">Meetings and boardrooms</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Leading a team">Leading a team</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Relationships and dating">Relationships and dating</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Family">Family</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Public speaking or camera">Public speaking or on camera</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Interviews and career">Interviews and career growth</label>
+          </div></div>
+        <div class="f"><label for="cost">What is it costing you right now?<span class="req">*</span></label><span class="hint">Money, deals, promotions, relationships, respect.</span><textarea id="cost" name="cost" required style="min-height:96px"></textarea></div>
+        <div class="f"><span class="q">What have you already tried?</span>
+          <div class="choices">
+            <label class="choice"><input type="checkbox" name="tried" value="Therapy or counselling">Therapy or counselling</label>
+            <label class="choice"><input type="checkbox" name="tried" value="Coaching">Coaching</label>
+            <label class="choice"><input type="checkbox" name="tried" value="Sales or negotiation training">Sales or negotiation training</label>
+            <label class="choice"><input type="checkbox" name="tried" value="Books, YouTube, podcasts">Books, YouTube, podcasts</label>
+            <label class="choice"><input type="checkbox" name="tried" value="Communication or public speaking course">Communication or public-speaking course</label>
+            <label class="choice"><input type="checkbox" name="tried" value="Nothing yet">Nothing yet</label>
+          </div></div>
+      </section>
+
+      <!-- 5 -->
+      <section class="page" data-step="5">
+        <h2 class="h">The <span class="gold">Outcome</span></h2>
+        <p class="sub">Last one.</p>
+        <div class="f"><label for="win">If this call goes perfectly, what's different afterwards?<span class="req">*</span></label><textarea id="win" name="win" required style="min-height:96px"></textarea></div>
+        <div class="f"><span class="q">If the diagnosis shows this needs structured work beyond one call, where are you?<span class="req">*</span></span>
+          <div class="choices" data-required>
+            <label class="choice"><input type="radio" name="readiness" value="Ready to start now if it's the right fit">Ready to start now if it's the right fit</label>
+            <label class="choice"><input type="radio" name="readiness" value="Want to understand my options first">Want to understand my options first</label>
+            <label class="choice"><input type="radio" name="readiness" value="Not in a position to invest right now">Not in a position to invest right now</label>
+          </div></div>
+        <div class="f"><label for="notes">Anything I must know before the call?</label><textarea id="notes" name="notes" style="min-height:72px"></textarea></div>
+        <label class="consent"><input type="checkbox" id="consent" name="consent" value="yes" required>My answers are honest, and they're shared only with Gaurang Misra to prepare my diagnosis.</label>
+      </section>
+    </div>
+
+    <div class="row">
+      <button type="button" class="btn back" id="prev" hidden>←</button>
+      <button type="button" class="btn" id="next">Next →</button>
+    </div>
+    <div class="ferr" id="ferr" aria-live="polite"></div>
+    <p class="small" style="text-align:center">Answers save on this device as you go.</p>
+  </form>
+</main>
+<script>
+(function(){
+  var form=document.getElementById('q'), pages=[].slice.call(form.querySelectorAll('.page')), N=pages.length;
+  var prev=document.getElementById('prev'), nextB=document.getElementById('next'), err=document.getElementById('ferr');
+  var KEY='diag_q_'+(Flow.ctx.pid||'anon'), step=1;
+
+  function collect(){
+    var d={}; new FormData(form).forEach(function(v,k){ if(d[k]===undefined) d[k]=v; else { if(!Array.isArray(d[k])) d[k]=[d[k]]; d[k].push(v); } });
+    ['patterns','arenas','tried'].forEach(function(k){ if(d[k]&&!Array.isArray(d[k])) d[k]=[d[k]]; });
+    return d;
+  }
+  function saveDraft(){ try{ localStorage.setItem(KEY,JSON.stringify({step:step,d:collect()})); }catch(e){} }
+  function restore(){
+    var s; try{ s=JSON.parse(localStorage.getItem(KEY)||'null'); }catch(e){}
+    if(!s) return 1;
+    Object.keys(s.d||{}).forEach(function(k){
+      var vals=[].concat(s.d[k]);
+      form.querySelectorAll('[name="'+k+'"]').forEach(function(el){
+        if(el.type==='checkbox'||el.type==='radio') el.checked=vals.indexOf(el.value)>-1;
+        else if(el.name!=='website') el.value=vals[0];
+      });
+    });
+    return Math.min(Math.max(+s.step||1,1),N);
+  }
+  function show(n,scroll){
+    step=n;
+    pages.forEach(function(p){ p.classList.toggle('on',+p.dataset.step===n); });
+    document.getElementById('prog-l').innerHTML='Question set <b>'+n+'</b> of '+N;
+    document.getElementById('bar').style.width=(n/N*100)+'%';
+    prev.hidden=n===1;
+    nextB.textContent=n===N?'Submit My Answers →':'Next →';
+    err.textContent='';
+    if(scroll) window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function invalidIn(page){
+    var bad=null;
+    page.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+    page.querySelectorAll('input[required],select[required],textarea[required]').forEach(function(el){
+      var ok=el.type==='checkbox'?el.checked:(el.value.trim()!==''&&(el.type!=='email'||/^\S+@\S+\.\S+$/.test(el.value.trim())));
+      if(!ok){ (el.type==='checkbox'?el.parentNode:el).classList.add('invalid'); bad=bad||el; }
+    });
+    page.querySelectorAll('.choices[data-required]').forEach(function(g){
+      if(!g.querySelector('input:checked')){ g.querySelectorAll('.choice').forEach(function(c){ c.classList.add('invalid'); }); bad=bad||g.querySelector('input'); }
+    });
+    return bad;
+  }
+
+  // Prefill email/phone from the payment, never overwriting what they typed
+  Flow.payment().then(function(p){
+    if(!p) return; var em=document.getElementById('email'), wa=document.getElementById('whatsapp');
+    if(p.email&&!em.value) em.value=p.email; if(p.contact&&!wa.value) wa.value=p.contact;
+  });
+
+  show(restore(),false);
+  var started=false;
+  form.addEventListener('input',function(e){
+    if(e.target.classList) e.target.classList.remove('invalid');
+    if(!started){ started=true; Flow.custom('QuestionnaireStart'); }
+    clearTimeout(form._t); form._t=setTimeout(saveDraft,400);
+  });
+  // Save immediately if they switch apps or close the tab mid-answer
+  addEventListener('pagehide',saveDraft);
+  document.addEventListener('visibilitychange',function(){ if(document.visibilityState==='hidden') saveDraft(); });
+  form.addEventListener('submit',function(e){ e.preventDefault(); nextB.click(); });
+  prev.addEventListener('click',function(){ if(step>1){ show(step-1,true); saveDraft(); } });
+
+  nextB.addEventListener('click',function(){
+    var bad=invalidIn(pages[step-1]);
+    if(bad){ err.textContent='Please answer the questions marked in red.'; bad.focus({preventScroll:true}); bad.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+    if(step<N){ Flow.custom('QuestionnaireStep',{step:step}); show(step+1,true); saveDraft(); return; }
+    // Final submit
+    var d=collect(); d.pid=Flow.ctx.pid||''; d.oid=Flow.ctx.oid||'';
+    nextB.disabled=true; nextB.textContent='Sending…';
+    fetch('/api/questionnaire',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(d)})
+      .then(function(r){ return r.json().then(function(j){ if(!r.ok||!j.ok) throw j; return j; }); })
+      .then(function(){
+        try{ localStorage.removeItem(KEY); }catch(e){}
+        Flow.set('submitted',1); Flow.set('first',(d.name||'').trim().split(/\s+/)[0]);
+        Flow.track('CompleteRegistration',{content_name:'Diagnosis Questionnaire'}); Flow.ga('questionnaire_submit');
+        setTimeout(function(){ Flow.go('/done/'); },200);
+      })
+      .catch(function(){
+        nextB.disabled=false; nextB.textContent='Submit My Answers →';
+        err.innerHTML='Couldn\'t send right now. Your answers are saved — try again, or WhatsApp <a href="https://wa.me/919464151610" style="color:#FEB704">+91 94641 51610</a>.';
+      });
+  });
+})();
+</script>
+</body>
+</html>

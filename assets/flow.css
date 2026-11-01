@@ -1,0 +1,36 @@
+/* Shared styles for the post-payment flow: /book → /prepare → /questionnaire → /done */
+:root{--bg:#000;--card:#121010;--line:#2c2a28;--fg:#fff;--fg-2:#d9d9d9;--muted:#8f8f8f;--gold:#FEB704;--red:#CB0000;--green:#20BF00;--green-2:#49E12A}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.55;font-size:16px;min-height:100vh}
+.h{font-family:'Roboto',system-ui,sans-serif;font-weight:700;line-height:1.2}
+.gold{color:var(--gold)}.green{color:var(--green)}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+
+/* step tracker */
+.track{display:flex;align-items:center;gap:6px;margin:0 auto 22px;max-width:420px}
+.track span{flex:1;height:4px;border-radius:2px;background:#2a2826}
+.track span.done{background:var(--green)}
+.track span.on{background:var(--gold)}
+.track-l{display:flex;justify-content:space-between;max-width:420px;margin:-14px auto 22px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.track-l b{color:var(--gold);font-weight:700}
+
+.ok{display:inline-flex;align-items:center;gap:8px;color:var(--green-2);font-weight:700;font-size:13px;border:1px solid #1f4d16;background:#0b1c08;border-radius:999px;padding:5px 12px}
+.top{text-align:center}
+h1{font-family:'Roboto',sans-serif;font-weight:900;font-size:clamp(28px,7vw,38px);line-height:1.12;margin:14px 0 10px}
+.lead{color:var(--fg-2);font-size:16px}
+.lead b{color:#fff}
+.small{font-size:13px;color:var(--muted);margin-top:8px}
+
+.card{margin-top:20px;border:1px solid var(--line);border-radius:18px;background:var(--card);padding:18px}
+.card.key{border-color:var(--gold)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:12px 20px;background:var(--red);color:#fff;text-decoration:none;font-family:'Roboto',sans-serif;font-weight:700;font-size:19px;border-radius:10px;border:0;border-bottom:3px solid #fff;border-right:2px solid #fff;cursor:pointer}
+.btn.ghost{background:transparent;border:1px solid var(--gold);color:var(--gold);font-size:15px;min-height:46px}
+.btn.back{background:transparent;border:1px solid #3a3634;color:var(--fg-2);font-size:16px;min-height:56px;width:auto;padding:12px 18px}
+.btn[disabled]{opacity:.7;cursor:wait}
+.row{display:flex;gap:10px;margin-top:18px}
+.row .btn:not(.back){flex:1}
+
+.help{margin-top:24px;text-align:center;color:var(--muted);font-size:13px}
+.help a{color:var(--gold)}
