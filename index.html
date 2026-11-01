@@ -149,7 +149,30 @@ h2.sec{font-size:clamp(26px,5.4vw,40px);text-align:center;margin-bottom:28px}
 .price h3{color:var(--gold);font-size:clamp(26px,5.4vw,32px);margin:14px 0 8px}
 .price p{color:var(--fg-2)}
 .tiers{display:flex;justify-content:center;gap:14px;margin-top:20px;flex-wrap:wrap}
-.tier{border:1px solid var(--gold);border-radius:8px;padding:8px 14px;color:var(--gold);font-family:'Roboto',sans-serif;font-weight:700;font-size:22px;background:#2a2008}
+.tier{border:1px solid var(--gold);border-radius:8px;padding:8px 14px;color:var(--gold);font-family:'Roboto',sans-serif;font-weight:700;font-size:22px;background:#2a2008;cursor:pointer;transition:background .15s}
+.tier:hover{background:#3a2c0a}
+
+/* level picker modal */
+.lvl{position:fixed;inset:0;z-index:100;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.75);backdrop-filter:blur(2px)}
+.lvl.open{display:flex}
+.lvl-box{width:100%;max-width:520px;background:#121010;border:1px solid var(--gold);border-bottom:0;border-radius:18px 18px 0 0;padding:22px 18px calc(18px + env(safe-area-inset-bottom));animation:up .22s ease}
+@keyframes up{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.lvl-top{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.lvl h3{color:var(--gold);font-size:24px}
+.lvl-x{background:none;border:0;color:#aaa;font-size:28px;line-height:1;cursor:pointer;padding:0 4px}
+.lvl p.s{color:var(--fg-2);font-size:14px;margin-top:4px}
+.lvl s{color:#8f8f8f;font-size:14px}
+.opts{display:grid;gap:10px;margin:18px 0}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid #3a3530;border-radius:12px;padding:14px;cursor:pointer;background:#1a1714}
+.opt input{accent-color:var(--gold);width:20px;height:20px;flex:none}
+.opt b{font-family:'Roboto',sans-serif;font-size:22px;color:#fff;min-width:72px}
+.opt span{font-size:14px;color:var(--fg-2)}
+.opt:has(input:checked){border-color:var(--gold);background:#2a2008}
+.lvl .btn{max-width:none;font-size:20px}
+.lvl .btn[disabled]{opacity:.7;cursor:wait}
+.lvl .fine2{text-align:center;font-size:12px;color:var(--muted);margin-top:10px}
+.lvl .err{color:#ff6b6b;font-size:13px;text-align:center;margin-top:8px;min-height:1em}
+@media (min-width:720px){.lvl{align-items:center}.lvl-box{border-radius:18px;border-bottom:1px solid var(--gold)}}
 
 .guar{margin:24px auto 0;max-width:900px;background:#e2e2e2;color:#111;border:3px solid var(--red);border-radius:28px;padding:24px 20px;display:grid;gap:16px;align-items:center;text-align:center}
 .guar img{width:100%;max-width:240px;margin:0 auto}
@@ -399,7 +422,7 @@ footer a:hover{color:var(--gold)}
       <div class="mr">Comparable Private Sessions, Market Rate</div>
       <h3 class="h">Choose Your Level</h3>
       <p>Three Levels. Same 45 Minutes. Different Degrees Of Commitment.</p>
-      <div class="tiers"><span class="tier">₹499</span><span class="tier">₹999</span><span class="tier">₹1499</span></div>
+      <div class="tiers"><button type="button" class="tier" data-tier="499">₹499</button><button type="button" class="tier" data-tier="999">₹999</button><button type="button" class="tier" data-tier="1499">₹1499</button></div>
     </div>
     <div class="guar">
       <img src="/img/guarantee.webp" width="480" height="388" loading="lazy" alt="100% Guarantee seal">
@@ -493,19 +516,105 @@ footer a:hover{color:var(--gold)}
   </div>
 </footer>
 
+<div class="lvl" id="lvl" role="dialog" aria-modal="true" aria-labelledby="lvl-t">
+  <div class="lvl-box">
+    <div class="lvl-top">
+      <div><h3 class="h" id="lvl-t">Choose Your Level</h3><p class="s">Same 45 Minutes. Different Degrees Of Commitment. <s>₹4,999</s></p></div>
+      <button type="button" class="lvl-x" aria-label="Close">×</button>
+    </div>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="tier" value="499"><b>₹499</b><span>Start</span></label>
+      <label class="opt"><input type="radio" name="tier" value="999" checked><b>₹999</b><span>Committed</span></label>
+      <label class="opt"><input type="radio" name="tier" value="1499"><b>₹1499</b><span>All In</span></label>
+    </div>
+    <button type="button" class="btn" id="pay">Pay ₹999 &amp; Secure My Slot →</button>
+    <div class="err" id="pay-err" aria-live="polite"></div>
+    <div class="fine2">Secure payment by Razorpay · UPI, cards, netbanking · <span class="green">Full Refund</span> If It Doesn't Shift You.</div>
+  </div>
+</div>
+
 <div class="sticky" id="sticky"><a class="btn" data-cta="sticky" href="https://rzp.io/rzp/56EghuV1">Secure My Slot • Pay What It's Worth</a></div>
 
 <script>
 (function(){
-  // CTA clicks: fire InitiateCheckout + GA4 begin_checkout, then go to Razorpay
+  var FALLBACK='https://rzp.io/rzp/56EghuV1'; // old Razorpay page, used only if on-page checkout fails
+  var track=function(n,p,custom){ try{ fbq(custom?'trackCustom':'track',n,p||{}); }catch(e){} };
+  var ga=function(n,p){ try{ gtag('event',n,p||{}); }catch(e){} };
+
+  // Remember ad parameters so they're attached to the Razorpay order
+  var utm={};
+  try{ utm=JSON.parse(sessionStorage.getItem('lp_utm')||'{}'); }catch(e){}
+  new URLSearchParams(location.search).forEach(function(v,k){ if(/^utm_/.test(k)) utm[k]=v; });
+  try{ sessionStorage.setItem('lp_utm',JSON.stringify(utm)); }catch(e){}
+
+  // Level picker
+  var lvl=document.getElementById('lvl'), pay=document.getElementById('pay'), err=document.getElementById('pay-err');
+  var cta='hero', lastFocus=null;
+  var tier=function(){ return +lvl.querySelector('input[name=tier]:checked').value; };
+  var label=function(){ pay.innerHTML='Pay ₹'+tier()+' &amp; Secure My Slot →'; };
+  function openLvl(from,preset){
+    cta=from||'cta'; lastFocus=document.activeElement; err.textContent='';
+    if(preset){ var r=lvl.querySelector('input[value="'+preset+'"]'); if(r) r.checked=true; }
+    label(); lvl.classList.add('open'); document.body.style.overflow='hidden';
+    lvl.querySelector('input[name=tier]:checked').focus();
+    track('ChooseLevelOpen',{cta:cta},true); ga('view_item',{currency:'INR',cta_location:cta});
+  }
+  function closeLvl(){ lvl.classList.remove('open'); document.body.style.overflow=''; if(lastFocus) lastFocus.focus(); }
+  lvl.addEventListener('change',label);
+  lvl.querySelector('.lvl-x').addEventListener('click',closeLvl);
+  lvl.addEventListener('click',function(e){ if(e.target===lvl) closeLvl(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lvl.classList.contains('open')) closeLvl(); });
+
   document.querySelectorAll('a[data-cta]').forEach(function(a){
     a.addEventListener('click',function(ev){
       if(ev.metaKey||ev.ctrlKey||ev.shiftKey||ev.button!==0) return;
-      ev.preventDefault();
-      var href=a.href, done=false, go=function(){ if(!done){done=true; location.href=href;} };
-      try{ fbq('track','InitiateCheckout',{content_name:'Diagnosis Call',currency:'INR'}); }catch(e){}
-      try{ gtag('event','begin_checkout',{currency:'INR',cta_location:a.dataset.cta,event_callback:go}); }catch(e){}
-      setTimeout(go,300);
+      ev.preventDefault(); openLvl(a.dataset.cta);
+    });
+  });
+  document.querySelectorAll('button[data-tier]').forEach(function(b){
+    b.addEventListener('click',function(){ openLvl('price-'+b.dataset.tier,b.dataset.tier); });
+  });
+
+  // Razorpay Checkout opens over this page; buyer never leaves go.isfcm.com
+  var rzpLoad=null;
+  function loadRzp(){
+    if(window.Razorpay) return Promise.resolve();
+    if(!rzpLoad) rzpLoad=new Promise(function(res,rej){ var s=document.createElement('script'); s.src='https://checkout.razorpay.com/v1/checkout.js'; s.onload=res; s.onerror=rej; document.head.appendChild(s); });
+    return rzpLoad;
+  }
+  function busy(on){ pay.disabled=on; if(on) pay.textContent='Opening secure checkout…'; else label(); }
+  function fallback(){ location.href=FALLBACK; }
+
+  pay.addEventListener('click',function(){
+    var t=tier(); busy(true); err.textContent='';
+    track('InitiateCheckout',{content_name:'Diagnosis Call',value:t,currency:'INR'});
+    ga('begin_checkout',{currency:'INR',value:t,cta_location:cta});
+    Promise.all([
+      fetch('/api/order',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({tier:t,cta:cta,utm:utm})}).then(function(r){ return r.json().then(function(j){ if(!r.ok) throw j; return j; }); }),
+      loadRzp()
+    ]).then(function(x){
+      var o=x[0];
+      var rz=new Razorpay({
+        key:o.key_id, order_id:o.order_id, amount:o.amount, currency:o.currency,
+        name:'ISFCM', description:'45-Minute Private Diagnosis · Gaurang Misra',
+        image:location.origin+'/img/logo-white.webp',
+        theme:{color:'#CB0000'},
+        notes:{tier:String(t)},
+        handler:function(resp){
+          track('AddPaymentInfo',{value:t,currency:'INR'});
+          location.href='/book/?pid='+encodeURIComponent(resp.razorpay_payment_id)+'&oid='+encodeURIComponent(resp.razorpay_order_id);
+        },
+        modal:{ ondismiss:function(){ busy(false); track('CheckoutDismissed',{value:t},true); } }
+      });
+      rz.on('payment.failed',function(r){
+        busy(false); err.textContent='Payment didn\'t go through. Please try again or use another method.';
+        track('PaymentFailed',{value:t,reason:(r.error&&r.error.reason)||''},true);
+      });
+      rz.open();
+    }).catch(function(e){
+      // Keys not set up yet / network issue → never lose the sale: use the old payment page
+      track('CheckoutFallback',{reason:(e&&e.error)||'load'},true);
+      fallback();
     });
   });
 

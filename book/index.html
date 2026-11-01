@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Book Your Diagnosis Slot | Gaurang Misra</title>
+<title>You're In — Book Your Diagnosis | Gaurang Misra</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="/img/logo-white.webp">
@@ -26,79 +26,349 @@ fbq('track','PageView');
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-HQBDR8Z7WP');</script>
 
 <style>
-:root{--bg:#000;--fg:#fff;--fg-2:#d9d9d9;--muted:#8f8f8f;--gold:#FEB704;--red:#CB0000;--green:#20BF00}
+:root{--bg:#000;--card:#121010;--line:#2c2a28;--fg:#fff;--fg-2:#d9d9d9;--muted:#8f8f8f;--gold:#FEB704;--red:#CB0000;--red-deep:#8B0000;--green:#20BF00;--green-2:#49E12A}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--fg);font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.5}
-.wrap{max-width:860px;margin:0 auto;padding:32px 16px 48px}
-.ok{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-weight:700;font-size:14px;border:1px solid #1f4d16;background:#0b1c08;border-radius:999px;padding:6px 14px}
-h1{font-family:'Roboto',sans-serif;font-weight:900;font-size:clamp(28px,6.4vw,40px);line-height:1.15;margin:18px 0 10px}
-h1 span{color:var(--gold)}
-p.lead{color:var(--fg-2);font-size:17px}
-.warn{margin-top:18px;background:#3d0000;border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:12px 14px;font-size:15px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--fg);font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.55;font-size:16px}
+.h{font-family:'Roboto',system-ui,sans-serif;font-weight:700;line-height:1.2}
+.gold{color:var(--gold)}.green{color:var(--green)}
+.wrap{max-width:820px;margin:0 auto;padding:28px 16px 64px}
+
+/* thanks */
+.thanks{text-align:center;padding:8px 0 8px}
+.ok{display:inline-flex;align-items:center;gap:8px;color:var(--green-2);font-weight:700;font-size:14px;border:1px solid #1f4d16;background:#0b1c08;border-radius:999px;padding:6px 14px}
+.thanks h1{font-family:'Roboto',sans-serif;font-weight:900;font-size:clamp(30px,7vw,44px);line-height:1.12;margin:18px 0 12px}
+.thanks p{color:var(--fg-2);font-size:17px;max-width:620px;margin:0 auto}
+.thanks p b{color:#fff}
+.receipt{margin-top:14px;font-size:13px;color:var(--muted)}
+
+/* progress */
+.steps{display:flex;gap:8px;justify-content:center;margin:28px 0 8px;flex-wrap:wrap}
+.steps a{display:flex;align-items:center;gap:8px;text-decoration:none;font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+.steps a i{font-style:normal;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#2a2826;color:#fff;font-size:12px;font-weight:700}
+.steps a.on{color:#fff;border-color:var(--gold)}
+.steps a.on i{background:var(--gold);color:#000}
+.steps a.done i{background:var(--green);color:#000}
+
+/* step blocks */
+.block{margin-top:28px;border:1px solid var(--line);border-radius:18px;background:var(--card);padding:22px 18px}
+.block.key{border-color:var(--gold)}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;color:#000;background:var(--gold);border-radius:6px;padding:3px 10px}
+.block h2{font-size:clamp(22px,5vw,28px);margin:12px 0 6px}
+.block .lead{color:var(--fg-2)}
+.warn{margin-top:14px;background:#3d0000;border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:10px 14px;font-size:14px}
 .warn b{color:var(--gold)}
-.cal{margin-top:24px;border:2px solid var(--gold);border-radius:14px;overflow:hidden;background:#fff}
-.cal iframe{display:block;width:100%;height:760px;border:0}
-.alt{text-align:center;margin-top:16px;font-size:14px;color:var(--muted)}
-.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:520px;min-height:56px;margin-top:10px;padding:12px 20px;background:var(--red);color:#fff;text-decoration:none;font-family:'Roboto',sans-serif;font-weight:700;font-size:20px;border-radius:10px;border-bottom:3px solid #fff;border-right:2px solid #fff}
-.next{margin-top:32px;border:1px solid #333;border-radius:14px;padding:20px}
-.next h2{font-family:'Roboto',sans-serif;font-size:20px;color:var(--gold);margin-bottom:10px}
-.next ol{padding-left:20px;color:var(--fg-2)}
-.next li{padding:4px 0}
-.help{margin-top:20px;text-align:center;color:var(--muted);font-size:14px}
+.cal{margin-top:16px;border:2px solid var(--gold);border-radius:14px;overflow:hidden;background:#fff}
+.cal iframe{display:block;width:100%;height:720px;border:0}
+.alt{text-align:center;margin-top:12px;font-size:14px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;min-height:56px;padding:12px 20px;background:var(--red);color:#fff;text-decoration:none;font-family:'Roboto',sans-serif;font-weight:700;font-size:20px;border-radius:10px;border:0;border-bottom:3px solid #fff;border-right:2px solid #fff;cursor:pointer}
+.btn.ghost{background:transparent;border:1px solid var(--gold);color:var(--gold);font-size:16px;min-height:48px;margin-top:10px}
+.btn[disabled]{opacity:.7;cursor:wait}
+.booked{display:flex;gap:10px;align-items:center;justify-content:center;margin-top:14px;font-size:14px;color:var(--fg-2)}
+.booked input{width:20px;height:20px;accent-color:var(--green)}
+
+/* frame */
+.rules{list-style:none;margin-top:16px;display:grid;gap:10px}
+.rules li{display:flex;gap:12px;background:#0a0909;border-radius:12px;padding:14px}
+.rules li b{flex:none;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#2a2008;border:1px solid var(--gold);color:var(--gold);font-size:14px}
+.rules li span{color:var(--fg-2)}
+.rules li span strong{color:#fff}
+.two{margin-top:16px;background:linear-gradient(135deg,#2a2008,#120f05);border:1px solid #5a470c;border-radius:14px;padding:16px}
+.two p{color:var(--fg-2)}
+.two p strong{color:var(--gold)}
+
+/* form */
+form{margin-top:8px}
+fieldset{border:0;margin-top:22px}
+legend{font-family:'Roboto',sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;color:var(--gold);margin-bottom:12px;text-transform:uppercase}
+.f{margin-bottom:18px}
+.f>label,.f>.q{display:block;font-weight:700;font-size:16px;margin-bottom:4px}
+.f .hint{display:block;font-size:13px;color:var(--muted);margin-bottom:8px;font-weight:400}
+.req{color:var(--red);margin-left:2px}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;background:#0a0909;border:1px solid #3a3634;border-radius:10px;color:#fff;font:inherit;font-size:16px;padding:12px 14px;outline:none;transition:border-color .15s}
+textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);background-position:calc(100% - 20px) 52%,calc(100% - 14px) 52%;background-size:6px 6px;background-repeat:no-repeat;padding-right:38px}
+.grid2{display:grid;gap:0 14px}
+.choices{display:grid;gap:8px}
+.choice{display:flex;gap:10px;align-items:flex-start;background:#0a0909;border:1px solid #2e2b29;border-radius:10px;padding:11px 12px;cursor:pointer;font-size:15px;color:var(--fg-2)}
+.choice input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--gold)}
+.choice:has(input:checked){border-color:var(--gold);color:#fff;background:#1c1606}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--fg-2);margin:6px 0 18px}
+.consent input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--gold)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.ferr{color:#ff6b6b;font-size:14px;margin-top:10px;min-height:1em;text-align:center}
+.saved{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+.invalid{border-color:#ff6b6b!important}
+.done-box{display:none;text-align:center;padding:10px 0}
+.done-box .big{font-size:48px}
+.done-box h2{margin-top:6px}
+.done-box p{color:var(--fg-2);max-width:520px;margin:8px auto 0}
+.help{margin-top:28px;text-align:center;color:var(--muted);font-size:14px}
 .help a{color:var(--gold)}
+@media (min-width:640px){.grid2{grid-template-columns:1fr 1fr}.block{padding:28px 28px}}
 </style>
 </head>
 <body>
 <main class="wrap">
-  <span class="ok">✔ Payment received</span>
-  <h1>One Last Step: <span>Book Your Slot Now</span></h1>
-  <p class="lead">Your diagnosis isn't scheduled until you pick a time below. Choose any slot in the next 48 hours.</p>
-  <div class="warn"><b>Don't close this page</b> until you see the booking confirmation.</div>
 
-  <div class="cal">
-    <iframe id="cal" title="Book your diagnosis call" src="https://cal.id/gaurang-misra/diagnosis-call?embed=true&theme=light" loading="eager" allow="payment"></iframe>
-  </div>
-  <div class="alt">Booking calendar not loading?
-    <br><a class="btn" id="open-cal" href="https://cal.id/gaurang-misra/diagnosis-call" target="_blank" rel="noopener">Open Booking Page →</a>
-  </div>
+  <section class="thanks">
+    <span class="ok">✔ Payment received</span>
+    <h1>Thank You For Your <span class="gold">Contribution</span>.</h1>
+    <p id="thx-line">Your diagnosis seat is reserved. <b>Two steps left</b> before the call: pick your slot, then fill the pre-call questionnaire so I walk in already knowing where to look.</p>
+    <div class="receipt" id="receipt"></div>
+  </section>
 
-  <div class="next">
-    <h2>What Happens Next</h2>
-    <ol>
-      <li>Pick your slot above. You'll get a confirmation with the video call link.</li>
-      <li>Bring one real situation: a deal you lost, a room that overlooked you, a conversation you still replay.</li>
-      <li>Join on time. The call is one-to-one, private, and not recorded.</li>
-    </ol>
-  </div>
-  <p class="help">Trouble booking? Call or WhatsApp <a href="https://wa.me/919464151610">+91 94641 51610</a></p>
+  <nav class="steps" aria-label="Steps">
+    <a href="#step-book" id="s1" class="on"><i>1</i>Book Your Slot</a>
+    <a href="#step-frame" id="s2"><i>2</i>Pre-Call Frame</a>
+    <a href="#step-form" id="s3"><i>3</i>Questionnaire</a>
+  </nav>
+
+  <!-- STEP 1: BOOK -->
+  <section class="block key" id="step-book">
+    <span class="tag">STEP 1</span>
+    <h2 class="h">Book Your Slot <span class="gold">Now</span></h2>
+    <p class="lead">Your diagnosis isn't scheduled until you pick a time. Choose any slot in the next 48 hours.</p>
+    <div class="warn"><b>Do this first.</b> Most people who miss their call forgot this step.</div>
+    <div class="cal"><iframe id="cal" title="Book your diagnosis call" src="https://cal.id/gaurang-misra/diagnosis-call?embed=true&theme=light" loading="lazy"></iframe></div>
+    <div class="alt">Calendar not loading?</div>
+    <a class="btn ghost" id="open-cal" href="https://cal.id/gaurang-misra/diagnosis-call" target="_blank" rel="noopener">Open Booking Page In A New Tab →</a>
+    <label class="booked"><input type="checkbox" id="booked"> I've booked my slot — take me to Step 2</label>
+  </section>
+
+  <!-- STEP 2: FRAME -->
+  <section class="block" id="step-frame">
+    <span class="tag">STEP 2</span>
+    <h2 class="h">The Pre-Call <span class="gold">Frame</span></h2>
+    <p class="lead">This is a diagnostic, not a conversation. I ask, you answer. How you show up decides how deep we get in 45 minutes.</p>
+    <ul class="rules">
+      <li><b>1</b><span><strong>Quiet room, camera on, earphones in.</strong> No driving, no office floor, no one listening in. If you can't speak freely, you won't.</span></li>
+      <li><b>2</b><span><strong>Join two minutes early.</strong> The link is in your booking confirmation. The call starts on time and ends on time.</span></li>
+      <li><b>3</b><span><strong>Bring one real situation.</strong> The one you'll describe in the questionnaire below. One is enough — the pattern surfaces fast.</span></li>
+      <li><b>4</b><span><strong>Don't rehearse your answers.</strong> The pattern shows in <em>how</em> you answer, not what you prepared. Polished answers hide it.</span></li>
+      <li><b>5</b><span><strong>Be blunt with yourself.</strong> I can only reverse what you let me see. Nothing you say is recorded, shared or judged.</span></li>
+    </ul>
+    <div class="two">
+      <p>By minute 45, <strong>one of two things will be true:</strong> you'll know the exact mechanism running you and how to reverse it yourself — or you'll know it runs deeper and needs structured work. Either way, you'll know exactly where you stand.</p>
+    </div>
+  </section>
+
+  <!-- STEP 3: QUESTIONNAIRE -->
+  <section class="block key" id="step-form">
+    <span class="tag">STEP 3</span>
+    <h2 class="h">Pre-Call <span class="gold">Questionnaire</span></h2>
+    <p class="lead">Takes 5–7 minutes. Short, honest answers beat long, careful ones. Only I see this.</p>
+
+    <form id="q" novalidate>
+      <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+      <fieldset>
+        <legend>About You</legend>
+        <div class="grid2">
+          <div class="f"><label for="name">Full name<span class="req">*</span></label><input type="text" id="name" name="name" autocomplete="name" required></div>
+          <div class="f"><label for="whatsapp">WhatsApp number<span class="req">*</span></label><input type="tel" id="whatsapp" name="whatsapp" autocomplete="tel" inputmode="tel" required></div>
+          <div class="f"><label for="email">Email<span class="req">*</span></label><input type="email" id="email" name="email" autocomplete="email" required></div>
+          <div class="f"><label for="city">City<span class="req">*</span></label><input type="text" id="city" name="city" autocomplete="address-level2" required></div>
+          <div class="f"><label for="age">Age<span class="req">*</span></label>
+            <select id="age" name="age" required><option value="">Select</option><option>Under 21</option><option>21–25</option><option>26–30</option><option>31–40</option><option>41–50</option><option>50+</option></select></div>
+          <div class="f"><label for="occupation">What do you do?<span class="req">*</span></label>
+            <select id="occupation" name="occupation" required><option value="">Select</option><option>Founder / Business owner</option><option>Senior executive / Manager</option><option>Salaried professional</option><option>Sales / Business development</option><option>Coach / Consultant / Freelancer</option><option>Student</option><option>Other</option></select></div>
+        </div>
+        <div class="f"><label for="role">Your role and industry, in one line</label><input type="text" id="role" name="role" placeholder="e.g. Co-founder, real-estate firm, 12-person team"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>The Situation</legend>
+        <div class="f"><label for="situation">Describe ONE real situation you want diagnosed<span class="req">*</span></label><span class="hint">A deal you lost, a room that overlooked you, a conversation you still replay. What happened?</span><textarea id="situation" name="situation" required></textarea></div>
+        <div class="f"><label for="moment">In that exact moment, what did you feel — and what did you do?<span class="req">*</span></label><span class="hint">e.g. "I started over-explaining", "My mind went blank", "I agreed just to end it"</span><textarea id="moment" name="moment" required></textarea></div>
+        <div class="f"><span class="q">How often does this pattern show up?<span class="req">*</span></span>
+          <div class="choices" data-group="frequency" data-required>
+            <label class="choice"><input type="radio" name="frequency" value="Daily">Daily</label>
+            <label class="choice"><input type="radio" name="frequency" value="Weekly">Weekly</label>
+            <label class="choice"><input type="radio" name="frequency" value="Only in high-stakes moments">Only in high-stakes moments</label>
+            <label class="choice"><input type="radio" name="frequency" value="Rarely, but it costs me a lot">Rarely, but it costs me a lot</label>
+          </div></div>
+        <div class="f"><span class="q">Which of these feel familiar?</span><span class="hint">Pick all that apply.</span>
+          <div class="choices" data-group="patterns">
+            <label class="choice"><input type="checkbox" name="patterns" value="Three-Second Verdict">People size me up wrong before I've said much</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="Flinch Test">I fold or soften when someone pushes back</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="Silent Objection">People say "let me think about it" and disappear</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="Approval Leak">I care too much what they think of me in the moment</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="Convincing Trap">I over-explain and over-justify my value</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="The Blank">My mind goes blank exactly when it matters</label>
+            <label class="choice"><input type="checkbox" name="patterns" value="Not sure">Not sure — that's why I'm here</label>
+          </div></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Where It Costs You</legend>
+        <div class="f"><span class="q">Where does it cost you the most?<span class="req">*</span></span><span class="hint">Pick all that apply.</span>
+          <div class="choices" data-group="arenas" data-required>
+            <label class="choice"><input type="checkbox" name="arenas" value="Sales and closing">Sales and closing</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Negotiations">Negotiations</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Meetings and boardrooms">Meetings and boardrooms</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Leading a team">Leading a team</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Relationships and dating">Relationships and dating</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Family">Family</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Public speaking or camera">Public speaking or on camera</label>
+            <label class="choice"><input type="checkbox" name="arenas" value="Interviews and career">Interviews and career growth</label>
+          </div></div>
+        <div class="f"><span class="q">When you speak, people usually…<span class="req">*</span></span>
+          <div class="choices" data-group="response" data-required>
+            <label class="choice"><input type="radio" name="response" value="Listen and act on it">Listen and act on it</label>
+            <label class="choice"><input type="radio" name="response" value="Listen, but don't act">Listen, but don't act</label>
+            <label class="choice"><input type="radio" name="response" value="Interrupt or talk over me">Interrupt or talk over me</label>
+            <label class="choice"><input type="radio" name="response" value="Forget or ignore what I said">Forget or ignore what I said</label>
+          </div></div>
+        <div class="f"><span class="q">What have you already tried?</span>
+          <div class="choices" data-group="tried">
+            <label class="choice"><input type="checkbox" name="tried" value="Therapy or counselling">Therapy or counselling</label>
+            <label class="choice"><input type="checkbox" name="tried" value="Coaching">Coaching</label>
+            <label class="choice"><input type="checkbox" name="tried" value="Sales or negotiation training">Sales or negotiation training</label>
+            <label class="choice"><input type="checkbox" name="tried" value="Books, YouTube, podcasts">Books, YouTube, podcasts</label>
+            <label class="choice"><input type="checkbox" name="tried" value="Communication or public speaking course">Communication or public-speaking course</label>
+            <label class="choice"><input type="checkbox" name="tried" value="Nothing yet">Nothing yet</label>
+          </div></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>The Outcome</legend>
+        <div class="f"><label for="cost">What is this pattern costing you right now?<span class="req">*</span></label><span class="hint">Money, deals, promotions, relationships, respect — be specific.</span><textarea id="cost" name="cost" required></textarea></div>
+        <div class="f"><label for="win">If this call goes perfectly, what's different for you afterwards?<span class="req">*</span></label><textarea id="win" name="win" required></textarea></div>
+        <div class="f"><span class="q">If the diagnosis shows this needs structured work beyond one call, where are you?<span class="req">*</span></span>
+          <div class="choices" data-group="readiness" data-required>
+            <label class="choice"><input type="radio" name="readiness" value="Ready to start now if it's the right fit">Ready to start now if it's the right fit</label>
+            <label class="choice"><input type="radio" name="readiness" value="Want to understand my options first">Want to understand my options first</label>
+            <label class="choice"><input type="radio" name="readiness" value="Not in a position to invest right now">Not in a position to invest right now</label>
+          </div></div>
+        <div class="f"><label for="notes">Anything I must know before the call?</label><textarea id="notes" name="notes" style="min-height:80px"></textarea></div>
+      </fieldset>
+
+      <label class="consent"><input type="checkbox" id="consent" name="consent" value="yes" required>My answers are honest, and I understand they're shared only with Gaurang Misra to prepare my diagnosis.</label>
+      <button type="submit" class="btn" id="submit">Submit My Questionnaire →</button>
+      <div class="ferr" id="ferr" aria-live="polite"></div>
+      <div class="saved" id="saved">Your answers are saved on this device as you type.</div>
+    </form>
+
+    <div class="done-box" id="done" tabindex="-1">
+      <div class="big">✔</div>
+      <h2 class="h">Received. <span class="gold">You're Ready.</span></h2>
+      <p>I'll read this before our call. Join two minutes early using the link in your booking confirmation. If you haven't booked yet, scroll up and do it now.</p>
+    </div>
+  </section>
+
+  <p class="help">Trouble booking or paying? Call or WhatsApp <a href="https://wa.me/919464151610">+91 94641 51610</a></p>
 </main>
 
 <script>
 (function(){
   var q=new URLSearchParams(location.search);
-  var pid=q.get('razorpay_payment_id');
-  // Fire Purchase only on a real Razorpay redirect, once per payment (eventID lets Meta dedupe)
+  var pid=q.get('pid')||q.get('razorpay_payment_id')||'';   // new on-page checkout | old Razorpay page redirect
+  var oid=q.get('oid')||'';
+  var track=function(n,p,o,custom){ try{ fbq(custom?'trackCustom':'track',n,p||{},o||{}); }catch(e){} };
+  var ga=function(n,p){ try{ gtag('event',n,p||{}); }catch(e){} };
+  var form=document.getElementById('q');
+  var KEY='diag_q_'+(pid||'anon');
+
+  // 1) Confirm payment server-side → thank with the real amount, fire Purchase once
   if(pid){
-    var key='purchase_'+pid, sent=false;
-    try{ sent=!!localStorage.getItem(key); }catch(e){}
-    if(!sent){
-      try{ fbq('track','Purchase',{content_name:'Diagnosis Call',currency:'INR',value:0},{eventID:pid}); }catch(e){}
-      try{ gtag('event','purchase',{transaction_id:pid,currency:'INR',items:[{item_name:'Diagnosis Call'}]}); }catch(e){}
-      try{ localStorage.setItem(key,'1'); }catch(e){}
-    }
+    fetch('/api/payment?pid='+encodeURIComponent(pid)+(oid?'&oid='+encodeURIComponent(oid):''))
+      .then(function(r){ return r.json(); })
+      .then(function(p){
+        if(!p.ok) return;
+        document.getElementById('thx-line').innerHTML='Your <b>₹'+p.amount+'</b> contribution is received and your diagnosis seat is reserved. <b>Two steps left</b>: pick your slot, then fill the pre-call questionnaire so I walk in already knowing where to look.';
+        document.getElementById('receipt').textContent='Payment ID: '+pid;
+        var sent=false; try{ sent=!!localStorage.getItem('purchase_'+pid); }catch(e){}
+        if(!sent){
+          track('Purchase',{content_name:'Diagnosis Call',value:p.amount,currency:'INR'},{eventID:pid});
+          ga('purchase',{transaction_id:pid,value:p.amount,currency:'INR',items:[{item_name:'Diagnosis Call',price:p.amount}]});
+          try{ localStorage.setItem('purchase_'+pid,'1'); }catch(e){}
+        }
+        // Prefill contact details from the payment, without overwriting typed answers
+        var em=document.getElementById('email'), wa=document.getElementById('whatsapp');
+        if(p.email&&!em.value) em.value=p.email;
+        if(p.contact&&!wa.value) wa.value=p.contact;
+      }).catch(function(){});
   }
-  // Fallback button click = booking intent
-  document.getElementById('open-cal').addEventListener('click',function(){
-    try{ fbq('trackCustom','OpenBookingPage'); }catch(e){}
+
+  // 2) Booking step
+  var steps={1:document.getElementById('s1'),2:document.getElementById('s2'),3:document.getElementById('s3')};
+  function mark(n){ for(var i=1;i<=3;i++){ steps[i].classList.toggle('done',i<n); steps[i].classList.toggle('on',i===n); } }
+  function booked(src){
+    mark(2); try{ localStorage.setItem(KEY+'_booked','1'); }catch(e){}
+    // Only a confirmed calendar booking counts as Meta "Schedule"; the self-confirm tick is tracked separately
+    if(src==='embed') track('Schedule',{content_name:'Diagnosis Call'}); else track('BookedSelfConfirm',{},{},true);
+    ga('book_appointment',{method:src});
+  }
+  try{ if(localStorage.getItem(KEY+'_booked')){ document.getElementById('booked').checked=true; mark(2); } }catch(e){}
+  document.getElementById('booked').addEventListener('change',function(){
+    if(this.checked){ booked('self_confirm'); document.getElementById('step-frame').scrollIntoView({behavior:'smooth'}); }
   });
-  // Cal.com-family embeds post messages to the parent; treat a booking success as Schedule
+  document.getElementById('open-cal').addEventListener('click',function(){ track('OpenBookingPage',{},{},true); });
   window.addEventListener('message',function(e){
-    if(!/cal\.id$|cal\.com$/.test((new URL(e.origin||'http://x')).hostname)) return;
-    var d=e.data||{}, t=(d.type||d.originator||'')+'|'+JSON.stringify(d.data||d).slice(0,200);
-    if(/bookingSuccessful|booking_successful|bookingSuccessfulV2/i.test(t)){
-      try{ fbq('track','Schedule',{content_name:'Diagnosis Call'}); }catch(err){}
-      try{ gtag('event','book_appointment'); }catch(err){}
-    }
+    var host=''; try{ host=new URL(e.origin).hostname; }catch(x){}
+    if(!/(^|\.)cal\.(id|com)$/.test(host)) return;
+    var t=''; try{ t=JSON.stringify(e.data).slice(0,400); }catch(x){}
+    if(/bookingSuccessful/i.test(t)){ document.getElementById('booked').checked=true; booked('embed'); }
+  });
+
+  // 3) Questionnaire: draft autosave + validation + submit
+  function collect(){
+    var d={}; new FormData(form).forEach(function(v,k){
+      if(d[k]===undefined) d[k]=v; else { if(!Array.isArray(d[k])) d[k]=[d[k]]; d[k].push(v); }
+    });
+    ['patterns','arenas','tried'].forEach(function(k){ if(d[k]&&!Array.isArray(d[k])) d[k]=[d[k]]; });
+    return d;
+  }
+  function restore(){
+    var d; try{ d=JSON.parse(localStorage.getItem(KEY)||'null'); }catch(e){}
+    if(!d) return;
+    Object.keys(d).forEach(function(k){
+      var vals=[].concat(d[k]);
+      form.querySelectorAll('[name="'+k+'"]').forEach(function(el){
+        if(el.type==='checkbox'||el.type==='radio') el.checked=vals.indexOf(el.value)>-1;
+        else if(el.name!=='website') el.value=vals[0];
+      });
+    });
+  }
+  restore();
+  var t0=null, started=false;
+  form.addEventListener('input',function(){
+    if(!started){ started=true; mark(3); track('QuestionnaireStart',{},{},true); }
+    clearTimeout(t0); t0=setTimeout(function(){ try{ localStorage.setItem(KEY,JSON.stringify(collect())); }catch(e){} },400);
+  });
+  function invalid(){
+    var bad=null;
+    form.querySelectorAll('.invalid').forEach(function(el){ el.classList.remove('invalid'); });
+    form.querySelectorAll('input[required],select[required],textarea[required]').forEach(function(el){
+      var ok=el.type==='checkbox'?el.checked:(el.value.trim()!==''&&(el.type!=='email'||/^\S+@\S+\.\S+$/.test(el.value)));
+      if(!ok){ (el.type==='checkbox'?el.parentNode:el).classList.add('invalid'); bad=bad||el; }
+    });
+    form.querySelectorAll('.choices[data-required]').forEach(function(g){
+      if(!g.querySelector('input:checked')){ g.querySelectorAll('.choice').forEach(function(c){ c.classList.add('invalid'); }); bad=bad||g.querySelector('input'); }
+    });
+    return bad;
+  }
+  form.addEventListener('submit',function(ev){
+    ev.preventDefault();
+    var err=document.getElementById('ferr'), btn=document.getElementById('submit');
+    var bad=invalid();
+    if(bad){ err.textContent='A few required answers are missing — they\'re marked in red.'; bad.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+    var d=collect(); d.pid=pid; d.oid=oid;
+    btn.disabled=true; btn.textContent='Sending…'; err.textContent='';
+    fetch('/api/questionnaire',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(d)})
+      .then(function(r){ return r.json().then(function(j){ if(!r.ok||!j.ok) throw j; return j; }); })
+      .then(function(){
+        try{ localStorage.removeItem(KEY); }catch(e){}
+        form.style.display='none'; var done=document.getElementById('done'); done.style.display='block'; done.focus();
+        for(var i=1;i<=3;i++){ steps[i].classList.add('done'); steps[i].classList.remove('on'); }
+        track('CompleteRegistration',{content_name:'Diagnosis Questionnaire'}); ga('questionnaire_submit');
+      })
+      .catch(function(){
+        btn.disabled=false; btn.textContent='Submit My Questionnaire →';
+        err.innerHTML='Couldn\'t send right now. Your answers are saved — try again, or WhatsApp <a href="https://wa.me/919464151610" style="color:#FEB704">+91 94641 51610</a>.';
+      });
   });
 })();
 </script>
