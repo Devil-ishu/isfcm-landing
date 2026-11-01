@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book Your Diagnosis Slot | Gaurang Misra</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/img/logo-white.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Roboto:wght@700;900&display=swap" rel="stylesheet">
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','3715194611950305');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=3715194611950305&ev=PageView&noscript=1"></noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQBDR8Z7WP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-HQBDR8Z7WP');</script>
+
+<style>
+:root{--bg:#000;--fg:#fff;--fg-2:#d9d9d9;--muted:#8f8f8f;--gold:#FEB704;--red:#CB0000;--green:#20BF00}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding:32px 16px 48px}
+.ok{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-weight:700;font-size:14px;border:1px solid #1f4d16;background:#0b1c08;border-radius:999px;padding:6px 14px}
+h1{font-family:'Roboto',sans-serif;font-weight:900;font-size:clamp(28px,6.4vw,40px);line-height:1.15;margin:18px 0 10px}
+h1 span{color:var(--gold)}
+p.lead{color:var(--fg-2);font-size:17px}
+.warn{margin-top:18px;background:#3d0000;border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:12px 14px;font-size:15px}
+.warn b{color:var(--gold)}
+.cal{margin-top:24px;border:2px solid var(--gold);border-radius:14px;overflow:hidden;background:#fff}
+.cal iframe{display:block;width:100%;height:760px;border:0}
+.alt{text-align:center;margin-top:16px;font-size:14px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;max-width:520px;min-height:56px;margin-top:10px;padding:12px 20px;background:var(--red);color:#fff;text-decoration:none;font-family:'Roboto',sans-serif;font-weight:700;font-size:20px;border-radius:10px;border-bottom:3px solid #fff;border-right:2px solid #fff}
+.next{margin-top:32px;border:1px solid #333;border-radius:14px;padding:20px}
+.next h2{font-family:'Roboto',sans-serif;font-size:20px;color:var(--gold);margin-bottom:10px}
+.next ol{padding-left:20px;color:var(--fg-2)}
+.next li{padding:4px 0}
+.help{margin-top:20px;text-align:center;color:var(--muted);font-size:14px}
+.help a{color:var(--gold)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <span class="ok">✔ Payment received</span>
+  <h1>One Last Step: <span>Book Your Slot Now</span></h1>
+  <p class="lead">Your diagnosis isn't scheduled until you pick a time below. Choose any slot in the next 48 hours.</p>
+  <div class="warn"><b>Don't close this page</b> until you see the booking confirmation.</div>
+
+  <div class="cal">
+    <iframe id="cal" title="Book your diagnosis call" src="https://cal.id/gaurang-misra/diagnosis-call?embed=true&theme=light" loading="eager" allow="payment"></iframe>
+  </div>
+  <div class="alt">Booking calendar not loading?
+    <br><a class="btn" id="open-cal" href="https://cal.id/gaurang-misra/diagnosis-call" target="_blank" rel="noopener">Open Booking Page →</a>
+  </div>
+
+  <div class="next">
+    <h2>What Happens Next</h2>
+    <ol>
+      <li>Pick your slot above. You'll get a confirmation with the video call link.</li>
+      <li>Bring one real situation: a deal you lost, a room that overlooked you, a conversation you still replay.</li>
+      <li>Join on time. The call is one-to-one, private, and not recorded.</li>
+    </ol>
+  </div>
+  <p class="help">Trouble booking? Call or WhatsApp <a href="https://wa.me/919464151610">+91 94641 51610</a></p>
+</main>
+
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var pid=q.get('razorpay_payment_id');
+  // Fire Purchase only on a real Razorpay redirect, once per payment (eventID lets Meta dedupe)
+  if(pid){
+    var key='purchase_'+pid, sent=false;
+    try{ sent=!!localStorage.getItem(key); }catch(e){}
+    if(!sent){
+      try{ fbq('track','Purchase',{content_name:'Diagnosis Call',currency:'INR',value:0},{eventID:pid}); }catch(e){}
+      try{ gtag('event','purchase',{transaction_id:pid,currency:'INR',items:[{item_name:'Diagnosis Call'}]}); }catch(e){}
+      try{ localStorage.setItem(key,'1'); }catch(e){}
+    }
+  }
+  // Fallback button click = booking intent
+  document.getElementById('open-cal').addEventListener('click',function(){
+    try{ fbq('trackCustom','OpenBookingPage'); }catch(e){}
+  });
+  // Cal.com-family embeds post messages to the parent; treat a booking success as Schedule
+  window.addEventListener('message',function(e){
+    if(!/cal\.id$|cal\.com$/.test((new URL(e.origin||'http://x')).hostname)) return;
+    var d=e.data||{}, t=(d.type||d.originator||'')+'|'+JSON.stringify(d.data||d).slice(0,200);
+    if(/bookingSuccessful|booking_successful|bookingSuccessfulV2/i.test(t)){
+      try{ fbq('track','Schedule',{content_name:'Diagnosis Call'}); }catch(err){}
+      try{ gtag('event','book_appointment'); }catch(err){}
+    }
+  });
+})();
+</script>
+</body>
+</html>
