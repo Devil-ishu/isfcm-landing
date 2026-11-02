@@ -11,6 +11,7 @@ const FORMS = {
   seminar: ['institution', 'name', 'phone', 'email'],
   contact: ['name', 'phone', 'message'],
   istc: ['name', 'phone', 'city', 'mode'],
+  archetype: ['name', 'primary'],
 };
 
 function json(data, status = 200) {
