@@ -76,3 +76,11 @@ Sentence case everywhere. No all-caps labels, no eyebrow text above headings, no
 ## Motion
 
 One moment only: the voice player's waveform animates on play. No fade-in on scroll, no hover effects on blocks.
+
+## How pages are built
+
+Page bodies live in `src/pages/*.html`; the shared head, navigation and footer live in `src/layout.html`. Run `python3 tools/build.py` to regenerate every `<path>/index.html`. Edit the source files, never the generated ones.
+
+Placeholders that need a real fact are marked `<em class="todo">` (yellow) or `<p class="todo-note">`. Search for `todo` before launch.
+
+Forms post to `/api/enquiry` (functions/api/enquiry.js), which forwards to the Google Apps Script in `APPS_SCRIPT_URL` with a `form` field: mentorship, executive, seminar, contact or istc.
