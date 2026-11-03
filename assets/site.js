@@ -7,6 +7,25 @@
   function ga(name, params) { try { gtag('event', name, params || {}); } catch (e) {} }
   window.siteTrack = { fb: track, ga: ga };
 
+  // Dark mode toggle (only rendered on pages that allow it)
+  var themeBtn = document.querySelector('.theme');
+  if (themeBtn) {
+    var root = document.documentElement;
+    var sync = function () {
+      var dark = root.dataset.theme === 'dark';
+      themeBtn.setAttribute('aria-pressed', dark);
+      themeBtn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+    };
+    sync();
+    themeBtn.addEventListener('click', function () {
+      var dark = root.dataset.theme !== 'dark';
+      if (dark) root.dataset.theme = 'dark'; else delete root.dataset.theme;
+      try { localStorage.setItem('theme', dark ? 'dark' : 'light'); } catch (e) {}
+      sync();
+      ga('theme_toggle', { theme: dark ? 'dark' : 'light' });
+    });
+  }
+
   // Mobile menu
   var nav = document.querySelector('.nav');
   if (nav) {

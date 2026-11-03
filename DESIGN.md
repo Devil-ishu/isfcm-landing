@@ -84,3 +84,6 @@ Page bodies live in `src/pages/*.html`; the shared head, navigation and footer l
 Placeholders that need a real fact are marked `<em class="todo">` (yellow) or `<p class="todo-note">`. Search for `todo` before launch.
 
 Forms post to `/api/enquiry` (functions/api/enquiry.js), which forwards to the Google Apps Script in `APPS_SCRIPT_URL` with a `form` field (mentorship, executive, seminar, contact, istc, archetype, audit; the questionnaire sends `questionnaire`). The Influence Profile (/profile/) posts to `/api/profile`, which adds the call brief for booked buyers and the script emails it under the Gmail label "Diagnosis Briefs". The script in `tools/apps-script.gs` writes each form to its own tab by column name, plus an "All Leads" tab.
+
+## Dark mode
+Opt-in toggle (sun/moon) in the nav of every main-site page; the choice is saved per browser and the site opens in light by default. Dark tokens live at the end of assets/site.css under `[data-theme="dark"]`; buttons stay navy, links lighten to #A8A8FF. Pages with `theme: off` in their src header (currently /request-diagnosis/) never get it. Hand-written funnel pages (/diagnosis/, /book/, /prepare/, /questionnaire/, /done/, /voice/, /audit/, /archetype/, /profile/) don't use the layout and stay light.

@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;600&family=Spectral:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
-<script>
+{{theme_head}}<script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -30,7 +30,8 @@ fbq('init','3715194611950305');fbq('track','PageView');
 <header class="wrap">
   <nav class="nav" aria-label="Main">
     <a class="mark" href="/">Gaurang Misra</a>
-    <button class="menu" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <div class="nav-end">
+    {{theme_toggle}}<button class="menu" aria-expanded="false" aria-controls="nav-links">Menu</button>
     <ul id="nav-links">
       <li><a href="/work-with-me/"{{active_work}}>Work with me</a></li>
       <li><a href="/seminars/"{{active_seminars}}>Seminars</a></li>
@@ -38,6 +39,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
       <li><a href="/gaurang-misra/"{{active_about}}>About</a></li>
       <li class="cta"><a class="btn" href="/request-diagnosis/" data-cta="nav">Request a diagnosis</a></li>
     </ul>
+    </div>
   </nav>
 </header>
 

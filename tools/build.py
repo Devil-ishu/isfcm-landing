@@ -25,6 +25,18 @@ SRC = ROOT / "src"
 LAYOUT = (SRC / "layout.html").read_text(encoding="utf-8")
 NAV = ["work", "seminars", "results", "about"]
 
+# Dark mode. Pages with "theme: off" in their header (conversion pages such as
+# /request-diagnosis/) get neither, so they always render in the light design.
+THEME_HEAD = """<script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
+"""
+THEME_TOGGLE = (
+    '<button class="theme" type="button" aria-pressed="false" aria-label="Dark mode">'
+    '<svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>'
+    '<svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/>'
+    '<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
+    '</button>\n    '
+)
+
 
 def parse(text, name):
     m = re.match(r"\s*<!--(.*?)-->\s*", text, re.S)
@@ -47,6 +59,9 @@ def render(meta, body):
     html = html.replace("{{title}}", meta["title"])
     html = html.replace("{{description}}", meta["description"])
     html = html.replace("{{path}}", meta["path"])
+    themed = meta.get("theme", "on") != "off"
+    html = html.replace("{{theme_head}}", THEME_HEAD if themed else "")
+    html = html.replace("{{theme_toggle}}", THEME_TOGGLE if themed else "")
     html = html.replace("{{head_extra}}", meta.get("head", ""))
     html = html.replace("{{body}}", body.rstrip() + "\n")
     return html
