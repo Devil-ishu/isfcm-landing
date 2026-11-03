@@ -31,8 +31,13 @@ var TABS = {
   contact:       'Contact',
   istc:          'ISTC Registrations',
   archetype:     'Archetype Test',
-  audit:         'Voice Audit Funnel'
+  audit:         'Voice Audit Funnel',
+  profile:       'Influence Profile'
 };
+
+// Booked diagnosis briefs (form "profile", stage "booked") are emailed as HTML and filed
+// under this Gmail label, so every call has its brief in one folder.
+var BRIEF_LABEL = 'Diagnosis Briefs';
 
 // Columns every tab starts with, in this order. Anything else is appended after.
 var LEAD_COLS = ['submitted_at', 'form', 'name', 'phone', 'email', 'stage',
@@ -51,11 +56,19 @@ function doPost(e) {
     var ss = SPREADSHEET_ID ? SpreadsheetApp.openById(SPREADSHEET_ID)
                             : SpreadsheetApp.getActiveSpreadsheet();
 
+    // Keys starting with "_" carry the call brief; they are emailed, never written as columns.
+    var brief = { subject: data._brief_subject, html: data._brief_html, text: data._brief_text };
+    Object.keys(data).forEach(function (k) { if (k.charAt(0) === '_') delete data[k]; });
+
     var tabName = TABS[data.form] || ('Other – ' + data.form);
     appendByHeader_(ss, tabName, data, LEAD_COLS);
     appendByHeader_(ss, 'All Leads', pick_(data, LEAD_COLS), LEAD_COLS);
 
-    if (ALERT_EMAIL && ALERT_FORMS.indexOf(data.form) > -1) alert_(data, tabName);
+    if (ALERT_EMAIL && data.form === 'profile' && data.stage === 'booked') {
+      if (brief.html) sendBrief_(brief); else alert_(data, tabName);
+    } else if (ALERT_EMAIL && ALERT_FORMS.indexOf(data.form) > -1) {
+      alert_(data, tabName);
+    }
     return out_({ ok: true });
   } catch (err) {
     return out_({ ok: false, error: String(err) });
@@ -111,6 +124,18 @@ function alert_(data, tabName) {
   MailApp.sendEmail(ALERT_EMAIL,
     'New ' + tabName + ' — ' + (data.name || 'no name'),
     lines.join('\n'));
+}
+
+/** Email the call brief and file it under BRIEF_LABEL. A labelling failure never loses the email. */
+function sendBrief_(brief) {
+  GmailApp.sendEmail(ALERT_EMAIL, brief.subject, brief.text || brief.subject, { htmlBody: brief.html, name: 'ISFCM Call Briefs' });
+  try {
+    var label = GmailApp.getUserLabelByName(BRIEF_LABEL) || GmailApp.createLabel(BRIEF_LABEL);
+    Utilities.sleep(2000); // let the sent message index before searching for it
+    var q = 'subject:"' + brief.subject.replace(/"/g, '') + '" newer_than:1d';
+    var threads = GmailApp.search(q, 0, 3);
+    threads.forEach(function (t) { t.addLabel(label); });
+  } catch (e) { /* the brief still arrived; it's just not labelled */ }
 }
 
 function out_(obj) {
