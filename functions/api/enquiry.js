@@ -12,6 +12,7 @@ const FORMS = {
   contact: ['name', 'phone', 'message'],
   istc: ['name', 'phone', 'city', 'mode'],
   archetype: ['name', 'primary'],
+  audit: ['name', 'phone', 'stage'], // Voice Audit ad funnel: one row per stage
 };
 
 function json(data, status = 200) {

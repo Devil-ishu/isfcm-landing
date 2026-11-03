@@ -1,4 +1,5 @@
-// POST /api/order  { tier: 499|999|1499, cta, utm: {...} }
+// POST /api/order  { tier: 499|999|1499, cta, utm: {...} }  → Diagnosis Call
+// POST /api/order  { product: 'audit', name, email, phone, cta, utm }  → Executive Voice Audit (₹1,999)
 // Creates a Razorpay order for the chosen tier and returns what Checkout needs.
 
 // Shared helpers for the Razorpay API. Keys come from Cloudflare environment
@@ -6,6 +7,7 @@
 // except the public key id, which Razorpay Checkout needs.
 
 const TIERS = { 499: 49900, 999: 99900, 1499: 149900 }; // rupees -> paise
+const AUDIT_PAISE = 199900; // Executive Voice Audit, ₹1,999
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -40,15 +42,15 @@ export async function onRequestPost({ request, env }) {
   let body;
   try { body = await request.json(); } catch (e) { return json({ error: 'bad_request' }, 400); }
 
-  const amount = TIERS[String(body.tier)];
+  const isAudit = body.product === 'audit';
+  const amount = isAudit ? AUDIT_PAISE : TIERS[String(body.tier)];
   if (!amount) return json({ error: 'invalid_tier' }, 400);
 
   const utm = body.utm && typeof body.utm === 'object' ? body.utm : {};
-  const notes = {
-    product: 'Diagnosis Call',
-    tier: String(body.tier),
-    cta: clip(body.cta, 40),
-  };
+  const notes = isAudit
+    ? { product: 'Executive Voice Audit', tier: 'audit', cta: clip(body.cta, 40),
+        name: clip(body.name, 80), email: clip(body.email, 120), phone: clip(body.phone, 20) }
+    : { product: 'Diagnosis Call', tier: String(body.tier), cta: clip(body.cta, 40) };
   for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']) {
     if (utm[k]) notes[k] = clip(utm[k], 200);
   }
@@ -58,7 +60,7 @@ export async function onRequestPost({ request, env }) {
     body: JSON.stringify({
       amount,
       currency: 'INR',
-      receipt: 'diag_' + Date.now(),
+      receipt: (isAudit ? 'audit_' : 'diag_') + Date.now(),
       notes,
     }),
   });
