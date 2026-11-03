@@ -83,4 +83,4 @@ Page bodies live in `src/pages/*.html`; the shared head, navigation and footer l
 
 Placeholders that need a real fact are marked `<em class="todo">` (yellow) or `<p class="todo-note">`. Search for `todo` before launch.
 
-Forms post to `/api/enquiry` (functions/api/enquiry.js), which forwards to the Google Apps Script in `APPS_SCRIPT_URL` with a `form` field: mentorship, executive, seminar, contact or istc.
+Forms post to `/api/enquiry` (functions/api/enquiry.js), which forwards to the Google Apps Script in `APPS_SCRIPT_URL` with a `form` field (mentorship, executive, seminar, contact, istc, archetype, audit; the questionnaire sends `questionnaire`). The script in `tools/apps-script.gs` writes each form to its own tab by column name, plus an "All Leads" tab.

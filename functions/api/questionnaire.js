@@ -90,7 +90,7 @@ export async function onRequestPost({ request, env }) {
   }
 
   // Keep only known-size string values; arrays (checkbox groups) become "a, b, c".
-  const clean = { submitted_at: new Date().toISOString() };
+  const clean = { submitted_at: new Date().toISOString(), form: 'questionnaire', source: 'site' };
   for (const [k, v] of Object.entries(body)) {
     if (!/^[a-z0-9_]{1,40}$/.test(k) || k === 'website') continue;
     clean[k] = Array.isArray(v) ? clip(v.join(', '), 1000) : clip(v, 4000);
