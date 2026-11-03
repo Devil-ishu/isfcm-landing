@@ -118,3 +118,8 @@ input:focus,select:focus{outline:none;border-color:#fff}
 .check li{padding-left:30px;position:relative}
 .check li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
 .when{font-size:22px;font-weight:800;margin-top:6px}
+.price{width:100%;border-collapse:collapse;margin-top:14px}
+.price td{padding:14px 0;border-top:1px solid var(--line);vertical-align:top;color:var(--fg-2)}
+.price td b{color:#fff;display:block}
+.price td span{font-size:15px}
+.price td:last-child{text-align:right;font-weight:800;color:#fff;white-space:nowrap;padding-left:12px;font-size:19px}

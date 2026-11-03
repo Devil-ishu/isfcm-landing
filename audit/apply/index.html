@@ -55,6 +55,13 @@ fbq('init','3715194611950305');fbq('track','PageView');
         <option>On stage or on camera</option>
         <option>Other</option>
       </select></div>
+    <div class="f"><label for="intent">If the audit shows you need it, are you open to investing in private 1-on-1 work?</label>
+      <select id="intent" name="intent" required>
+        <option value="">Choose one</option>
+        <option>Yes</option>
+        <option>I'd want to understand it first</option>
+        <option>No, just the audit</option>
+      </select></div>
     <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
     <div class="stop" id="stop">This audit is built for people who lead businesses and teams, so I don't take coaches or trainers. Thank you for understanding.</div>
@@ -69,7 +76,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
 (function(){
   var f=document.getElementById('f'), err=document.getElementById('err'), go=document.getElementById('go'), stop=document.getElementById('stop');
   var c=Audit.ctx;
-  ['name','email','role','room'].forEach(function(k){ if(c[k]) f[k].value=c[k]; });
+  ['name','email','role','room','intent'].forEach(function(k){ if(c[k]) f[k].value=c[k]; });
   if(c.phone) f.phone.value=c.phone.replace(/^\+?91/,'');
 
   f.role.addEventListener('change',function(){
@@ -89,9 +96,10 @@ fbq('init','3715194611950305');fbq('track','PageView');
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err.textContent='Please enter a valid email.'; f.email.focus(); return; }
     if(!f.role.value){ err.textContent='Please choose what you do.'; f.role.focus(); return; }
     if(!f.room.value){ err.textContent='Please choose where your voice costs you most.'; f.room.focus(); return; }
+    if(!f.intent.value){ err.textContent='Please answer the last question.'; f.intent.focus(); return; }
 
     Audit.set('name',name); Audit.set('phone','+91'+phone); Audit.set('email',email);
-    Audit.set('role',f.role.value); Audit.set('room',f.room.value);
+    Audit.set('role',f.role.value); Audit.set('room',f.room.value); Audit.set('intent',f.intent.value);
     go.disabled=true; go.textContent='One moment…';
     Audit.track('Lead',{content_name:'Executive Voice Audit',value:1999,currency:'INR'});
     Audit.ga('generate_lead',{value:1999,currency:'INR'});
