@@ -1,4 +1,4 @@
-// POST /api/profile  — the Influence Profile (go.isfcm.com/profile/)
+// POST /api/profile  — the Influence Profile (go.isfcm.com/go/profile/)
 //
 // Reel mode: saves the lead (name, WhatsApp, type, answers) to the "Influence Profile" tab.
 // Booked mode (a paid diagnosis call): also builds the call brief — pursue score, how to talk

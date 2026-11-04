@@ -386,8 +386,8 @@
   // ---------- result ----------
   function result(r, name, viewing) {
     var T = D.types[r.type], T2 = D.types[r.type2];
-    var link = location.origin + '/profile/?r=' + code(r) + (name ? '&n=' + encodeURIComponent(name) : '');
-    try { history.replaceState(null, '', '/profile/?r=' + code(r) + (name ? '&n=' + encodeURIComponent(name) : '') + (BOOKED ? '&m=booked' : '')); } catch (e) {}
+    var link = location.origin + '/go/profile/?r=' + code(r) + (name ? '&n=' + encodeURIComponent(name) : '');
+    try { history.replaceState(null, '', '/go/profile/?r=' + code(r) + (name ? '&n=' + encodeURIComponent(name) : '') + (BOOKED ? '&m=booked' : '')); } catch (e) {}
     var dimsSorted = D.dims.slice().sort(function (a, b) { return r.dims[b.id] - r.dims[a.id]; });
     var g = D.goals[r.goal], lever = g.dims.slice().sort(function (a, b) { return r.dims[a] - r.dims[b]; })[0];
     var leverName = D.dims.filter(function (d) { return d.id === lever; })[0].name;
@@ -396,8 +396,8 @@
       return '<div class="dim"><div class="dim-top"><b>' + d.name + '</b><span class="soft">' + v + '</span></div><div class="dim-bar"><i data-w="' + v + '"></i></div><p>' + esc(D.dimNotes[d.id][lvl]) + '</p></div>';
     }).join('');
     var end = BOOKED
-      ? '<h3>Your profile is with me now.</h3><p class="soft">Bring this with you. On the call we go after the other half. Join two minutes early, from a quiet room, camera on.</p><a class="btn" href="' + F.url('/done/') + '">Finish</a>'
-      : '<h3>I\'ll map the other half with you, live.</h3><a class="btn" id="book" href="/diagnosis/?utm_source=profile&utm_medium=result&utm_content=' + r.type + '">Book your diagnosis</a><p class="small">45 minutes on Zoom. Your profile comes with you.</p>';
+      ? '<h3>Your profile is with me now.</h3><p class="soft">Bring this with you. On the call we go after the other half. Join two minutes early, from a quiet room, camera on.</p><a class="btn" href="' + F.url('/go/diagnosis/done/') + '">Finish</a>'
+      : '<h3>I\'ll map the other half with you, live.</h3><a class="btn" id="book" href="/go/diagnosis/?utm_source=profile&utm_medium=result&utm_content=' + r.type + '">Book your diagnosis</a><p class="small">45 minutes on Zoom. Your profile comes with you.</p>';
     setBody(false);
     app.innerHTML = '<div class="res">' +
       '<section class="night"><div class="wrap"><div class="brandline">Gaurang Misra</div>' +
@@ -422,7 +422,7 @@
       else prompt('Copy this link', link);
     };
     var ag = document.getElementById('again');
-    if (ag) ag.onclick = function () { try { localStorage.removeItem(KEY); } catch (e) {} location.href = '/profile/' + (params.get('src') ? '?src=' + encodeURIComponent(params.get('src')) : ''); };
+    if (ag) ag.onclick = function () { try { localStorage.removeItem(KEY); } catch (e) {} location.href = '/go/profile/' + (params.get('src') ? '?src=' + encodeURIComponent(params.get('src')) : ''); };
     var bk = document.getElementById('book'); if (bk) bk.onclick = function () { F.custom('ProfileToDiagnosis', { type: r.type }); };
   }
 

@@ -1,2 +1,20 @@
-/questionnaire/ /profile/ 302
-/questionnaire /profile/ 302
+# Old funnel addresses -> the /go/ zone. Kept so any link already sent out
+# (Cal.id, Razorpay, WhatsApp, old ads) still lands. :splat keeps sub-paths.
+/diagnosis/*      /go/diagnosis/:splat   301
+/book/*           /go/diagnosis/book/:splat     301
+/prepare/*        /go/diagnosis/prepare/:splat  301
+/done/*           /go/diagnosis/done/:splat     301
+/profile/*        /go/profile/:splat     301
+/voice/*          /go/voice/:splat       301
+/audit/*          /go/audit/:splat       301
+/archetype/*      /go/archetype/:splat   301
+/questionnaire/*  /go/profile/           301
+/diagnosis        /go/diagnosis/   301
+/book             /go/diagnosis/book/   301
+/prepare          /go/diagnosis/prepare/  301
+/done             /go/diagnosis/done/   301
+/profile          /go/profile/     301
+/voice            /go/voice/       301
+/audit            /go/audit/       301
+/archetype        /go/archetype/   301
+/questionnaire    /go/profile/     301

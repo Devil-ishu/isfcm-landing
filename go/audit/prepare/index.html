@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="zone" content="ads">
+<meta name="purpose" content="Voice Audit step 5: what to prepare before the audit.">
+<meta name="status" content="live">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prepare · Executive Voice Audit | Gaurang Misra</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/img/logo-white.webp">
+<link rel="stylesheet" href="/assets/audit.css">
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','3715194611950305');fbq('track','PageView');fbq('trackCustom','AuditPrepView');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQBDR8Z7WP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-HQBDR8Z7WP');</script>
+<script src="/assets/audit.js"></script>
+</head>
+<body>
+<main class="wrap">
+  <p class="who" style="margin-top:24px">Executive Voice Audit · Gaurang Misra</p>
+  <h1 style="font-size:clamp(28px,7.4vw,36px)">Before your audit</h1>
+  <p class="lead">Five minutes of prep makes this call twice as useful.</p>
+
+  <div class="box hot">
+    <h2 style="font-size:22px;margin-bottom:10px">1. Has your recording reached me?</h2>
+    <p style="color:var(--fg-2)">If you haven't sent your 2-minute voice note yet, send it now. I need it at least 12 hours before the call.</p>
+    <div class="cta"><a class="btn wa" id="wa" target="_blank" rel="noopener">Send My Recording on WhatsApp →</a></div>
+  </div>
+
+  <div class="box">
+    <h2 style="font-size:22px;margin-bottom:10px">2. Set up for the call</h2>
+    <ul class="check">
+      <li>A quiet room. Your car or a café won't work.</li>
+      <li>Laptop if possible, with headphones. I'll play parts of your recording back to you.</li>
+      <li>Join 2 minutes early. The link is in your confirmation email.</li>
+      <li>Have one real situation in mind: the meeting or pitch where your voice matters most.</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2 style="font-size:22px;margin-bottom:10px">3. Know how this ends</h2>
+    <p style="color:var(--fg-2)">There are only two outcomes, and I'll be direct about which one it is:</p>
+    <ul class="check" style="margin-top:10px">
+      <li><b style="color:#fff">You're a fit.</b> I'll show you why, based on your recording, and you decide. The program and its price are below, so you can think it over before we speak.</li>
+      <li><b style="color:#fff">You're not ready yet.</b> I'll tell you plainly, and you leave with a clear diagnosis to work on yourself.</li>
+    </ul>
+    <p style="color:var(--fg-2);margin-top:12px">Either way, you'll know exactly what your voice is costing you.</p>
+  </div>
+
+  <div class="box" id="fit">
+    <h2 style="font-size:22px;margin-bottom:10px">If you're a fit: what the program looks like</h2>
+    <p style="color:var(--fg-2)">So there are no surprises on the call, here is exactly what I'd offer you.</p>
+    <table class="price">
+      <tr><td><b>Step 1 · Voice Sprint</b><span>1 month of private training</span></td><td>₹40,000</td></tr>
+      <tr><td><b>Step 2 · Conditioning</b><span>6 months, a session every 2 weeks. Offered later, once you can hear your own progress.</span></td><td>₹60,000</td></tr>
+    </table>
+    <ul class="check" style="margin-top:14px">
+      <li>Your ₹1,999 audit fee is adjusted against the Sprint.</li>
+      <li>EMI available on supported credit cards. UPI and netbanking also work.</li>
+      <li>You decide on the call, with no pressure either way.</li>
+    </ul>
+  </div>
+  <div class="box" id="pairbox">
+    <h2 style="font-size:22px;margin-bottom:10px">What a year of work sounds like</h2>
+    <div class="pair">
+      <figure id="pb"><video controls playsinline preload="none" poster="/img/audit-before.webp"><source src="/img/audit-before.mp4" type="video/mp4"></video><figcaption><b>Before</b>Me, 12 months ago</figcaption></figure>
+      <figure id="pa"><video controls playsinline preload="none" poster="/img/audit-after.webp"><source src="/img/audit-after.mp4" type="video/mp4"></video><figcaption><b>Now</b>Same man, rebuilt</figcaption></figure>
+    </div>
+  </div>
+
+  <p class="small" style="text-align:center;margin:22px 0 32px">Need to reschedule? Use the link in your confirmation email, at least 3 hours before. Questions? <a id="help">WhatsApp us</a></p>
+</main>
+<script>
+(function(){
+  var A=Audit, c=A.ctx;
+  document.getElementById('wa').href=A.wa('Hi Gaurang, this is '+(c.name||'')+'. Here is my 2-minute recording for my Voice Audit.');
+  document.getElementById('wa').addEventListener('click',function(){ A.custom('RecordingSent',{via:'prepare'}); A.log('recording_wa_click'); });
+  document.getElementById('help').href=A.wa('Hi, I have a question about my Voice Audit.');
+  A.hideIfMissing(document.getElementById('pairbox'),'/img/audit-after.mp4');
+})();
+</script>
+</body>
+</html>

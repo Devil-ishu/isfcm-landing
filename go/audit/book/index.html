@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="zone" content="ads">
+<meta name="purpose" content="Voice Audit step 3: Cal.id booking.">
+<meta name="status" content="live">
+<meta name="form" content="Cal.id">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Book · Executive Voice Audit | Gaurang Misra</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/img/logo-white.webp">
+<link rel="preconnect" href="https://checkout.razorpay.com">
+<link rel="preconnect" href="https://cal.id">
+<link rel="stylesheet" href="/assets/audit.css">
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','3715194611950305');fbq('track','PageView');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQBDR8Z7WP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-HQBDR8Z7WP');</script>
+<script src="/assets/audit.js"></script>
+</head>
+<body>
+<main class="wrap">
+  <div class="step-top">
+    <div class="bar" aria-hidden="true"><span class="done"></span><span class="on"></span><span></span></div>
+    <p class="step-l" id="stepl">Step 2 of 3 · Confirm your seat</p>
+  </div>
+
+  <!-- A: pay -->
+  <div id="payview">
+    <h1 style="font-size:clamp(28px,7.4vw,36px);margin-top:10px"><span id="hi">Reserve your audit</span></h1>
+    <p class="lead">Pay to hold your seat. You'll pick your exact time on the next screen, right here.</p>
+    <div class="box hot">
+      <p style="font-weight:800;font-size:20px">Executive Voice Audit</p>
+      <ul class="check" style="margin-top:12px">
+        <li>30 minutes, one-on-one with Gaurang, online</li>
+        <li>Your 2-minute recording broken down before the call</li>
+        <li>A clear diagnosis: what's costing you authority, and what to fix first</li>
+        <li>₹1,999 is adjusted against the program fee if you join</li>
+      </ul>
+      <div class="cta"><button class="btn" type="button" id="pay">Pay ₹1,999 &amp; Pick My Slot →</button>
+        <p class="note">Secure payment by Razorpay · UPI, cards, netbanking · One free reschedule</p></div>
+      <p class="err" id="err" role="alert"></p>
+    </div>
+  </div>
+
+  <!-- B: book (shown on this same page after payment, so nobody pays and forgets to book) -->
+  <div id="calview" class="hide">
+    <span class="okpill" id="paidpill">✓ Payment received</span>
+    <h1 style="font-size:clamp(28px,7.4vw,36px);margin-top:12px">Now pick your time</h1>
+    <p class="lead">Your seat is paid for but <b style="color:#fff">not scheduled yet</b>. Choose any slot below. It takes 20 seconds.</p>
+    <div class="cal"><iframe id="cal" title="Pick your audit time" loading="eager"></iframe></div>
+    <p class="small" style="text-align:center;margin-top:12px">Calendar not loading? <a id="calnew" target="_blank" rel="noopener">Open it in a new tab</a></p>
+    <div class="cta"><button class="btn" type="button" id="booked" style="background:#222;box-shadow:none;font-size:17px;min-height:52px">I've booked my slot, continue →</button></div>
+    <p class="ok hide" id="bookedmsg" style="text-align:center;color:var(--ok);font-weight:700;margin-top:12px">✓ Booked. Taking you to the last step…</p>
+  </div>
+
+  <p class="small" style="text-align:center;margin:22px 0 32px">Stuck anywhere? <a id="help">WhatsApp us</a></p>
+</main>
+<script>
+(function(){
+  var A=Audit, c=A.ctx;
+  // Arrived without details (e.g. straight from an ad)? Collect them first.
+  if(!c.phone && !c.pid){ location.replace('/go/audit/apply/'); return; }
+  if(A.first()) document.getElementById('hi').textContent=A.first()+', reserve your audit';
+  document.getElementById('help').href=A.wa('Hi, I need help booking my Voice Audit. My name is '+(c.name||'')+'.');
+
+  var payview=document.getElementById('payview'), calview=document.getElementById('calview');
+  var pay=document.getElementById('pay'), err=document.getElementById('err');
+
+  function calUrl(embed){
+    var p=new URLSearchParams();
+    if(embed){ p.set('embed','true'); p.set('theme','light'); }
+    if(c.name) p.set('name',c.name);
+    if(c.email) p.set('email',c.email);
+    if(c.phone){ p.set('whatsapp',c.phone); p.set('attendeePhoneNumber',c.phone); }
+    if(c.room) p.set('room',c.room);
+    if(c.pid) p.set('metadata[pid]',c.pid);
+    return A.cfg.cal+'?'+p.toString();
+  }
+  function showCal(){
+    payview.classList.add('hide'); calview.classList.remove('hide');
+    document.getElementById('stepl').textContent='Step 2 of 3 · Pick your time';
+    var f=document.getElementById('cal'); if(!f.src) f.src=calUrl(true);
+    document.getElementById('calnew').href=calUrl(false);
+    scrollTo(0,0);
+  }
+
+  // Already paid on this device → straight to the calendar
+  if(c.paid){ showCal(); }
+
+  // ---- Payment: Razorpay Checkout opens over this page ----
+  var rzpLoad=null;
+  function loadRzp(){
+    if(window.Razorpay) return Promise.resolve();
+    if(!rzpLoad) rzpLoad=new Promise(function(res,rej){ var s=document.createElement('script'); s.src='https://checkout.razorpay.com/v1/checkout.js'; s.onload=res; s.onerror=rej; document.head.appendChild(s); });
+    return rzpLoad;
+  }
+  loadRzp().catch(function(){});
+  function busy(on){ pay.disabled=on; pay.innerHTML=on?'Opening secure checkout…':'Pay ₹1,999 &amp; Pick My Slot →'; }
+
+  function confirmPaid(pid,oid){
+    A.set('pid',pid); A.set('oid',oid);
+    return fetch('/api/payment?pid='+encodeURIComponent(pid)+'&oid='+encodeURIComponent(oid))
+      .then(function(r){ return r.json(); }).catch(function(){ return null; })
+      .then(function(p){
+        // Fire Purchase once, with the payment id as event id (dedupes with any server-side event)
+        if(!c.purchased){
+          var val=(p&&p.amount)||A.cfg.price;
+          A.track('Purchase',{content_name:'Executive Voice Audit',value:val,currency:'INR'},{eventID:pid});
+          A.ga('purchase',{transaction_id:pid,value:val,currency:'INR',items:[{item_name:'Executive Voice Audit',price:val}]});
+          A.set('purchased',1);
+        }
+        A.set('paid',1); A.log('paid'); showCal();
+      });
+  }
+
+  pay.addEventListener('click',function(){
+    busy(true); err.textContent='';
+    A.track('InitiateCheckout',{content_name:'Executive Voice Audit',value:1999,currency:'INR'});
+    A.ga('begin_checkout',{currency:'INR',value:1999});
+    Promise.all([
+      fetch('/api/order',{method:'POST',headers:{'content-type':'application/json'},
+        body:JSON.stringify({product:'audit',name:c.name,email:c.email,phone:c.phone,cta:c.cta||'',utm:c.utm})})
+        .then(function(r){ return r.json().then(function(j){ if(!r.ok) throw j; return j; }); }),
+      loadRzp()
+    ]).then(function(x){
+      var o=x[0];
+      var rz=new Razorpay({
+        key:o.key_id, order_id:o.order_id, amount:o.amount, currency:o.currency,
+        name:'ISFCM', description:'Executive Voice Audit · Gaurang Misra',
+        image:location.origin+'/img/logo-white.webp',
+        prefill:{name:c.name||'',email:c.email||'',contact:c.phone||''},
+        theme:{color:'#CB0000'},
+        handler:function(resp){
+          A.track('AddPaymentInfo',{value:1999,currency:'INR'});
+          pay.textContent='Payment received…';
+          confirmPaid(resp.razorpay_payment_id,resp.razorpay_order_id);
+        },
+        modal:{ ondismiss:function(){ busy(false); A.custom('CheckoutDismissed',{product:'audit'}); } }
+      });
+      rz.on('payment.failed',function(r){
+        busy(false); err.textContent='Payment didn\'t go through. Please try again or use another method.';
+        A.custom('PaymentFailed',{product:'audit',reason:(r.error&&r.error.reason)||''});
+      });
+      rz.open();
+    }).catch(function(e){
+      busy(false);
+      err.innerHTML='Checkout couldn\'t open. Please try again, or <a href="'+A.wa('Hi, I want to book the Voice Audit but the payment page did not open. My name is '+(c.name||'')+'.')+'">WhatsApp us</a> and we\'ll send you a payment link.';
+      A.custom('CheckoutError',{product:'audit',reason:(e&&e.error)||'load'});
+    });
+  });
+
+  // ---- Booking ----
+  var moved=false;
+  function booked(src,data){
+    if(moved) return; moved=true;
+    if(data&&data.startTime) A.set('start',data.startTime);
+    if(data&&data.endTime) A.set('end',data.endTime);
+    A.set('booked',src);
+    if(src==='embed') A.track('Schedule',{content_name:'Executive Voice Audit'}); else A.custom('BookedSelfConfirm',{product:'audit'});
+    A.ga('book_appointment',{method:src});
+    document.getElementById('bookedmsg').classList.remove('hide');
+    var done=false; function next(){ if(done) return; done=true; A.go('/go/audit/confirmed/'); }
+    A.log('booked').then(function(){ setTimeout(next,600); }); setTimeout(next,2500);
+  }
+  document.getElementById('booked').addEventListener('click',function(){ booked('self_confirm'); });
+  document.getElementById('calnew').addEventListener('click',function(){ A.custom('OpenBookingPage',{product:'audit'}); });
+  // Cal.id tells this page when the booking is made inside the embed
+  addEventListener('message',function(e){
+    var host=''; try{ host=new URL(e.origin).hostname; }catch(x){}
+    if(!/(^|\.)cal\.(id|com)$/.test(host)) return;
+    var d=e.data||{}, t=''; try{ t=JSON.stringify(d).slice(0,2000); }catch(x){}
+    if(/bookingSuccessful/i.test(t)){
+      var info=(d.data&&(d.data.booking||d.data))||{};
+      booked('embed',{startTime:info.startTime,endTime:info.endTime});
+    }
+  });
+})();
+</script>
+</body>
+</html>

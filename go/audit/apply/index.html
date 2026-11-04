@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="zone" content="ads">
+<meta name="purpose" content="Voice Audit step 2: application form.">
+<meta name="status" content="live">
+<meta name="form" content="/api/enquiry (audit)">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Apply · Executive Voice Audit | Gaurang Misra</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="/img/logo-white.webp">
+<link rel="stylesheet" href="/assets/audit.css">
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','3715194611950305');fbq('track','PageView');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HQBDR8Z7WP"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-HQBDR8Z7WP');</script>
+<script src="/assets/audit.js"></script>
+</head>
+<body>
+<main class="wrap">
+  <div class="step-top">
+    <div class="bar" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+    <p class="step-l">Step 1 of 3 · Your details</p>
+  </div>
+
+  <h1 style="font-size:clamp(28px,7.4vw,36px);margin-top:10px">Book your Executive Voice Audit</h1>
+  <p class="lead">Takes 30 seconds. I use this to prepare for your call.</p>
+
+  <form id="f" class="box" novalidate>
+    <div class="f"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required></div>
+    <div class="f"><label for="phone">WhatsApp number</label>
+      <div class="phone"><span>+91</span><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" placeholder="10-digit number" required></div></div>
+    <div class="f"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required></div>
+    <div class="f"><label for="role">What do you do?</label>
+      <select id="role" name="role" required>
+        <option value="">Choose one</option>
+        <option>Founder</option>
+        <option>CXO or senior leader</option>
+        <option>Business owner</option>
+        <option>Professional (doctor, lawyer, consultant)</option>
+        <option value="Coach or trainer">Coach or trainer</option>
+        <option>Other</option>
+      </select></div>
+    <div class="f"><label for="room">Where does your voice cost you most?</label>
+      <select id="room" name="room" required>
+        <option value="">Choose one</option>
+        <option>Investor or client pitches</option>
+        <option>Leading my team</option>
+        <option>Board or senior meetings</option>
+        <option>Negotiations</option>
+        <option>On stage or on camera</option>
+        <option>Other</option>
+      </select></div>
+    <div class="f"><label for="intent">If the audit shows you need it, are you open to investing in private 1-on-1 work?</label>
+      <select id="intent" name="intent" required>
+        <option value="">Choose one</option>
+        <option>Yes</option>
+        <option>I'd want to understand it first</option>
+        <option>No, just the audit</option>
+      </select></div>
+    <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <div class="stop" id="stop">This audit is built for people who lead businesses and teams, so I don't take coaches or trainers. Thank you for understanding.</div>
+
+    <div class="cta"><button class="btn" type="submit" id="go">Continue to Booking →</button>
+      <p class="note">Next: pick your slot and pay <b>₹1,999</b></p></div>
+    <p class="err" id="err" role="alert"></p>
+  </form>
+  <p class="small" style="text-align:center;margin:18px 0 32px">Your details stay private. No spam, ever.</p>
+</main>
+<script>
+(function(){
+  var f=document.getElementById('f'), err=document.getElementById('err'), go=document.getElementById('go'), stop=document.getElementById('stop');
+  var c=Audit.ctx;
+  ['name','email','role','room','intent'].forEach(function(k){ if(c[k]) f[k].value=c[k]; });
+  if(c.phone) f.phone.value=c.phone.replace(/^\+?91/,'');
+
+  f.role.addEventListener('change',function(){
+    var coach=f.role.value==='Coach or trainer';
+    stop.style.display=coach?'block':'none'; go.disabled=coach;
+  });
+
+  var started=false;
+  f.addEventListener('input',function(){ if(!started){ started=true; Audit.custom('AuditFormStart'); } });
+
+  f.addEventListener('submit',function(e){
+    e.preventDefault(); err.textContent='';
+    if(f.website.value) return;
+    var name=f.name.value.trim(), phone=f.phone.value.replace(/\D/g,''), email=f.email.value.trim();
+    if(name.length<2){ err.textContent='Please enter your name.'; f.name.focus(); return; }
+    if(!/^[6-9]\d{9}$/.test(phone)){ err.textContent='Please enter a valid 10-digit WhatsApp number.'; f.phone.focus(); return; }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err.textContent='Please enter a valid email.'; f.email.focus(); return; }
+    if(!f.role.value){ err.textContent='Please choose what you do.'; f.role.focus(); return; }
+    if(!f.room.value){ err.textContent='Please choose where your voice costs you most.'; f.room.focus(); return; }
+    if(!f.intent.value){ err.textContent='Please answer the last question.'; f.intent.focus(); return; }
+
+    Audit.set('name',name); Audit.set('phone','+91'+phone); Audit.set('email',email);
+    Audit.set('role',f.role.value); Audit.set('room',f.room.value); Audit.set('intent',f.intent.value);
+    go.disabled=true; go.textContent='One moment…';
+    Audit.track('Lead',{content_name:'Executive Voice Audit',value:1999,currency:'INR'});
+    Audit.ga('generate_lead',{value:1999,currency:'INR'});
+    // Move on as soon as the sheet answers, or after 2.5s at most
+    var done=false; function next(){ if(done) return; done=true; Audit.go('/go/audit/book/'); }
+    Audit.log('applied').then(next); setTimeout(next,2500);
+  });
+})();
+</script>
+</body>
+</html>

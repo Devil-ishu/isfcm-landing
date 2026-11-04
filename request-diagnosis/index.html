@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Private Diagnosis | Gaurang Misra</title>
 <meta name="description" content="Forty-five minutes, one to one. Gaurang Misra finds the pattern that is costing you the room and shows you how to reverse it. Pay what you believe it's worth.">
-<meta name="robots" content="noindex">
+<meta name="robots" content="noindex, nofollow">
 <meta property="og:title" content="Private Diagnosis | Gaurang Misra">
 <meta property="og:description" content="Forty-five minutes, one to one. Gaurang Misra finds the pattern that is costing you the room and shows you how to reverse it. Pay what you believe it's worth.">
 <meta property="og:type" content="website">
@@ -168,7 +168,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
         theme:{color:'#010066'}, notes:{tier:String(t),source:'site'},
         handler:function(resp){
           fb('AddPaymentInfo',{value:t,currency:'INR'});
-          location.href='/book/?pid='+encodeURIComponent(resp.razorpay_payment_id)+'&oid='+encodeURIComponent(resp.razorpay_order_id);
+          location.href='/go/diagnosis/book/?pid='+encodeURIComponent(resp.razorpay_payment_id)+'&oid='+encodeURIComponent(resp.razorpay_order_id);
         },
         modal:{ ondismiss:function(){ busy(false); fb('CheckoutDismissed',{value:t},true); } }
       });

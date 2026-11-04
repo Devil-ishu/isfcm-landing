@@ -1,0 +1,8 @@
+{
+  "live": false,
+  "base": "https://go.isfcm.com",
+  "brand_may_link_to": [
+    "/go/diagnosis/book/"
+  ],
+  "unlisted_index": ""
+}

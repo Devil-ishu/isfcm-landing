@@ -124,7 +124,7 @@ theme: off
         theme:{color:'#010066'}, notes:{tier:String(t),source:'site'},
         handler:function(resp){
           fb('AddPaymentInfo',{value:t,currency:'INR'});
-          location.href='/book/?pid='+encodeURIComponent(resp.razorpay_payment_id)+'&oid='+encodeURIComponent(resp.razorpay_order_id);
+          location.href='/go/diagnosis/book/?pid='+encodeURIComponent(resp.razorpay_payment_id)+'&oid='+encodeURIComponent(resp.razorpay_order_id);
         },
         modal:{ ondismiss:function(){ busy(false); fb('CheckoutDismissed',{value:t},true); } }
       });

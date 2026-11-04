@@ -274,7 +274,7 @@ ${sec('Likely objection', p('<b>' + esc(objection[0]) + '</b> ' + esc(objection[
 ${str(b.waste) ? sec('This would waste their time', p('"' + esc(snip(b.waste, 260)) + '"')) : ''}
 ${sec('Signals', list(signals))}
 ${sec('All answers', kv(answers))}
-<div style="${F}font-size:12px;color:#4B4B57;border-top:1px solid #DCDDE1;padding-top:12px;margin-top:12px">Influence Profile · go.isfcm.com/profile · scores are a reading to test on the call, not a verdict on the person.</div>
+<div style="${F}font-size:12px;color:#4B4B57;border-top:1px solid #DCDDE1;padding-top:12px;margin-top:12px">Influence Profile · go.isfcm.com/go/profile · scores are a reading to test on the call, not a verdict on the person.</div>
 </div></div>`;
 
   const text = [

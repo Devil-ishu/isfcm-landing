@@ -4,3 +4,11 @@
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
+
+# --- zones (written by tools/build.py) ---
+/go/*
+  X-Robots-Tag: noindex, nofollow
+/u/*
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Referrer-Policy: no-referrer
+# --- end zones ---

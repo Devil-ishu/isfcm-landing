@@ -1,4 +1,6 @@
-# DESIGN.md — go.isfcm.com
+# DESIGN.md — brand zone of go.isfcm.com
+
+> Applies to **brand pages only** (everything outside `/go/` and `/u/`). Ad and funnel pages under `/go/` follow LANDING.md instead. See PAGES.md for which page is in which zone.
 
 Direction: **advisory, not coaching.** The buyer is a founder or CXO. The sites he already trusts (executive search and board advisory firms) are white, quiet, serif-led and photo-led. Speaker and coach sites (dark backgrounds, yellow buttons, stage photos) read as course-selling, so we avoid that look entirely.
 
