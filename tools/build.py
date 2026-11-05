@@ -271,7 +271,7 @@ def write_headers():
 def write_robots_and_sitemap(pages):
     robots_f, sitemap_f = ROOT / "robots.txt", ROOT / "sitemap.xml"
     if not LIVE:
-        robots_f.write_text("# Not launched yet (tools/site.json: live=false). Nothing is indexed.\nUser-agent: *\nDisallow: /\n", encoding="utf-8")
+        robots_f.write_text("# Not launched yet (tools/site.json: live=false). Nothing is indexed.\n# Meta may fetch ad thumbnails only.\nUser-agent: facebookexternalhit\nAllow: /img/ads/\nDisallow: /\n\nUser-agent: *\nDisallow: /\n", encoding="utf-8")
         if sitemap_f.exists():
             sitemap_f.unlink()
         return

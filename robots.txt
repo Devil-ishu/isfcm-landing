@@ -1,3 +1,8 @@
 # Not launched yet (tools/site.json: live=false). Nothing is indexed.
+# Meta may fetch ad thumbnails only.
+User-agent: facebookexternalhit
+Allow: /img/ads/
+Disallow: /
+
 User-agent: *
 Disallow: /
