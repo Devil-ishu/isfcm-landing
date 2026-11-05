@@ -90,7 +90,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
         <figure id="pa"><video controls playsinline preload="none" poster="/img/proof-now.webp"><source src="/img/proof-now2.mp4" type="video/mp4"></video><figcaption><b>Now</b>Slower, lower, deliberate</figcaption></figure>
       </div>
       <h3 class="qhead hide" id="qhead" style="margin-top:32px">After a 1-on-1 session with me</h3>
-      <p class="small qhead hide" style="margin-top:4px">Real messages from clients · swipe →</p>
+      <p class="small qhead hide" style="margin-top:4px">Real messages from clients · names hidden for privacy · swipe →</p>
       <div class="quotes" id="quotes"></div>
     </div>
   </section>
@@ -172,10 +172,10 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
   var proof=document.getElementById('proof');
   fetch('/img/proof-now2.mp4',{method:'HEAD'}).then(function(r){ if(r.ok) proof.classList.remove('hide'); }).catch(function(){});
   [1,2,3].forEach(function(i){
-    var u='/img/audit-t'+i+'.webp';
+    var u='/img/proof-t'+i+'.webp';
     fetch(u,{method:'HEAD'}).then(function(r){ if(!r.ok) return;
       var d=document.createElement('div'); d.className='quote';
-      d.innerHTML='<img src="'+u+'" alt="Client message, shared with permission" loading="lazy">';
+      d.innerHTML='<img src="'+u+'" alt="Client message, name hidden" loading="lazy">';
       document.getElementById('quotes').appendChild(d); proof.classList.remove('hide'); document.querySelectorAll('.qhead').forEach(function(x){x.classList.remove('hide');});
     }).catch(function(){});
   });
@@ -204,6 +204,16 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
     document.querySelectorAll('[data-slots-inline]').forEach(function(el){ el.textContent=txt; });
     try{ gtag('event','slots_shown',{left:d.left}); }catch(e){}
   }).catch(function(){});
+})();
+</script>
+<script>
+(function(){
+  // Sections fade up as they scroll into view (skipped if the visitor prefers less motion)
+  if(!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var els=document.querySelectorAll('main section:not(.hero)');
+  els.forEach(function(el){ el.classList.add('rv'); });
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -12% 0px'});
+  els.forEach(function(el){ io.observe(el); });
 })();
 </script>
 </body>
