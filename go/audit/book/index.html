@@ -36,7 +36,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
 
   <!-- A: pay -->
   <div id="payview">
-    <h1 style="font-size:clamp(28px,7.4vw,36px);margin-top:10px"><span id="hi">Reserve your audit</span></h1>
+    <h1 style="font-size:clamp(28px,7.4vw,36px);margin-top:10px"><span id="hi">Reserve your diagnosis</span></h1>
     <p class="lead">Pay to hold your seat. You'll pick your exact time on the next screen, right here.</p>
     <div class="box hot">
       <p style="font-weight:800;font-size:20px">Executive Voice Diagnosis</p>
@@ -57,7 +57,8 @@ fbq('init','3715194611950305');fbq('track','PageView');
     <span class="okpill" id="paidpill">✓ Payment received</span>
     <h1 style="font-size:clamp(28px,7.4vw,36px);margin-top:12px">Now pick your time</h1>
     <p class="lead">Your seat is paid for but <b style="color:#fff">not scheduled yet</b>. Choose any slot below. It takes 20 seconds.</p>
-    <div class="cal"><iframe id="cal" title="Pick your audit time" loading="eager"></iframe></div>
+    <p class="ok hide" id="paidnote" style="text-align:center;color:var(--ok);font-weight:700;margin:10px 0 0"></p>
+    <div class="cal"><iframe id="cal" title="Pick your diagnosis time" loading="eager"></iframe></div>
     <p class="small" style="text-align:center;margin-top:12px">Calendar not loading? <a id="calnew" target="_blank" rel="noopener">Open it in a new tab</a></p>
     <div class="cta"><button class="btn" type="button" id="booked" style="background:#222;box-shadow:none;font-size:17px;min-height:52px">I've booked my slot, continue →</button></div>
     <p class="ok hide" id="bookedmsg" style="text-align:center;color:var(--ok);font-weight:700;margin-top:12px">✓ Booked. Taking you to the last step…</p>
@@ -70,7 +71,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
   var A=Audit, c=A.ctx;
   // Arrived without details (e.g. straight from an ad)? Collect them first.
   if(!c.phone && !c.pid){ location.replace('/go/audit/apply/'); return; }
-  if(A.first()) document.getElementById('hi').textContent=A.first()+', reserve your audit';
+  if(A.first()) document.getElementById('hi').textContent=A.first()+', reserve your diagnosis';
   document.getElementById('help').href=A.wa('Hi, I need help booking my Voice Diagnosis. My name is '+(c.name||'')+'.');
 
   var payview=document.getElementById('payview'), calview=document.getElementById('calview');
@@ -86,8 +87,9 @@ fbq('init','3715194611950305');fbq('track','PageView');
     if(c.pid) p.set('metadata[pid]',c.pid);
     return A.cfg.cal+'?'+p.toString();
   }
-  function showCal(){
+  function showCal(note){
     payview.classList.add('hide'); calview.classList.remove('hide');
+    if(note){ var n=document.getElementById('paidnote'); if(n){ n.textContent=note; n.classList.remove('hide'); } }
     document.getElementById('stepl').textContent='Step 2 of 3 · Pick your time';
     var f=document.getElementById('cal'); if(!f.src) f.src=calUrl(true);
     document.getElementById('calnew').href=calUrl(false);
@@ -96,6 +98,17 @@ fbq('init','3715194611950305');fbq('track','PageView');
 
   // Already paid on this device → straight to the calendar
   if(c.paid){ showCal(); }
+  // Storage wiped (in-app browser, new tab) but we know the phone → ask the server before showing "Pay"
+  else if(c.phone){
+    fetch('/api/order',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({product:'audit',phone:c.phone,check_only:true})})
+      .then(function(r){ return r.ok?r.json():null; }).then(function(j){ if(j&&j.already_paid) alreadyPaid(j); }).catch(function(){});
+  }
+  function alreadyPaid(j){
+    if(j.payment_id) A.set('pid',j.payment_id);
+    if(j.order_id) A.set('oid',j.order_id);
+    A.set('paid',1); A.custom('AlreadyPaid',{product:'audit'});
+    showCal("You've already paid. Pick your time below.");
+  }
 
   // ---- Payment: Razorpay Checkout opens over this page ----
   var rzpLoad=null;
@@ -134,6 +147,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
       loadRzp()
     ]).then(function(x){
       var o=x[0];
+      if(o.already_paid){ busy(false); alreadyPaid(o); return; }
       var rz=new Razorpay({
         key:o.key_id, order_id:o.order_id, amount:o.amount, currency:o.currency,
         name:'ISFCM', description:'Executive Voice Diagnosis · Gaurang Misra',

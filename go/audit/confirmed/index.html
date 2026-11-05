@@ -43,7 +43,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
   <!-- the one task -->
   <div class="box hot" style="margin-top:24px">
     <h2 style="font-size:24px;margin-bottom:10px">Send me 2 minutes of you speaking</h2>
-    <p style="color:var(--fg-2)">I study it before we speak. <b style="color:#fff">Without it, I can't prepare your audit.</b></p>
+    <p style="color:var(--fg-2)">I study it before we speak. <b style="color:#fff">Without it, I can't prepare your diagnosis.</b></p>
     <ul class="check" style="margin-top:14px">
       <li>A WhatsApp voice note is perfect. Your phone is fine.</li>
       <li>Speak like you normally do at work: pitch your business, give a team update, or explain what you do.</li>
@@ -51,7 +51,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
     </ul>
     <div class="cta"><a class="btn wa" id="wa" target="_blank" rel="noopener">Send My Recording on WhatsApp →</a>
       <p class="note">Opens WhatsApp with your name already typed. Then hold the mic and speak for 2 minutes.</p></div>
-    <p class="small" style="margin-top:14px">Please send it at least 3 hours before your call. If it doesn't arrive, we'll move your audit to a later slot so it's done properly.</p>
+    <p class="small" style="margin-top:14px">Please send it at least 3 hours before your call. If it doesn't arrive, we'll move your diagnosis to a later slot so it's done properly.</p>
     <button class="link" type="button" id="sent" style="background:none;border:0;font:inherit;cursor:pointer;display:block;margin:16px auto 0">I've sent it ✓</button>
     <p id="thanks" class="hide" style="text-align:center;color:var(--ok);font-weight:700;margin-top:8px">Got it. I'll listen before our call.</p>
   </div>
@@ -74,7 +74,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
       <tr><td><b>Step 2 · Conditioning</b><span>6 months, a session every 2 weeks. Offered later, once you can hear your own progress.</span></td><td>₹60,000</td></tr>
     </table>
     <ul class="check" style="margin-top:14px">
-      <li>Your ₹1,999 audit fee is adjusted against the Sprint.</li>
+      <li>Your ₹1,999 diagnosis fee is adjusted against the Sprint.</li>
       <li>EMI available on supported credit cards. UPI and netbanking also work.</li>
       <li>You decide on the call, with no pressure either way.</li>
     </ul>
@@ -84,7 +84,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
 <script>
 (function(){
   var A=Audit, c=A.ctx;
-  if(A.first()) document.getElementById('hi').textContent=A.first()+', your audit is confirmed.';
+  if(A.first()) document.getElementById('hi').textContent=A.first()+', your diagnosis is confirmed.';
 
   // Show the booked time if Cal.id passed it
   if(c.start){
@@ -107,7 +107,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
   }
   wa.addEventListener('click',function(){ sent('wa_click'); });
   document.getElementById('sent').addEventListener('click',function(){
-    sent('confirmed'); A.log('recording_confirmed');
+    var first=!c.recording; sent('confirmed'); if(!first && !c.recConfirmed) A.log('recording_confirmed'); A.set('recConfirmed',1);
     document.getElementById('thanks').classList.remove('hide');
   });
 })();

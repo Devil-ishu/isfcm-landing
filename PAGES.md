@@ -54,7 +54,7 @@ _Written by `python3 tools/build.py` on 2026-11-05. Do not edit by hand; change 
 | /go/audit/apply/ | Voice Diagnosis step 2: application form. | /api/enquiry (audit) | live | go/audit/apply/index.html |
 | /go/audit/book/ | Voice Diagnosis step 3: Cal.id booking. | Cal.id | live | go/audit/book/index.html |
 | /go/audit/confirmed/ | Voice Diagnosis step 4: booking confirmed, add to calendar. |  | live | go/audit/confirmed/index.html |
-| /go/audit/prepare/ | Voice Diagnosis step 5: what to prepare before the audit. |  | live | go/audit/prepare/index.html |
+| /go/audit/prepare/ | Voice Diagnosis step 5: what to prepare before the diagnosis. |  | live | go/audit/prepare/index.html |
 
 ### diagnosis
 

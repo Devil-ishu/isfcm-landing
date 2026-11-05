@@ -22,6 +22,9 @@ var ALERT_EMAIL = 'gaurang.misra16@gmail.com';
 // Forms that trigger an alert email (audit logs every funnel step, so it's left out).
 var ALERT_FORMS = ['questionnaire', 'mentorship', 'executive', 'seminar', 'contact'];
 
+// Voice Diagnosis funnel: alert only once a buyer has booked or sent their recording.
+var AUDIT_ALERT_STAGES = ['booked', 'recording_confirmed'];
+
 // form value → tab name
 var TABS = {
   questionnaire: 'Diagnosis Questionnaire',
@@ -61,11 +64,15 @@ function doPost(e) {
     Object.keys(data).forEach(function (k) { if (k.charAt(0) === '_') delete data[k]; });
 
     var tabName = TABS[data.form] || ('Other – ' + data.form);
+    // Voice Diagnosis: a manual `outcome` column (show / no-show / closed / not a fit), filled in by hand.
+    if (data.form === 'audit' && !('outcome' in data)) data.outcome = '';
     appendByHeader_(ss, tabName, data, LEAD_COLS);
     appendByHeader_(ss, 'All Leads', pick_(data, LEAD_COLS), LEAD_COLS);
 
     if (ALERT_EMAIL && data.form === 'profile' && data.stage === 'booked') {
       if (brief.html) sendBrief_(brief); else alert_(data, tabName);
+    } else if (ALERT_EMAIL && data.form === 'audit' && AUDIT_ALERT_STAGES.indexOf(data.stage) > -1) {
+      auditAlert_(data);
     } else if (ALERT_EMAIL && ALERT_FORMS.indexOf(data.form) > -1) {
       alert_(data, tabName);
     }
@@ -124,6 +131,29 @@ function alert_(data, tabName) {
   MailApp.sendEmail(ALERT_EMAIL,
     'New ' + tabName + ' — ' + (data.name || 'no name'),
     lines.join('\n'));
+}
+
+/** Voice Diagnosis alert: who booked, their level, and when. Flags bookings we can't verify. */
+function auditAlert_(d) {
+  var when = '';
+  try { if (d.booking) when = Utilities.formatDate(new Date(d.booking), 'Asia/Kolkata', 'EEE d MMM, h:mm a') + ' IST'; } catch (e) { when = d.booking; }
+  var check = d.via === 'self_confirm' ? ' · CHECK SLOT' : '';
+  var head = d.stage === 'recording_confirmed' ? 'Voice Diagnosis recording sent: ' : 'Voice Diagnosis booked: ';
+  var subject = head + (d.name || 'no name') + ' · ' + (d.role || '?') + ' · team ' + (d.team || '?') + check;
+  var lines = [
+    'Name: ' + (d.name || ''),
+    'WhatsApp: ' + (d.phone || ''),
+    'Email: ' + (d.email || ''),
+    'Role: ' + (d.role || ''),
+    'Team: ' + (d.team || ''),
+    'Where voice costs them: ' + (d.room || ''),
+    'Open to 1-on-1 work: ' + (d.intent || ''),
+    'Booking: ' + (when || 'not known'),
+    'Booked via: ' + (d.via || '') + (d.via === 'self_confirm' ? '  (they tapped "I\'ve booked" — check Cal.id for a real slot)' : ''),
+    'Ad: ' + (d.utm_content || '') + (d.variant ? '  · variant ' + d.variant : ''),
+    'Payment: ' + (d.pid || '')
+  ];
+  MailApp.sendEmail(ALERT_EMAIL, subject, lines.join('\n'));
 }
 
 /** Email the call brief and file it under BRIEF_LABEL. A labelling failure never loses the email. */
