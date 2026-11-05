@@ -37,7 +37,7 @@
     // Never blocks the buyer: if the sheet is down, they still move on.
     log:function(stage,extra){
       var b={form:'audit',stage:stage,name:ctx.name||'',phone:ctx.phone||'',email:ctx.email||'',
-        role:ctx.role||'',room:ctx.room||'',intent:ctx.intent||'',pid:ctx.pid||'',booking:ctx.start||'',
+        role:ctx.role||'',team:ctx.team||'',room:ctx.room||'',intent:ctx.intent||'',pid:ctx.pid||'',booking:ctx.start||'',
         utm_source:ctx.utm.utm_source||'',utm_campaign:ctx.utm.utm_campaign||'',utm_content:ctx.utm.utm_content||'',variant:ctx.v||''};
       if(extra) for(var k in extra) b[k]=extra[k];
       try{

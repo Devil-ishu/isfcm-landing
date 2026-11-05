@@ -38,6 +38,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
       <p class="who">Executive Voice Diagnosis · Gaurang Misra</p>
       <h1 id="h1">The room judges your voice before it hears your words.</h1>
       <p class="lead">A 30-minute private voice diagnosis. I play back your own recording and show you exactly where you lose the room.</p>
+      <p class="muted" style="margin-top:8px">This isn't public speaking. It's how you sound in the meetings that decide money.</p>
 
       <div class="vid" id="vid">
         <img src="/img/audit-gaurang.webp" width="400" height="575" alt="Gaurang Misra" id="poster">
@@ -47,6 +48,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
       <div class="cta">
         <a class="btn" href="/go/audit/apply/" data-cta="hero">Book My Voice Diagnosis →</a>
         <p class="note"><b>₹1,999</b> · 30 min, one-on-one, online · Fee adjusted if you join the program</p>
+        <p class="note slots hide" data-slots></p>
       </div>
     </div>
   </section>
@@ -85,7 +87,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
         <figure id="pb"><video controls playsinline preload="none" poster="/img/audit-before.webp"><source src="/img/audit-before.mp4" type="video/mp4"></video><figcaption><b>Before</b>Fast, high, forgettable</figcaption></figure>
         <figure id="pa"><video controls playsinline preload="none" poster="/img/audit-after.webp"><source src="/img/audit-after.mp4" type="video/mp4"></video><figcaption><b>Now</b>Slower, lower, deliberate</figcaption></figure>
       </div>
-      <!-- Client proof: add testimonial images here as /img/audit-t1.webp, audit-t2.webp, audit-t3.webp -->
+      <h3 class="qhead hide" id="qhead" style="margin-top:32px">After a 1-on-1 session with me</h3>
       <div class="quotes" id="quotes"></div>
     </div>
   </section>
@@ -135,7 +137,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
     <div class="wrap" style="text-align:center">
       <h2>Your next important room is coming. Sound like you belong in it.</h2>
       <div class="cta"><a class="btn" href="/go/audit/apply/" data-cta="final">Book My Voice Diagnosis →</a>
-        <p class="note"><b>₹1,999</b> · Limited audits each week · Your recording stays private</p></div>
+        <p class="note"><b>₹1,999</b> · <span data-slots-inline>Few audits each week</span> · Your recording stays private</p></div>
     </div>
   </section>
   <footer>© ISFCM LLP · Chandigarh</footer>
@@ -175,7 +177,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
     fetch(u,{method:'HEAD'}).then(function(r){ if(!r.ok) return;
       var d=document.createElement('div'); d.className='quote';
       d.innerHTML='<img src="'+u+'" alt="Client message, shared with permission" loading="lazy">';
-      document.getElementById('quotes').appendChild(d); proof.classList.remove('hide');
+      document.getElementById('quotes').appendChild(d); proof.classList.remove('hide'); document.getElementById('qhead').classList.remove('hide');
     }).catch(function(){});
   });
 
@@ -190,6 +192,19 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
     var io=new IntersectionObserver(function(es){ es.forEach(function(e){ vis[e.target.dataset.cta]=e.isIntersecting; }); st.classList.toggle('on',!vis.hero&&!vis.final); });
     io.observe(heroBtn); io.observe(fin);
   } else st.classList.add('on');
+})();
+</script>
+<script>
+(function(){
+  // Live seats left this week (counted from paid Razorpay orders). Hidden if the count can't be fetched.
+  fetch('/api/slots').then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+    if(!d || typeof d.left!=='number') return;
+    var txt = d.left>0 ? (d.left===1 ? 'Last audit left this week' : d.left+' audits left this week')
+                       : 'This week is full · booking now holds a slot next week';
+    document.querySelectorAll('[data-slots]').forEach(function(el){ el.innerHTML='<b>'+txt+'</b>'; el.classList.remove('hide'); });
+    document.querySelectorAll('[data-slots-inline]').forEach(function(el){ el.textContent=txt; });
+    try{ gtag('event','slots_shown',{left:d.left}); }catch(e){}
+  }).catch(function(){});
 })();
 </script>
 </body>
