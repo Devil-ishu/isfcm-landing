@@ -88,7 +88,8 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
         <figure id="pb"><video controls playsinline preload="none" poster="/img/audit-before.webp"><source src="/img/audit-before.mp4" type="video/mp4"></video><figcaption><b>Before</b>Fast, high, forgettable</figcaption></figure>
         <figure id="pa"><video controls playsinline preload="none" poster="/img/audit-after.webp"><source src="/img/audit-after.mp4" type="video/mp4"></video><figcaption><b>Now</b>Slower, lower, deliberate</figcaption></figure>
       </div>
-      <h3 class="qhead hide" id="qhead" style="margin-top:32px">After a 1-on-1 session with me <span class="small" style="font-family:inherit">· swipe →</span></h3>
+      <h3 class="qhead hide" id="qhead" style="margin-top:32px">After a 1-on-1 session with me</h3>
+      <p class="small qhead hide" style="margin-top:4px">Real messages, shared with permission · swipe →</p>
       <div class="quotes" id="quotes"></div>
     </div>
   </section>
@@ -178,7 +179,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
     fetch(u,{method:'HEAD'}).then(function(r){ if(!r.ok) return;
       var d=document.createElement('div'); d.className='quote';
       d.innerHTML='<img src="'+u+'" alt="Client message, shared with permission" loading="lazy">';
-      document.getElementById('quotes').appendChild(d); proof.classList.remove('hide'); document.getElementById('qhead').classList.remove('hide');
+      document.getElementById('quotes').appendChild(d); proof.classList.remove('hide'); document.querySelectorAll('.qhead').forEach(function(x){x.classList.remove('hide');});
     }).catch(function(){});
   });
 
