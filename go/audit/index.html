@@ -12,7 +12,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="/img/logo-white.webp">
-<link rel="preload" as="image" href="/img/ba-now.webp">
+<link rel="preload" as="image" href="/img/ba-now2.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Spectral:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/audit.css">
 <!-- Meta Pixel -->
@@ -49,7 +49,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
 
       <a class="split" href="#proof" data-ev="hero_split">
         <figure><img src="/img/ba-before.webp" width="560" height="700" alt="Gaurang 12 months ago" fetchpriority="high"><span>Before</span></figure>
-        <figure><img src="/img/ba-now.webp" width="560" height="700" alt="Gaurang today" fetchpriority="high"><span class="now">Now</span></figure>
+        <figure><img src="/img/ba-now2.webp" width="560" height="700" alt="Gaurang today" fetchpriority="high"><span class="now">Now</span></figure>
         <p class="splitcap"><b>Same man. Same words. Different weight.</b>Tap to hear both ↓</p>
       </a>
     </div>
@@ -87,7 +87,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
       <p class="muted">I rebuilt my own voice over 12 months. Listen to both.</p>
       <div class="pair">
         <figure id="pb"><video controls playsinline preload="none" poster="/img/audit-before.webp"><source src="/img/audit-before.mp4" type="video/mp4"></video><figcaption><b>Before</b>Fast, high, forgettable</figcaption></figure>
-        <figure id="pa"><video controls playsinline preload="none" poster="/img/audit-after.webp"><source src="/img/audit-after.mp4" type="video/mp4"></video><figcaption><b>Now</b>Slower, lower, deliberate</figcaption></figure>
+        <figure id="pa"><video controls playsinline preload="none" poster="/img/proof-now.webp"><source src="/img/proof-now.mp4" type="video/mp4"></video><figcaption><b>Now</b>Slower, lower, deliberate</figcaption></figure>
       </div>
       <h3 class="qhead hide" id="qhead" style="margin-top:32px">After a 1-on-1 session with me</h3>
       <p class="small qhead hide" style="margin-top:4px">Real messages from clients · swipe →</p>
@@ -170,7 +170,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
 
   // Proof section appears only when the before/after clips exist
   var proof=document.getElementById('proof');
-  fetch('/img/audit-after.mp4',{method:'HEAD'}).then(function(r){ if(r.ok) proof.classList.remove('hide'); }).catch(function(){});
+  fetch('/img/proof-now.mp4',{method:'HEAD'}).then(function(r){ if(r.ok) proof.classList.remove('hide'); }).catch(function(){});
   [1,2,3].forEach(function(i){
     var u='/img/audit-t'+i+'.webp';
     fetch(u,{method:'HEAD'}).then(function(r){ if(!r.ok) return;
