@@ -12,7 +12,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="/img/logo-white.webp">
-<link rel="preload" as="image" href="/img/audit-gaurang.webp">
+<link rel="preload" as="image" href="/img/audit-hero.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Spectral:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/audit.css">
 <!-- Meta Pixel -->
@@ -47,10 +47,10 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
         <p class="note slots hide" data-slots></p>
       </div>
 
-      <div class="vid" id="vid">
-        <img src="/img/audit-gaurang.webp" width="400" height="575" alt="Gaurang Misra" id="poster">
-        <button class="play hide" type="button" id="play" aria-label="Play the before and after video"><i></i>Tap to hear the difference</button>
-      </div>
+      <figure class="heroimg">
+        <img src="/img/audit-hero.webp" width="800" height="1000" alt="Gaurang Misra, voice and presence consultant" fetchpriority="high">
+        <figcaption><b>Gaurang Misra</b>Voice, presence &amp; influence · Chandigarh</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -114,7 +114,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
   <section>
     <div class="wrap">
       <div class="about">
-        <img src="/img/audit-gaurang.webp" width="120" height="170" alt="Gaurang Misra" loading="lazy">
+        <img src="/img/audit-about.webp" width="120" height="170" alt="Gaurang Misra in a one-on-one session" loading="lazy">
         <div>
           <h2 style="margin-bottom:8px">Gaurang Misra</h2>
           <p>I'm a consultant in voice, presence and influence. I'm an engineer by training (AIR 8, ISTC), so I treat your voice as a system: measurable and trainable.</p>
@@ -157,19 +157,6 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
     choice:'Every voice is a choice. Most people never chose theirs.'
   };
   if(H[Audit.ctx.v]) document.getElementById('h1').textContent=H[Audit.ctx.v];
-
-  // Hero video: click to play with sound. Only shown once the file is uploaded.
-  var vid=document.getElementById('vid'), play=document.getElementById('play'), SRC='/img/audit-hero.mp4';
-  fetch(SRC,{method:'HEAD'}).then(function(r){ if(r.ok) play.classList.remove('hide'); }).catch(function(){});
-  play.addEventListener('click',function(){
-    var v=document.createElement('video');
-    v.src=SRC; v.controls=true; v.playsInline=true; v.setAttribute('playsinline','');
-    v.poster='/img/audit-gaurang.webp';
-    document.getElementById('poster').replaceWith(v);
-    vid.classList.add('playing'); v.play().catch(function(){});
-    Audit.custom('HeroVideoPlay');
-    v.addEventListener('ended',function(){ Audit.custom('HeroVideoComplete'); });
-  });
 
   // Proof section appears only when the before/after clips exist
   var proof=document.getElementById('proof');
