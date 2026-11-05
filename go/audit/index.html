@@ -12,7 +12,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="/img/logo-white.webp">
-<link rel="preload" as="image" href="/img/audit-hero2.webp">
+<link rel="preload" as="image" href="/img/ba-now.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Spectral:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/audit.css">
 <!-- Meta Pixel -->
@@ -47,10 +47,11 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
         <p class="note slots hide" data-slots></p>
       </div>
 
-      <figure class="heroimg">
-        <img src="/img/audit-hero2.webp" width="800" height="1000" alt="Gaurang Misra in a private session" fetchpriority="high">
-        <figcaption><b>Gaurang Misra</b>Voice, presence &amp; influence · Chandigarh</figcaption>
-      </figure>
+      <a class="split" href="#proof" data-ev="hero_split">
+        <figure><img src="/img/ba-before.webp" width="560" height="700" alt="Gaurang 12 months ago" fetchpriority="high"><span>Before</span></figure>
+        <figure><img src="/img/ba-now.webp" width="560" height="700" alt="Gaurang today" fetchpriority="high"><span class="now">Now</span></figure>
+        <p class="splitcap"><b>Same man. Same words. Different weight.</b>Tap to hear both ↓</p>
+      </a>
     </div>
   </section>
 
@@ -164,6 +165,8 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
     choice:'Every voice is a choice. Most people never chose theirs.'
   };
   if(H[Audit.ctx.v]) document.getElementById('h1').textContent=H[Audit.ctx.v];
+
+  var sp=document.querySelector('.split'); if(sp) sp.addEventListener('click',function(){ Audit.custom('HeroSplitTap'); Audit.ga('hero_split_tap'); });
 
   // Proof section appears only when the before/after clips exist
   var proof=document.getElementById('proof');

@@ -145,3 +145,10 @@ input:focus,select:focus{outline:none;border-color:#fff}
 .stats span{display:block;font-size:12px;color:var(--muted);margin-top:4px;line-height:1.3}
 /* Title Case for headlines, buttons and labels (body text stays sentence case for reading speed) */
 h1,h2,h3,.btn,.strip,.who,.steps b,summary,.heroimg figcaption b,.pair figcaption b{text-transform:capitalize}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:26px;text-decoration:none;border-radius:12px;overflow:hidden;background:var(--card)}
+.split figure{position:relative;aspect-ratio:4/5}
+.split img{width:100%;height:100%;object-fit:cover}
+.split span{position:absolute;left:10px;top:10px;background:rgba(10,10,10,.75);color:var(--fg-2);font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.06em}
+.split span.now{background:var(--red);color:var(--on-gold)}
+.splitcap{grid-column:1/-1;padding:12px 14px 14px;font-size:14px;color:var(--muted);text-align:center}
+.splitcap b{display:block;font-family:var(--serif);font-size:20px;color:var(--fg);margin-bottom:2px}
