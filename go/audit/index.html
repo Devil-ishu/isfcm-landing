@@ -87,7 +87,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
       <p class="muted">I rebuilt my own voice over 12 months. Listen to both.</p>
       <div class="pair">
         <figure id="pb"><video controls playsinline preload="none" poster="/img/audit-before.webp"><source src="/img/audit-before.mp4" type="video/mp4"></video><figcaption><b>Before</b>Fast, high, forgettable</figcaption></figure>
-        <figure id="pa"><video controls playsinline preload="none" poster="/img/proof-now.webp"><source src="/img/proof-now.mp4" type="video/mp4"></video><figcaption><b>Now</b>Slower, lower, deliberate</figcaption></figure>
+        <figure id="pa"><video controls playsinline preload="none" poster="/img/proof-now.webp"><source src="/img/proof-now2.mp4" type="video/mp4"></video><figcaption><b>Now</b>Slower, lower, deliberate</figcaption></figure>
       </div>
       <h3 class="qhead hide" id="qhead" style="margin-top:32px">After a 1-on-1 session with me</h3>
       <p class="small qhead hide" style="margin-top:4px">Real messages from clients · swipe →</p>
@@ -170,7 +170,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
 
   // Proof section appears only when the before/after clips exist
   var proof=document.getElementById('proof');
-  fetch('/img/proof-now.mp4',{method:'HEAD'}).then(function(r){ if(r.ok) proof.classList.remove('hide'); }).catch(function(){});
+  fetch('/img/proof-now2.mp4',{method:'HEAD'}).then(function(r){ if(r.ok) proof.classList.remove('hide'); }).catch(function(){});
   [1,2,3].forEach(function(i){
     var u='/img/audit-t'+i+'.webp';
     fetch(u,{method:'HEAD'}).then(function(r){ if(!r.ok) return;
