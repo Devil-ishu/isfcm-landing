@@ -60,8 +60,10 @@ p+p{margin-top:12px}
 .pair figure{background:var(--card);border-radius:10px;overflow:hidden}
 .pair figcaption{padding:10px 12px;font-size:14px;color:var(--fg-2)}
 .pair figcaption b{color:#fff;display:block}
-.quotes{display:grid;gap:14px;margin-top:20px}
-.quote{background:var(--card);border-radius:10px;padding:16px}
+.quotes{display:flex;gap:12px;margin-top:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px;scrollbar-width:none}
+.quotes::-webkit-scrollbar{display:none}
+.quote{flex:0 0 78%;max-width:300px;scroll-snap-align:start;background:var(--card);border-radius:10px;padding:8px}
+.quote img{max-height:420px;object-fit:cover;object-position:top}
 .quote img{border-radius:8px}
 
 /* about */

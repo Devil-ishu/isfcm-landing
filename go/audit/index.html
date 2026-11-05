@@ -88,7 +88,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
         <figure id="pb"><video controls playsinline preload="none" poster="/img/audit-before.webp"><source src="/img/audit-before.mp4" type="video/mp4"></video><figcaption><b>Before</b>Fast, high, forgettable</figcaption></figure>
         <figure id="pa"><video controls playsinline preload="none" poster="/img/audit-after.webp"><source src="/img/audit-after.mp4" type="video/mp4"></video><figcaption><b>Now</b>Slower, lower, deliberate</figcaption></figure>
       </div>
-      <h3 class="qhead hide" id="qhead" style="margin-top:32px">After a 1-on-1 session with me</h3>
+      <h3 class="qhead hide" id="qhead" style="margin-top:32px">After a 1-on-1 session with me <span class="small" style="font-family:inherit">· swipe →</span></h3>
       <div class="quotes" id="quotes"></div>
     </div>
   </section>
@@ -138,7 +138,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
     <div class="wrap" style="text-align:center">
       <h2>Your next important room is coming. Sound like you belong in it.</h2>
       <div class="cta"><a class="btn" href="/go/audit/apply/" data-cta="final">Book My Voice Diagnosis →</a>
-        <p class="note"><b>₹1,999</b> · <span data-slots-inline>Few audits each week</span> · Your recording stays private</p></div>
+        <p class="note"><b>₹1,999</b> · <span data-slots-inline>Few slots each week</span> · Your recording stays private</p></div>
     </div>
   </section>
   <footer>© ISFCM LLP · Chandigarh</footer>
@@ -200,7 +200,7 @@ fbq('track','ViewContent',{content_name:'Executive Voice Diagnosis',content_cate
   // Live seats left this week (counted from paid Razorpay orders). Hidden if the count can't be fetched.
   fetch('/api/slots').then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
     if(!d || typeof d.left!=='number') return;
-    var txt = d.left>0 ? (d.left===1 ? 'Last audit left this week' : d.left+' audits left this week')
+    var txt = d.left>0 ? (d.left===1 ? 'Last slot left this week' : d.left+' slots left this week')
                        : 'This week is full · booking now holds a slot next week';
     document.querySelectorAll('[data-slots]').forEach(function(el){ el.innerHTML='<b>'+txt+'</b>'; el.classList.remove('hide'); });
     document.querySelectorAll('[data-slots-inline]').forEach(function(el){ el.textContent=txt; });
