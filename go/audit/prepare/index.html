@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="zone" content="ads">
-<meta name="purpose" content="Voice Audit step 5: what to prepare before the audit.">
+<meta name="purpose" content="Voice Diagnosis step 5: what to prepare before the audit.">
 <meta name="status" content="live">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Prepare · Executive Voice Audit | Gaurang Misra</title>
+<title>Prepare · Executive Voice Diagnosis | Gaurang Misra</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="/img/logo-white.webp">
@@ -25,13 +25,13 @@ fbq('init','3715194611950305');fbq('track','PageView');fbq('trackCustom','AuditP
 </head>
 <body>
 <main class="wrap">
-  <p class="who" style="margin-top:24px">Executive Voice Audit · Gaurang Misra</p>
-  <h1 style="font-size:clamp(28px,7.4vw,36px)">Before your audit</h1>
+  <p class="who" style="margin-top:24px">Executive Voice Diagnosis · Gaurang Misra</p>
+  <h1 style="font-size:clamp(28px,7.4vw,36px)">Before your diagnosis</h1>
   <p class="lead">Five minutes of prep makes this call twice as useful.</p>
 
   <div class="box hot">
     <h2 style="font-size:22px;margin-bottom:10px">1. Has your recording reached me?</h2>
-    <p style="color:var(--fg-2)">If you haven't sent your 2-minute voice note yet, send it now. I need it at least 12 hours before the call.</p>
+    <p style="color:var(--fg-2)">If you haven't sent your 2-minute voice note yet, send it now. I need it at least 3 hours before the call.</p>
     <div class="cta"><a class="btn wa" id="wa" target="_blank" rel="noopener">Send My Recording on WhatsApp →</a></div>
   </div>
 
@@ -81,9 +81,9 @@ fbq('init','3715194611950305');fbq('track','PageView');fbq('trackCustom','AuditP
 <script>
 (function(){
   var A=Audit, c=A.ctx;
-  document.getElementById('wa').href=A.wa('Hi Gaurang, this is '+(c.name||'')+'. Here is my 2-minute recording for my Voice Audit.');
+  document.getElementById('wa').href=A.wa('Hi Gaurang, this is '+(c.name||'')+'. Here is my 2-minute recording for my Voice Diagnosis.');
   document.getElementById('wa').addEventListener('click',function(){ A.custom('RecordingSent',{via:'prepare'}); A.log('recording_wa_click'); });
-  document.getElementById('help').href=A.wa('Hi, I have a question about my Voice Audit.');
+  document.getElementById('help').href=A.wa('Hi, I have a question about my Voice Diagnosis.');
   A.hideIfMissing(document.getElementById('pairbox'),'/img/audit-after.mp4');
 })();
 </script>

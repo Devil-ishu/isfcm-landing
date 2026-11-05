@@ -1,6 +1,6 @@
 # Pages register
 
-_Written by `python3 tools/build.py` on 2026-11-04. Do not edit by hand; change the page headers instead._
+_Written by `python3 tools/build.py` on 2026-11-05. Do not edit by hand; change the page headers instead._
 
 **23 brand · 12 ads · 0 unlisted** · site not launched (nothing indexed) · base https://go.isfcm.com
 
@@ -50,11 +50,11 @@ _Written by `python3 tools/build.py` on 2026-11-04. Do not edit by hand; change 
 
 | Address | What it does | Takes | Status | Edit |
 |---|---|---|---|---|
-| /go/audit/ | Step 1: Executive Voice Audit ad page, multi-step version: apply, book, confirmed, prepare. | /api/enquiry (audit) | check: overlaps /go/voice/ | go/audit/index.html |
-| /go/audit/apply/ | Voice Audit step 2: application form. | /api/enquiry (audit) | live | go/audit/apply/index.html |
-| /go/audit/book/ | Voice Audit step 3: Cal.id booking. | Cal.id | live | go/audit/book/index.html |
-| /go/audit/confirmed/ | Voice Audit step 4: booking confirmed, add to calendar. |  | live | go/audit/confirmed/index.html |
-| /go/audit/prepare/ | Voice Audit step 5: what to prepare before the audit. |  | live | go/audit/prepare/index.html |
+| /go/audit/ | Step 1: Executive Voice Diagnosis ad page, multi-step version: apply, book, confirmed, prepare. | /api/enquiry (audit) | check: overlaps /go/voice/ | go/audit/index.html |
+| /go/audit/apply/ | Voice Diagnosis step 2: application form. | /api/enquiry (audit) | live | go/audit/apply/index.html |
+| /go/audit/book/ | Voice Diagnosis step 3: Cal.id booking. | Cal.id | live | go/audit/book/index.html |
+| /go/audit/confirmed/ | Voice Diagnosis step 4: booking confirmed, add to calendar. |  | live | go/audit/confirmed/index.html |
+| /go/audit/prepare/ | Voice Diagnosis step 5: what to prepare before the audit. |  | live | go/audit/prepare/index.html |
 
 ### diagnosis
 

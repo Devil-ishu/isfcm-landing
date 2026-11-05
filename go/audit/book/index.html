@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="zone" content="ads">
-<meta name="purpose" content="Voice Audit step 3: Cal.id booking.">
+<meta name="purpose" content="Voice Diagnosis step 3: Cal.id booking.">
 <meta name="status" content="live">
 <meta name="form" content="Cal.id">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Book · Executive Voice Audit | Gaurang Misra</title>
+<title>Book · Executive Voice Diagnosis | Gaurang Misra</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="/img/logo-white.webp">
@@ -38,7 +38,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
     <h1 style="font-size:clamp(28px,7.4vw,36px);margin-top:10px"><span id="hi">Reserve your audit</span></h1>
     <p class="lead">Pay to hold your seat. You'll pick your exact time on the next screen, right here.</p>
     <div class="box hot">
-      <p style="font-weight:800;font-size:20px">Executive Voice Audit</p>
+      <p style="font-weight:800;font-size:20px">Executive Voice Diagnosis</p>
       <ul class="check" style="margin-top:12px">
         <li>30 minutes, one-on-one with Gaurang, online</li>
         <li>Your 2-minute recording broken down before the call</li>
@@ -70,7 +70,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
   // Arrived without details (e.g. straight from an ad)? Collect them first.
   if(!c.phone && !c.pid){ location.replace('/go/audit/apply/'); return; }
   if(A.first()) document.getElementById('hi').textContent=A.first()+', reserve your audit';
-  document.getElementById('help').href=A.wa('Hi, I need help booking my Voice Audit. My name is '+(c.name||'')+'.');
+  document.getElementById('help').href=A.wa('Hi, I need help booking my Voice Diagnosis. My name is '+(c.name||'')+'.');
 
   var payview=document.getElementById('payview'), calview=document.getElementById('calview');
   var pay=document.getElementById('pay'), err=document.getElementById('err');
@@ -114,8 +114,8 @@ fbq('init','3715194611950305');fbq('track','PageView');
         // Fire Purchase once, with the payment id as event id (dedupes with any server-side event)
         if(!c.purchased){
           var val=(p&&p.amount)||A.cfg.price;
-          A.track('Purchase',{content_name:'Executive Voice Audit',value:val,currency:'INR'},{eventID:pid});
-          A.ga('purchase',{transaction_id:pid,value:val,currency:'INR',items:[{item_name:'Executive Voice Audit',price:val}]});
+          A.track('Purchase',{content_name:'Executive Voice Diagnosis',value:val,currency:'INR'},{eventID:pid});
+          A.ga('purchase',{transaction_id:pid,value:val,currency:'INR',items:[{item_name:'Executive Voice Diagnosis',price:val}]});
           A.set('purchased',1);
         }
         A.set('paid',1); A.log('paid'); showCal();
@@ -124,7 +124,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
 
   pay.addEventListener('click',function(){
     busy(true); err.textContent='';
-    A.track('InitiateCheckout',{content_name:'Executive Voice Audit',value:1999,currency:'INR'});
+    A.track('InitiateCheckout',{content_name:'Executive Voice Diagnosis',value:1999,currency:'INR'});
     A.ga('begin_checkout',{currency:'INR',value:1999});
     Promise.all([
       fetch('/api/order',{method:'POST',headers:{'content-type':'application/json'},
@@ -135,7 +135,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
       var o=x[0];
       var rz=new Razorpay({
         key:o.key_id, order_id:o.order_id, amount:o.amount, currency:o.currency,
-        name:'ISFCM', description:'Executive Voice Audit · Gaurang Misra',
+        name:'ISFCM', description:'Executive Voice Diagnosis · Gaurang Misra',
         image:location.origin+'/img/logo-white.webp',
         prefill:{name:c.name||'',email:c.email||'',contact:c.phone||''},
         theme:{color:'#CB0000'},
@@ -153,7 +153,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
       rz.open();
     }).catch(function(e){
       busy(false);
-      err.innerHTML='Checkout couldn\'t open. Please try again, or <a href="'+A.wa('Hi, I want to book the Voice Audit but the payment page did not open. My name is '+(c.name||'')+'.')+'">WhatsApp us</a> and we\'ll send you a payment link.';
+      err.innerHTML='Checkout couldn\'t open. Please try again, or <a href="'+A.wa('Hi, I want to book the Voice Diagnosis but the payment page did not open. My name is '+(c.name||'')+'.')+'">WhatsApp us</a> and we\'ll send you a payment link.';
       A.custom('CheckoutError',{product:'audit',reason:(e&&e.error)||'load'});
     });
   });
@@ -165,7 +165,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
     if(data&&data.startTime) A.set('start',data.startTime);
     if(data&&data.endTime) A.set('end',data.endTime);
     A.set('booked',src);
-    if(src==='embed') A.track('Schedule',{content_name:'Executive Voice Audit'}); else A.custom('BookedSelfConfirm',{product:'audit'});
+    if(src==='embed') A.track('Schedule',{content_name:'Executive Voice Diagnosis'}); else A.custom('BookedSelfConfirm',{product:'audit'});
     A.ga('book_appointment',{method:src});
     document.getElementById('bookedmsg').classList.remove('hide');
     var done=false; function next(){ if(done) return; done=true; A.go('/go/audit/confirmed/'); }

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="zone" content="ads">
-<meta name="purpose" content="Voice Audit step 2: application form.">
+<meta name="purpose" content="Voice Diagnosis step 2: application form.">
 <meta name="status" content="live">
 <meta name="form" content="/api/enquiry (audit)">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Apply · Executive Voice Audit | Gaurang Misra</title>
+<title>Apply · Executive Voice Diagnosis | Gaurang Misra</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="/img/logo-white.webp">
@@ -31,7 +31,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
     <p class="step-l">Step 1 of 3 · Your details</p>
   </div>
 
-  <h1 style="font-size:clamp(28px,7.4vw,36px);margin-top:10px">Book your Executive Voice Audit</h1>
+  <h1 style="font-size:clamp(28px,7.4vw,36px);margin-top:10px">Book your Executive Voice Diagnosis</h1>
   <p class="lead">Takes 30 seconds. I use this to prepare for your call.</p>
 
   <form id="f" class="box" novalidate>
@@ -105,7 +105,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
     Audit.set('name',name); Audit.set('phone','+91'+phone); Audit.set('email',email);
     Audit.set('role',f.role.value); Audit.set('room',f.room.value); Audit.set('intent',f.intent.value);
     go.disabled=true; go.textContent='One moment…';
-    Audit.track('Lead',{content_name:'Executive Voice Audit',value:1999,currency:'INR'});
+    Audit.track('Lead',{content_name:'Executive Voice Diagnosis',value:1999,currency:'INR'});
     Audit.ga('generate_lead',{value:1999,currency:'INR'});
     // Move on as soon as the sheet answers, or after 2.5s at most
     var done=false; function next(){ if(done) return; done=true; Audit.go('/go/audit/book/'); }
