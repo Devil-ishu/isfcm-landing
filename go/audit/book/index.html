@@ -13,6 +13,7 @@
 <link rel="icon" href="/img/logo-white.webp">
 <link rel="preconnect" href="https://checkout.razorpay.com">
 <link rel="preconnect" href="https://cal.id">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Spectral:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/audit.css">
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -138,7 +139,7 @@ fbq('init','3715194611950305');fbq('track','PageView');
         name:'ISFCM', description:'Executive Voice Diagnosis · Gaurang Misra',
         image:location.origin+'/img/logo-white.webp',
         prefill:{name:c.name||'',email:c.email||'',contact:c.phone||''},
-        theme:{color:'#CB0000'},
+        theme:{color:'#E3B54E'},
         handler:function(resp){
           A.track('AddPaymentInfo',{value:1999,currency:'INR'});
           pay.textContent='Payment received…';
