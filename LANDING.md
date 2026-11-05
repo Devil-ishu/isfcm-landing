@@ -21,7 +21,7 @@ Rules for every page under `/go/`: the pages Meta and Google ads point to, and t
 9. **Final CTA** repeating the offer.
 
 ## Copy
-- Speak to one person ("you"). Short sentences. Hindi words in Roman script only.
+- Speak to one person ("you"). Short sentences. Headlines, buttons and labels in Title Case (Gaurang's call, Nov 2026); body text in sentence case. Hindi words in Roman script only.
 - Price is stated, not hidden (opposite of brand pages).
 - No "dark psychology", "manipulation" or "seduction" wording in headlines or ad-facing copy (Meta rejects it and it attracts the wrong buyer).
 
