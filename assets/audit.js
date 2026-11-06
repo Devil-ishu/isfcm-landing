@@ -12,7 +12,7 @@
     // Cal.id event: free event (payment happens on our page first), 30 min, next 72 hours only
     cal:'https://cal.id/gaurang-misra/voice-audit',
     // Microsoft Clarity project id (session recordings + heatmaps). Empty = off.
-    clarity:''
+    clarity:'z9ggylo1v1'
   };
 
   // Microsoft Clarity: records how visitors scroll and tap. Tagged with the ad that sent them.
