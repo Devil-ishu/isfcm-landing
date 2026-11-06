@@ -10,8 +10,17 @@
     // Swap to the new WhatsApp Business number once it is set up.
     wa:'919464151610',
     // Cal.id event: free event (payment happens on our page first), 30 min, next 72 hours only
-    cal:'https://cal.id/gaurang-misra/voice-audit'
+    cal:'https://cal.id/gaurang-misra/voice-audit',
+    // Microsoft Clarity project id (session recordings + heatmaps). Empty = off.
+    clarity:''
   };
+
+  // Microsoft Clarity: records how visitors scroll and tap. Tagged with the ad that sent them.
+  if(CFG.clarity){
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",CFG.clarity);
+  }
 
   var KEY='audit_ctx';
   var q=new URLSearchParams(location.search);
@@ -23,6 +32,12 @@
   q.forEach(function(v,k){ if(/^utm_/.test(k)||k==='fbclid') ctx.utm[k]=String(v).slice(0,200); });
   if(q.get('v')) ctx.v=q.get('v');
   save();
+  if(CFG.clarity && window.clarity){
+    try{
+      clarity('set','step',location.pathname.replace(/^\/go\/audit\/?/,'')||'landing');
+      if(ctx.utm.utm_content) clarity('set','ad',ctx.utm.utm_content);
+    }catch(e){}
+  }
 
   function track(n,p,o){ try{ fbq('track',n,p||{},o||{}); }catch(e){} }
   function custom(n,p){ try{ fbq('trackCustom',n,p||{}); }catch(e){} }
