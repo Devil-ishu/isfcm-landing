@@ -116,7 +116,8 @@ function appendByHeader_(ss, tabName, data, firstCols) {
     if (/^[+=]/.test(String(v)) || h === 'phone' || h === 'whatsapp') return "'" + v;
     return v;
   });
-  sh.appendRow(row);
+  SpreadsheetApp.flush(); // finish header writes first (appendRow can fail on a just-created tab)
+  sh.getRange(sh.getLastRow() + 1, 1, 1, row.length).setValues([row]);
 }
 
 function pick_(obj, keys) {
