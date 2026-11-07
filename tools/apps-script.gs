@@ -172,3 +172,92 @@ function out_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj))
     .setMimeType(ContentService.MimeType.JSON);
 }
+
+/* ───────────────────────── Clarity daily log ─────────────────────────
+ * One row per day in the "Clarity Daily" tab: page-level totals for the
+ * Voice Diagnosis funnel (/go/audit/). Totals only — no recordings, no
+ * visitor-level data, nothing about individual people.
+ *
+ * Setup (once):
+ *  1. Project Settings (gear) → Time zone: (GMT+05:30) India Standard Time.
+ *  2. Project Settings → Script properties → Add: CLARITY_TOKEN = <token from
+ *     Clarity → Settings → Data Export>. The token is NEVER written in this file
+ *     (the repo is public).
+ *  3. Select setupClarityLog in the function menu → Run → allow permissions.
+ *     That creates the daily 6 AM trigger and writes today's first row.
+ * Uses 1 of Clarity's 10 API calls per day.
+ */
+var CLARITY_TAB = 'Clarity Daily';
+var CLARITY_FUNNEL = '/go/audit/';
+var CLARITY_STEPS = { apply: '/go/audit/apply/', book: '/go/audit/book/', confirmed: '/go/audit/confirmed/' };
+var CLARITY_COLS = ['day', 'landing_sessions', 'landing_users', 'landing_scroll_pct', 'landing_active_sec',
+  'landing_total_sec', 'landing_quickback_pct', 'landing_rage_pct', 'landing_dead_pct',
+  'apply_sessions', 'book_sessions', 'confirmed_sessions', 'bot_sessions'];
+
+function setupClarityLog() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'logClarityDaily') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('logClarityDaily').timeBased().everyDays(1).atHour(6).create();
+  logClarityDaily();
+}
+
+function logClarityDaily() {
+  var token = PropertiesService.getScriptProperties().getProperty('CLARITY_TOKEN');
+  if (!token) throw new Error('Add CLARITY_TOKEN in Project Settings → Script properties');
+
+  // Label = the day the 24-hour window mostly covers (yesterday, IST)
+  var day = Utilities.formatDate(new Date(Date.now() - 12 * 3600 * 1000), 'Asia/Kolkata', 'yyyy-MM-dd');
+  var ss = SPREADSHEET_ID ? SpreadsheetApp.openById(SPREADSHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+  var sh = ss.getSheetByName(CLARITY_TAB);
+  if (sh && sh.getLastRow() > 1) {
+    var days = sh.getRange(2, 1, sh.getLastRow() - 1, 1).getDisplayValues().map(function (r) { return r[0]; });
+    if (days.indexOf(day) !== -1) return; // already logged (saves an API call)
+  }
+
+  var res = UrlFetchApp.fetch(
+    'https://www.clarity.ms/export-data/api/v1/project-live-insights?numOfDays=1&dimension1=URL',
+    { headers: { Authorization: 'Bearer ' + token }, muteHttpExceptions: true });
+  if (res.getResponseCode() !== 200) {
+    throw new Error('Clarity ' + res.getResponseCode() + ': ' + res.getContentText().slice(0, 200));
+  }
+  var m = {};
+  JSON.parse(res.getContentText()).forEach(function (x) { m[x.metricName] = x.information || []; });
+
+  // Strip ad parameters: every ?utm_… variant of a page counts as that page
+  function path(u) { return String(u || '').replace(/^https?:\/\/[^\/]+/, '').split(/[?#]/)[0]; }
+  var sessions = {}, users = {}, bots = 0, byUrl = {};
+  (m.Traffic || []).forEach(function (r) {
+    var p = path(r.Url), n = Number(r.totalSessionCount) || 0;
+    sessions[p] = (sessions[p] || 0) + n;
+    users[p] = (users[p] || 0) + (Number(r.distinctUserCount) || 0);
+    bots += Number(r.totalBotSessionCount) || 0;
+    byUrl[r.Url] = n;
+  });
+  // Session-weighted average of one field across all variants of the landing page
+  function avg(metric, field) {
+    var sum = 0, w = 0;
+    (m[metric] || []).forEach(function (r) {
+      if (path(r.Url) !== CLARITY_FUNNEL) return;
+      var n = Number(r.sessionsCount) || byUrl[r.Url] || 0;
+      sum += (Number(r[field]) || 0) * n; w += n;
+    });
+    return w ? Math.round(sum / w * 10) / 10 : '';
+  }
+
+  appendByHeader_(ss, CLARITY_TAB, {
+    day: day,
+    landing_sessions: sessions[CLARITY_FUNNEL] || 0,
+    landing_users: users[CLARITY_FUNNEL] || 0,
+    landing_scroll_pct: avg('ScrollDepth', 'averageScrollDepth'),
+    landing_active_sec: avg('EngagementTime', 'activeTime'),
+    landing_total_sec: avg('EngagementTime', 'totalTime'),
+    landing_quickback_pct: avg('QuickbackClick', 'sessionsWithMetricPercentage'),
+    landing_rage_pct: avg('RageClickCount', 'sessionsWithMetricPercentage'),
+    landing_dead_pct: avg('DeadClickCount', 'sessionsWithMetricPercentage'),
+    apply_sessions: sessions[CLARITY_STEPS.apply] || 0,
+    book_sessions: sessions[CLARITY_STEPS.book] || 0,
+    confirmed_sessions: sessions[CLARITY_STEPS.confirmed] || 0,
+    bot_sessions: bots
+  }, CLARITY_COLS);
+}
