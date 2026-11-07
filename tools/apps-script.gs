@@ -326,7 +326,7 @@ var WA_TEXT = {
   profile_result: 'Hi {{1}}, your Influence Profile result is ready.',
   enquiry_received: 'Hi {{1}}, we have received your {{2}} enquiry. Our team will contact you within 24 hours on this number.',
   payment_pending: 'Hi {{1}}, your {{2}} application is received, but payment is not complete yet. Slots are held for a limited time.',
-  no_show: 'Hi {{1}}, we missed you at your {{2}} scheduled for {{3}} IST. You can book a new time at no extra cost.'
+  no_show: 'Hi {{1}}, we missed you at your {{2}} scheduled for {{3}} IST. Your payment remains valid. Pick a new time below.'
 };
 var WA_BUTTON = { payment_confirmed: 'Book my slot', booking_confirmed: 'Prepare', reminder_24h: 'Join link',
   reminder_1h: 'Join now', payment_failed: 'Try again', booking_cancelled: 'Pick a new time',
