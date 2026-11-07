@@ -69,6 +69,9 @@ function __am(){var d={};['audit_ctx','diag_ctx'].forEach(function(k){try{var c=
 <script>
 (function(){
   var A=Audit, c=A.ctx;
+  // Opened from the WhatsApp "Book my slot" button: ?pid=pay_… proves the payment on any device.
+  var qpid=new URLSearchParams(location.search).get('pid')||'';
+  if(/^pay_[A-Za-z0-9]{6,40}$/.test(qpid) && qpid!==c.pid) A.set('pid',qpid);
   // Arrived without details (e.g. straight from an ad)? Collect them first.
   if(!c.phone && !c.pid){ location.replace('/go/audit/apply/'); return; }
   if(A.first()) document.getElementById('hi').textContent=A.first()+', reserve your diagnosis';
@@ -102,6 +105,11 @@ function __am(){var d={};['audit_ctx','diag_ctx'].forEach(function(k){try{var c=
   else if(c.phone){
     fetch('/api/order',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({product:'audit',phone:c.phone,check_only:true})})
       .then(function(r){ return r.ok?r.json():null; }).then(function(j){ if(j&&j.already_paid) alreadyPaid(j); }).catch(function(){});
+  }
+  // Only a payment id (WhatsApp button on a new device) → check it with Razorpay
+  else if(c.pid){
+    fetch('/api/payment?pid='+encodeURIComponent(c.pid))
+      .then(function(r){ return r.json(); }).then(function(p){ if(p&&p.ok&&p.tier==='audit') alreadyPaid({payment_id:c.pid}); }).catch(function(){});
   }
   function alreadyPaid(j){
     if(j.payment_id) A.set('pid',j.payment_id);

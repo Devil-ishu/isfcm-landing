@@ -6,9 +6,9 @@
   var CFG={
     price:1999,
     product:'Executive Voice Audit',
-    // WhatsApp number that receives the 2-minute recordings (digits only, with 91).
-    // Swap to the new WhatsApp Business number once it is set up.
-    wa:'919464151610',
+    // WhatsApp Business number (+91 62840 65488) that receives the 2-minute recordings
+    // and sends the automated booking messages. Digits only, with 91.
+    wa:'916284065488',
     // Cal.id event: free event (payment happens on our page first), 30 min, next 72 hours only
     cal:'https://cal.id/gaurang-misra/voice-audit',
     // Microsoft Clarity project id (session recordings + heatmaps). Empty = off.

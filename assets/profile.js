@@ -306,7 +306,7 @@
       '<div class="stack-s"><p class="soft">Your type is ready</p><h1>' + esc(T.name) + '</h1><p class="soft">' + esc(T.tag) + '</p></div>' +
       '<div class="rows"><div><span>Your influence map</span>' + lock() + '</div><div><span>The habit leaking your authority</span>' + lock() + '</div><div><span>Your 7-day fix</span>' + lock() + '</div></div>' +
       fieldHtml({ k: 'name', type: 'text', label: 'First name', req: 1, ac: 'given-name' }) +
-      fieldHtml({ k: 'whatsapp', type: 'tel', label: 'WhatsApp number', req: 1, ac: 'tel', ph: '+91' }) +
+      fieldHtml({ k: 'whatsapp', type: 'tel', label: 'WhatsApp number', req: 1, ac: 'tel', ph: '+91', hint: 'Your profile link comes here on WhatsApp too.' }) +
       '<div class="hp" aria-hidden="true"><label>Website <input name="website" id="hp" tabindex="-1" autocomplete="off"></label></div>' +
       '<p class="ferr" id="err" role="alert"></p>' +
       '<div class="stack-s"><button class="btn" type="submit">Open my full profile</button><p class="small center">It opens here, with a link you can keep.</p></div>' +
@@ -342,7 +342,7 @@
     DIM_IDS.forEach(function (k) { body['dim_' + k] = r.dims[k]; });
     S.ans.forEach(function (ai, qi) { body['q' + (qi + 1)] = ai == null ? '' : Q[qi].opts[ai].l; body['q' + (qi + 1) + '_secs'] = S.ms[qi] == null ? '' : Math.round(S.ms[qi] / 100) / 10; });
     Object.keys(S.f).forEach(function (k) { body[k] = S.f[k]; });
-    if (!BOOKED) body.phone = S.f.whatsapp;
+    if (!BOOKED) { body.phone = S.f.whatsapp; body.result_code = code(r); } // the Apps Script WhatsApps the result link
 
     render('<div class="wrap"><div class="mid center"><div class="spin" aria-hidden="true"></div><p class="soft">Reading your answers…</p></div></div>');
     var tries = 0;
