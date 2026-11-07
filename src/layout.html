@@ -23,7 +23,7 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
 document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','3715194611950305');fbq('track','PageView');
+function __am(){var d={};['audit_ctx','diag_ctx'].forEach(function(k){try{var c=JSON.parse(localStorage.getItem(k)||'{}');if(c.email&&!d.em)d.em=String(c.email).trim().toLowerCase();var p=String(c.phone||c.whatsapp||'').replace(/\D/g,'');if(p.length>=10&&!d.ph)d.ph=(p.length===10?'91':'')+p;var n=String(c.name||'').trim().split(/\s+/);if(n[0]&&!d.fn){d.fn=n[0].toLowerCase();if(n.length>1)d.ln=n[n.length-1].toLowerCase();}}catch(e){}});return d;}fbq('init','3715194611950305',__am());fbq('track','PageView');
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HQBDR8Z7WP"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-HQBDR8Z7WP');</script>

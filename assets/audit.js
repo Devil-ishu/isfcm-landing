@@ -39,6 +39,17 @@
     }catch(e){}
   }
 
+  // Advanced matching: once the buyer has typed their details, hand them to the pixel
+  // (the pixel hashes them with SHA-256 before sending).
+  function matchUser(){
+    try{
+      var d={};
+      if(ctx.email) d.em=String(ctx.email).trim().toLowerCase();
+      var p=String(ctx.phone||'').replace(/\D/g,''); if(p.length>=10) d.ph=(p.length===10?'91':'')+p;
+      var nm=String(ctx.name||'').trim().split(/\s+/); if(nm[0]){ d.fn=nm[0].toLowerCase(); if(nm.length>1) d.ln=nm[nm.length-1].toLowerCase(); }
+      if(Object.keys(d).length) fbq('init','3715194611950305',d);
+    }catch(e){}
+  }
   function track(n,p,o){ try{ fbq('track',n,p||{},o||{}); }catch(e){} }
   function custom(n,p){ try{ fbq('trackCustom',n,p||{}); }catch(e){} }
   function ga(n,p){ try{ gtag('event',n,p||{}); }catch(e){} }
@@ -61,6 +72,7 @@
       }catch(e){ return Promise.resolve(false); }
     },
     // WhatsApp link with the message already typed
+    matchUser:matchUser,
     wa:function(text){ return 'https://wa.me/'+CFG.wa+'?text='+encodeURIComponent(text); },
     // Hide a media block if its file isn't uploaded yet, so the page never shows a broken player
     hideIfMissing:function(el,url){
