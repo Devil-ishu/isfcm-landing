@@ -2,7 +2,6 @@
 title: Private Diagnosis | Gaurang Misra
 description: Forty-five minutes, one to one. Gaurang Misra finds the pattern that is costing you the room and shows you how to reverse it. Pay what you believe it's worth.
 path: /request-diagnosis/
-theme: off
 -->
   <section class="wrap page-head with-photo">
     <div>
@@ -121,7 +120,7 @@ theme: off
       var rz=new Razorpay({
         key:o.key_id, order_id:o.order_id, amount:o.amount, currency:o.currency,
         name:'ISFCM', description:'45-minute private diagnosis with Gaurang Misra',
-        theme:{color:'#010066'}, notes:{tier:String(t),source:'site'},
+        theme:{color:'#E6006F'}, notes:{tier:String(t),source:'site'},
         handler:function(resp){
           fb('AddPaymentInfo',{value:t,currency:'INR'});
           location.href='/go/diagnosis/book/?pid='+encodeURIComponent(resp.razorpay_payment_id)+'&oid='+encodeURIComponent(resp.razorpay_order_id);

@@ -2,25 +2,32 @@
 
 > Applies to **brand pages only** (everything outside `/go/` and `/u/`). Ad and funnel pages under `/go/` follow LANDING.md instead. See PAGES.md for which page is in which zone.
 
-Direction: **advisory, not coaching.** The buyer is a founder or CXO. The sites he already trusts (executive search and board advisory firms) are white, quiet, serif-led and photo-led. Speaker and coach sites (dark backgrounds, yellow buttons, stage photos) read as course-selling, so we avoid that look entirely.
+Direction: **advisory, not coaching.** The buyer is a founder or CXO. Quiet, serif-led and photo-led like the advisory firms he trusts, but on navy instead of white (white glared; changed 9 Nov 2026). Speaker and coach sites (black backgrounds, yellow buttons, stage photos, hype) read as course-selling. We stay clear of that by keeping the navy (not black), calm serif type, quiet photos and pink only on buttons.
 
 References studied (2 Nov 2026): egonzehnder.com, spencerstuart.com (the buyer's world); vinhgiang.com, juliantreasure.com, blackswanltd.com, simonsinek.com (the category to stand apart from).
 
 ## Color
 
+Navy page, white text, hot pink for anything you can click (Gaurang's call, 9 Nov 2026). Dark mode toggle removed: there is one look.
+
 | Token | Value | Role |
 | --- | --- | --- |
-| `--ink` | `#14141F` | Body text, headings |
-| `--ink-soft` | `#4B4B57` | Supporting text (7.9:1 on white) |
-| `--line` | `#DCDDE1` | Hairlines, input borders |
-| `--paper` | `#FFFFFF` | Page background |
-| `--mist` | `#EEF0F2` | Alternate section band, cool grey (never cream) |
-| `--brand` | `#010066` | Primary buttons, links, the one strong mark. Carried over from the ISFCM logo for continuity |
-| `--brand-hover` | `#1A1A85` | Button hover |
-| `--night` | `#0A0A2E` | One dark band only: the voice before/after section |
-| `--ok` `--warn` `--error` | `#1F7A4D` `#9A6400` `#B3261E` | Form states only |
+| `--paper` | `#010066` | Page background (ISFCM navy) |
+| `--mist` | `#0A0A7A` | Alternate section band, a step lighter |
+| `--night` | `#00003D` | Deep band: voice before/after section and footer |
+| `--ink` | `#FFFFFF` | Headings, body text, text links (17.6:1) |
+| `--ink-soft` | `#C5C7E8` | Supporting text (10.7:1) |
+| `--line` | `#2A2A86` | Hairlines |
+| `--field` / `--field-line` | `#08087A` / `#5A5CB0` | Inputs |
+| `--accent` | `#E6006F` | **Buttons only.** White label on it (4.6:1) |
+| `--accent-hover` | `#FF1A80` | Button hover |
+| `--ok` `--error` | `#7DE0AE` `#FF9A9A` | Form states only |
 
-No accent colour. No gradients. The logo's pink, teal, purple and sky blue are retired.
+**The pink rule:** hot pink appears only on things you can click that move someone forward: primary buttons, the selected price tier, the primary card on /links/, form controls. Never on headings, icons, borders, highlights or decoration. A button pulls the eye because it is the only pink thing on the screen; every other use of pink weakens it. Text links stay white and underlined.
+
+Buttons: 17px semibold, 56px tall, soft pink glow, lift 1px on hover. One primary button per screen; the secondary action is a white text link.
+
+No gradients. The logo's teal, purple and sky blue stay retired.
 
 ## Typography
 
@@ -54,11 +61,11 @@ Sentence case everywhere. No all-caps labels, no eyebrow text above headings, no
 
 ## Components
 
-- **Primary button:** brand fill, white Albert Sans 600, 16px, 14px × 24px padding. Hover brand-hover. Focus: 2px brand outline offset 3px. One per screen.
+- **Primary button:** hot pink fill (`--accent`), white Albert Sans 600, 17px, 19px × 30px padding, 56px tall, soft pink glow. Hover `--accent-hover` and 1px lift. Focus: 2px white outline offset 3px. One per screen.
 - **Secondary button:** text link in brand with an underline that thickens on hover. No outlined buttons.
 - **Proof strip:** four figures in Spectral 34px with a 14px caption under each, separated by hairlines, not cards.
 - **Case story:** role and industry in small text, problem and outcome in body text, a hairline above. Stacked list, never a 3-card grid.
-- **Voice player:** the signature element. Night band, two large play controls (Before / After) with a waveform line drawn in white. The only dark section on the site.
+- **Voice player:** the signature element. Night band, two large play controls (Before / After) with a waveform line drawn in white. The deepest band on the site (`--night`).
 - **Navigation:** name wordmark left, three links and one button right. Collapses to a menu under 768px.
 - **Footer:** mist band, ISFCM wordmark in monochrome, "© 2026 ISFCM LLP", phone +91 94641 51610, legal links.
 
@@ -71,7 +78,7 @@ Sentence case everywhere. No all-caps labels, no eyebrow text above headings, no
 ## Imagery
 
 - Real photographs of Gaurang only: side-lit, mid-sentence, hands visible, in a real room. Full-bleed or half-bleed, never in a rounded frame.
-- Black and white or low-saturation colour, so the navy stays the only colour.
+- Black and white or low-saturation colour, so navy and the pink buttons stay the only colours.
 - No stock photos, no illustrations, no AI-generated people.
 - Icons: none in body copy. Interface icons from one outline set, 1.5px stroke.
 
@@ -88,4 +95,4 @@ Placeholders that need a real fact are marked `<em class="todo">` (yellow) or `<
 Forms post to `/api/enquiry` (functions/api/enquiry.js), which forwards to the Google Apps Script in `APPS_SCRIPT_URL` with a `form` field (mentorship, executive, seminar, contact, istc, archetype, audit; the questionnaire sends `questionnaire`). The Influence Profile (/profile/) posts to `/api/profile`, which adds the call brief for booked buyers and the script emails it under the Gmail label "Diagnosis Briefs". The script in `tools/apps-script.gs` writes each form to its own tab by column name, plus an "All Leads" tab.
 
 ## Dark mode
-Opt-in toggle (sun/moon) in the nav of every main-site page; the choice is saved per browser and the site opens in light by default. Dark tokens live at the end of assets/site.css under `[data-theme="dark"]`; buttons stay navy, links lighten to #A8A8FF. Pages with `theme: off` in their src header (currently /request-diagnosis/) never get it. Hand-written funnel pages (/diagnosis/, /book/, /prepare/, /questionnaire/, /done/, /voice/, /audit/, /archetype/, /profile/) don't use the layout and stay light.
+Removed 9 Nov 2026. The site has one look: navy, white, pink buttons. Hand-written pages under /go/ follow LANDING.md and have their own styles.

@@ -23,7 +23,6 @@ PAGE HEADERS
       zone: brand         (optional, brand is the default; or unlisted)
       status: live        (optional, shown in PAGES.md)
       reached: Instagram bio   (optional, overrides "Where it's reached")
-      theme: off          (optional, no dark-mode toggle)
       -->
   Hand-written pages under go/ carry meta tags in <head>:
       <meta name="zone" content="ads">
@@ -55,17 +54,6 @@ NAV = ["work", "seminars", "results", "about"]
 SKIP_DIRS = {".git", "src", "tools", "functions", "assets", "img", "node_modules"}
 UNLISTED_RE = re.compile(r"^/u/[a-z0-9]{6}-[a-z0-9-]+/$")
 
-# Dark mode. Pages with "theme: off" in their header (conversion pages such as
-# /request-diagnosis/) get neither, so they always render in the light design.
-THEME_HEAD = """<script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
-"""
-THEME_TOGGLE = (
-    '<button class="theme" type="button" aria-pressed="false" aria-label="Dark mode">'
-    '<svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>'
-    '<svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/>'
-    '<path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
-    '</button>\n    '
-)
 
 HEADERS_START = "# --- zones (written by tools/build.py) ---"
 HEADERS_END = "# --- end zones ---"
@@ -113,9 +101,6 @@ def render(meta, body):
     html = html.replace("{{description}}", meta["description"])
     html = html.replace("{{path}}", meta["path"])
     html = html.replace("{{robots}}", robots(meta))
-    themed = meta.get("theme", "on") != "off"
-    html = html.replace("{{theme_head}}", THEME_HEAD if themed else "")
-    html = html.replace("{{theme_toggle}}", THEME_TOGGLE if themed else "")
     html = html.replace("{{head_extra}}", meta.get("head", ""))
     html = html.replace("{{body}}", body.rstrip() + "\n")
     return html
@@ -358,7 +343,7 @@ def write_unlisted_index(pages):
         f'<li><a href="{p["path"]}">{p["title"]}</a><span>{p["purpose"]}</span></li>' for p in items
     ) or "<li>No unlisted pages yet.</li>"
     meta = {"title": "Unlisted pages | Gaurang Misra", "description": "Index of unlisted pages.",
-            "path": idx, "zone": "unlisted", "theme": "off"}
+            "path": idx, "zone": "unlisted"}
     body = f"""  <section class="wrap page-head">
     <h1>Unlisted pages</h1>
     <p class="lede">Open to anyone with the link. Not in search, not linked from the site.</p>
@@ -397,7 +382,6 @@ purpose: {name.strip()}
 path: {path}
 zone: unlisted
 status: draft
-theme: off
 -->
   <section class="wrap page-head">
     <h1>{name.strip().title()}</h1>

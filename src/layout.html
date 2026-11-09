@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#010066">
 <title>{{title}}</title>
 <meta name="description" content="{{description}}">
 {{robots}}
@@ -17,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;600&family=Spectral:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/site.css">
-{{theme_head}}<script>
+<script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
@@ -35,7 +36,7 @@ function __am(){var d={};['audit_ctx','diag_ctx'].forEach(function(k){try{var c=
   <nav class="nav" aria-label="Main">
     <a class="mark" href="/">Gaurang Misra</a>
     <div class="nav-end">
-    {{theme_toggle}}<button class="menu" aria-expanded="false" aria-controls="nav-links">Menu</button>
+    <button class="menu" aria-expanded="false" aria-controls="nav-links">Menu</button>
     <ul id="nav-links">
       <li><a href="/work-with-me/"{{active_work}}>Work with me</a></li>
       <li><a href="/seminars/"{{active_seminars}}>Seminars</a></li>
