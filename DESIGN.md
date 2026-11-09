@@ -2,28 +2,29 @@
 
 > Applies to **brand pages only** (everything outside `/go/` and `/u/`). Ad and funnel pages under `/go/` follow LANDING.md instead. See PAGES.md for which page is in which zone.
 
-Direction: **advisory, not coaching.** The buyer is a founder or CXO. Quiet, serif-led and photo-led like the advisory firms he trusts, but on navy instead of white (white glared; changed 9 Nov 2026). Speaker and coach sites (black backgrounds, yellow buttons, stage photos, hype) read as course-selling. We stay clear of that by keeping the navy (not black), calm serif type, quiet photos and pink only on buttons.
+Direction: **advisory, not coaching.** The buyer is a founder or CXO. Quiet, serif-led and photo-led like the advisory firms he trusts, but on near-black instead of white (white glared; changed 9 Nov 2026). Speaker and coach sites (black backgrounds, yellow buttons, stage photos, hype) read as course-selling. We stay clear of that with calm serif type, soft off-white text instead of pure white, quiet photos and pink only on buttons.
 
 References studied (2 Nov 2026): egonzehnder.com, spencerstuart.com (the buyer's world); vinhgiang.com, juliantreasure.com, blackswanltd.com, simonsinek.com (the category to stand apart from).
 
 ## Color
 
-Navy page, white text, hot pink for anything you can click (Gaurang's call, 9 Nov 2026). Dark mode toggle removed: there is one look.
+Near-black page, off-white text, hot pink for anything you can click (Gaurang's call, 9 Nov 2026: the old dark-mode palette became the only look; toggle removed).
 
 | Token | Value | Role |
 | --- | --- | --- |
-| `--paper` | `#010066` | Page background (ISFCM navy) |
-| `--mist` | `#0A0A7A` | Alternate section band, a step lighter |
-| `--night` | `#00003D` | Deep band: voice before/after section and footer |
-| `--ink` | `#FFFFFF` | Headings, body text, text links (17.6:1) |
-| `--ink-soft` | `#C5C7E8` | Supporting text (10.7:1) |
-| `--line` | `#2A2A86` | Hairlines |
-| `--field` / `--field-line` | `#08087A` / `#5A5CB0` | Inputs |
+| `--paper` | `#0F0F19` | Page background |
+| `--mist` | `#171724` | Alternate section band, footer, inputs |
+| `--night` | `#07071F` | Deepest band: voice before/after section |
+| `--ink` | `#ECECF3` | Headings and body text |
+| `--ink-soft` | `#A9A9B8` | Supporting text |
+| `--line` | `#2B2B3D` | Hairlines |
+| `--link` | `#A8A8FF` | Text links |
+| `--field` / `--field-line` | `#171724` / `#3A3A50` | Inputs |
 | `--accent` | `#E6006F` | **Buttons only.** White label on it (4.6:1) |
 | `--accent-hover` | `#FF1A80` | Button hover |
-| `--ok` `--error` | `#7DE0AE` `#FF9A9A` | Form states only |
+| `--ok` `--error` | `#7DD3A5` `#F28B82` | Form states only |
 
-**The pink rule:** hot pink appears only on things you can click that move someone forward: primary buttons, the selected price tier, the primary card on /links/, form controls. Never on headings, icons, borders, highlights or decoration. A button pulls the eye because it is the only pink thing on the screen; every other use of pink weakens it. Text links stay white and underlined.
+**The pink rule:** hot pink appears only on things you can click that move someone forward: primary buttons, the selected price tier, the primary card on /links/, form controls. Never on headings, icons, borders, highlights or decoration. A button pulls the eye because it is the only pink thing on the screen; every other use of pink weakens it. Text links stay lavender (#A8A8FF) and underlined.
 
 Buttons: 17px semibold, 56px tall, soft pink glow, lift 1px on hover. One primary button per screen; the secondary action is a white text link.
 
@@ -78,7 +79,7 @@ Sentence case everywhere. No all-caps labels, no eyebrow text above headings, no
 ## Imagery
 
 - Real photographs of Gaurang only: side-lit, mid-sentence, hands visible, in a real room. Full-bleed or half-bleed, never in a rounded frame.
-- Black and white or low-saturation colour, so navy and the pink buttons stay the only colours.
+- Black and white or low-saturation colour, so the pink buttons stay the only strong colour.
 - No stock photos, no illustrations, no AI-generated people.
 - Icons: none in body copy. Interface icons from one outline set, 1.5px stroke.
 
@@ -95,4 +96,4 @@ Placeholders that need a real fact are marked `<em class="todo">` (yellow) or `<
 Forms post to `/api/enquiry` (functions/api/enquiry.js), which forwards to the Google Apps Script in `APPS_SCRIPT_URL` with a `form` field (mentorship, executive, seminar, contact, istc, archetype, audit; the questionnaire sends `questionnaire`). The Influence Profile (/profile/) posts to `/api/profile`, which adds the call brief for booked buyers and the script emails it under the Gmail label "Diagnosis Briefs". The script in `tools/apps-script.gs` writes each form to its own tab by column name, plus an "All Leads" tab.
 
 ## Dark mode
-Removed 9 Nov 2026. The site has one look: navy, white, pink buttons. Hand-written pages under /go/ follow LANDING.md and have their own styles.
+Removed 9 Nov 2026. The site has one look: the old dark palette with pink buttons. Hand-written pages under /go/ follow LANDING.md and have their own styles.
