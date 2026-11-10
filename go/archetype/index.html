@@ -10,19 +10,19 @@
 <title>Seducer Type Test | Gaurang Misra</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="A 27-question test to find your natural seducer type.">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#0F0F19">
 <link rel="icon" href="/img/logo-white.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;500&family=Albert+Sans:wght@400;600&display=swap" rel="stylesheet">
 <style>
-/* Follows DESIGN.md: white paper, navy brand, Spectral headlines, Albert Sans body, 2px radius, no shadows. One column, one question per screen. */
+/* Site look since 10 Nov 2026: near-black page, pink only on buttons and picks, Spectral headlines, Albert Sans body, 2px radius, no shadows. One column, one question per screen. */
 :root{
-  --ink:#14141F; --ink-soft:#4B4B57; --line:#DCDDE1; --paper:#FFFFFF; --mist:#EEF0F2;
-  --brand:#010066; --brand-hover:#1A1A85; --pick:#E9E9F6; --second:#5A5A8C;
+  --ink:#ECECF3; --ink-soft:#A9A9B8; --line:#2B2B3D; --paper:#0F0F19; --mist:#171724; --link:#A8A8FF; --field:#171724; --field-line:#3A3A50;
+  --brand:#E6006F; --brand-hover:#FF1A80; --pick:#2A1024; --second:#8A3A64;
   --serif:'Spectral', Georgia, 'Times New Roman', serif;
   --sans:'Albert Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  color-scheme:light;
+  color-scheme:dark;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
@@ -40,37 +40,37 @@ section{display:flex;flex-direction:column;gap:24px}
 [hidden]{display:none!important}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:14px 24px;background:var(--brand);color:#fff;border:0;border-radius:2px;font:600 16px var(--sans);cursor:pointer;text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:56px;box-shadow:0 8px 24px -6px rgba(230,0,111,.55);padding:14px 24px;background:var(--brand);color:#fff;border:0;border-radius:2px;font:600 16px var(--sans);cursor:pointer;text-decoration:none}
 .btn:hover{background:var(--brand-hover)}
 .btn:disabled{opacity:.35;cursor:default;background:var(--brand)}
-.btn:focus-visible,.link:focus-visible,.opt:focus-visible,input:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
-.link{background:none;border:0;font:600 16px var(--sans);color:var(--brand);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;cursor:pointer;padding:12px 4px}
+.btn:focus-visible,.link:focus-visible,.opt:focus-visible,input:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.link{background:none;border:0;font:600 16px var(--sans);color:var(--link);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;cursor:pointer;padding:12px 4px}
 .link:hover{text-decoration-thickness:2px}
 .link:disabled{color:var(--line);cursor:default;text-decoration:none}
 
 /* intro */
 .how{border-top:1px solid var(--line)}
 .how li{list-style:none;display:grid;grid-template-columns:28px 1fr;gap:8px;padding:16px 0;border-bottom:1px solid var(--line)}
-.how li span:first-child{font-family:var(--serif);font-size:20px;color:var(--brand);line-height:1.4}
+.how li span:first-child{font-family:var(--serif);font-size:20px;color:var(--ink-soft);line-height:1.4}
 .types{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));border-top:1px solid var(--line)}
 .types div{padding:12px 0;border-bottom:1px solid var(--line);display:flex;flex-direction:column}
 .types b{font-family:var(--serif);font-weight:500;font-size:19px}
 .types span{font-size:14px;color:var(--ink-soft)}
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-weight:600}
-.field input{font:17px var(--sans);padding:13px 14px;border:1px solid var(--line);border-radius:2px;color:var(--ink);background:var(--paper);width:100%}
-.err{color:#B3261E;font-size:14px;min-height:1em}
+.field input{font:17px var(--sans);padding:13px 14px;border:1px solid var(--field-line);border-radius:2px;color:var(--ink);background:var(--field);width:100%}
+.err{color:#F28B82;font-size:14px;min-height:1em}
 
 /* quiz */
 .top{display:flex;flex-direction:column;gap:10px}
 .count{display:flex;justify-content:space-between;font-size:14px;color:var(--ink-soft);font-variant-numeric:tabular-nums}
 .bar{height:4px;background:var(--mist)}
-.bar i{display:block;height:100%;width:0;background:var(--brand);transition:width .3s}
+.bar i{display:block;height:100%;width:0;background:var(--ink);transition:width .3s}
 .q{font-family:var(--serif);font-weight:500;font-size:clamp(25px,6vw,32px);line-height:1.25;text-wrap:balance}
 .tip{font-size:15px;color:var(--ink-soft);background:var(--mist);padding:10px 14px;border-radius:2px}
 .opts{display:flex;flex-direction:column;gap:8px}
 .opt{display:flex;gap:14px;align-items:flex-start;width:100%;text-align:left;padding:14px 16px;border:1px solid var(--line);border-radius:2px;background:var(--paper);color:var(--ink);font:17px/1.5 var(--sans);cursor:pointer}
-.opt:hover{border-color:var(--brand)}
+.opt:hover{border-color:var(--ink-soft)}
 .opt[aria-pressed="true"]{border-color:var(--brand);background:var(--pick)}
 .mark{flex:none;width:44px;text-align:center;font-size:12px;font-weight:600;padding:3px 0;border:1px solid var(--line);border-radius:2px;color:var(--ink-soft);margin-top:2px}
 .opt[aria-pressed="true"] .mark{background:var(--brand);border-color:var(--brand);color:#fff}
@@ -79,7 +79,7 @@ section{display:flex;flex-direction:column;gap:24px}
 
 /* result */
 .you{font-size:15px;color:var(--ink-soft)}
-.big{font-family:var(--serif);font-weight:500;font-size:clamp(48px,13vw,76px);line-height:1;color:var(--brand)}
+.big{font-family:var(--serif);font-weight:500;font-size:clamp(48px,13vw,76px);line-height:1;color:var(--ink)}
 .nick{font-family:var(--serif);font-size:24px;color:var(--ink-soft);margin-top:4px}
 .block{border-top:1px solid var(--line);padding-top:24px;display:flex;flex-direction:column;gap:14px}
 .list{display:grid;grid-template-columns:140px 1fr;gap:12px 16px}
@@ -92,7 +92,7 @@ section{display:flex;flex-direction:column;gap:24px}
 .srow .n{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-soft)}
 .track{height:10px;background:var(--mist)}
 .track i{display:block;height:100%;background:var(--line)}
-.srow.p .track i{background:var(--brand)} .srow.s .track i{background:var(--second)}
+.srow.p .track i{background:var(--ink)} .srow.s .track i{background:var(--ink-soft)}
 .srow.p,.srow.s{font-weight:600}
 .actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .saved{font-size:14px;color:var(--ink-soft)}
