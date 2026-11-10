@@ -319,7 +319,7 @@
       submit(document.getElementById('hp').value);
     };
   }
-  function lock() { return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4B4B57" stroke-width="1.5" aria-label="Locked" role="img"><rect x="5" y="11" width="14" height="9" rx="1"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>'; }
+  function lock() { return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A9A9B8" stroke-width="1.5" aria-label="Locked" role="img"><rect x="5" y="11" width="14" height="9" rx="1"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>'; }
 
   // ---------- submit ----------
   var sending = false;

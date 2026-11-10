@@ -5,7 +5,8 @@
 /prepare/*        /go/diagnosis/prepare/:splat  301
 /done/*           /go/diagnosis/done/:splat     301
 /profile/*        /go/profile/:splat     301
-/voice/*          /go/voice/:splat       301
+/voice/*          /go/audit/       301
+/go/voice/*       /go/audit/       301
 /audit/*          /go/audit/:splat       301
 /archetype/*      /go/archetype/:splat   301
 /questionnaire/*  /go/profile/           301
@@ -14,7 +15,8 @@
 /prepare          /go/diagnosis/prepare/  301
 /done             /go/diagnosis/done/   301
 /profile          /go/profile/     301
-/voice            /go/voice/       301
+/voice            /go/audit/       301
+/go/voice         /go/audit/       301
 /audit            /go/audit/       301
 /archetype        /go/archetype/   301
 /questionnaire    /go/profile/     301

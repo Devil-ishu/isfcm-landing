@@ -2,7 +2,7 @@
 
 _Written by `python3 tools/build.py` on 2026-11-10. Do not edit by hand; change the page headers instead._
 
-**23 brand · 12 ads · 0 unlisted** · site not launched (nothing indexed) · base https://go.isfcm.com
+**23 brand · 11 ads · 0 unlisted** · site not launched (nothing indexed) · base https://go.isfcm.com
 
 | Zone | Address | For | Rules |
 |---|---|---|---|
@@ -50,7 +50,7 @@ _Written by `python3 tools/build.py` on 2026-11-10. Do not edit by hand; change 
 
 | Address | What it does | Takes | Status | Edit |
 |---|---|---|---|---|
-| /go/audit/ | Step 1: Executive Voice Diagnosis ad page, multi-step version: apply, book, confirmed, prepare. | /api/enquiry (audit) | check: overlaps /go/voice/ | go/audit/index.html |
+| /go/audit/ | Step 1: Executive Voice Diagnosis ad page, multi-step version: apply, book, confirmed, prepare. | /api/enquiry (audit) | live | go/audit/index.html |
 | /go/audit/apply/ | Voice Diagnosis step 2: application form. | /api/enquiry (audit) | live | go/audit/apply/index.html |
 | /go/audit/book/ | Voice Diagnosis step 3: Cal.id booking. | Cal.id | live | go/audit/book/index.html |
 | /go/audit/confirmed/ | Voice Diagnosis step 4: booking confirmed, add to calendar. |  | live | go/audit/confirmed/index.html |
@@ -71,12 +71,6 @@ _Written by `python3 tools/build.py` on 2026-11-10. Do not edit by hand; change 
 |---|---|---|---|---|
 | /go/profile/ | Influence Profile. Step 4 of the diagnosis funnel when booked (?pid=, builds the call brief); also the reel lead magnet (?src=). ?r= shows a saved result. | /api/profile | live | go/profile/index.html |
 
-### voice
-
-| Address | What it does | Takes | Status | Edit |
-|---|---|---|---|---|
-| /go/voice/ | Executive Voice Audit ad page, single-page version (recording upload, then Cal.id). | Cal.id | check: overlaps /go/audit/ | go/voice/index.html |
-
 ## Unlisted
 
 None yet. Create one with `python3 tools/build.py new "name"`.
@@ -91,7 +85,8 @@ None yet. Create one with `python3 tools/build.py new "name"`.
 /prepare/*        /go/diagnosis/prepare/:splat  301
 /done/*           /go/diagnosis/done/:splat     301
 /profile/*        /go/profile/:splat     301
-/voice/*          /go/voice/:splat       301
+/voice/*          /go/audit/       301
+/go/voice/*       /go/audit/       301
 /audit/*          /go/audit/:splat       301
 /archetype/*      /go/archetype/:splat   301
 /questionnaire/*  /go/profile/           301
@@ -100,7 +95,8 @@ None yet. Create one with `python3 tools/build.py new "name"`.
 /prepare          /go/diagnosis/prepare/  301
 /done             /go/diagnosis/done/   301
 /profile          /go/profile/     301
-/voice            /go/voice/       301
+/voice            /go/audit/       301
+/go/voice         /go/audit/       301
 /audit            /go/audit/       301
 /archetype        /go/archetype/   301
 /questionnaire    /go/profile/     301
