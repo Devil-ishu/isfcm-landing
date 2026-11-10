@@ -11,12 +11,17 @@
   var nav = document.querySelector('.nav');
   if (nav) {
     var btn = nav.querySelector('.menu');
-    var close = function () { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); btn.textContent = 'Menu'; };
-    btn.addEventListener('click', function () {
-      var open = nav.classList.toggle('open');
+    var scrim = nav.querySelector('.scrim');
+    var set = function (open) {
+      nav.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
       btn.setAttribute('aria-expanded', open);
-      btn.textContent = open ? 'Close' : 'Menu';
-    });
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      if (scrim) scrim.hidden = !open;
+    };
+    var close = function () { set(false); };
+    btn.addEventListener('click', function () { set(!nav.classList.contains('open')); });
+    if (scrim) scrim.addEventListener('click', close);
     nav.querySelectorAll('ul a').forEach(function (a) { a.addEventListener('click', close); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
   }
