@@ -14,7 +14,7 @@ _Written by `python3 tools/build.py` on 2026-11-10. Do not edit by hand; change 
 
 | Address | Page | Where it's reached | Takes | Status | Edit |
 |---|---|---|---|---|---|
-| / | Gaurang Misra \| Consultant to founders and senior leaders | Home |  | live | src/pages/home.html |
+| / | Gaurang Misra \| Influence and executive presence for founders and senior leaders | Home |  | live | src/pages/home.html |
 | /404/ | Page not found | System page |  | live | src/pages/404.html |
 | /contact/ | Contact | Footer | enquiry: contact | live | src/pages/contact.html |
 | /delivery-policy/ | Delivery policy | Footer |  | live | src/pages/delivery.html |

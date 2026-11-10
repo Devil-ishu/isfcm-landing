@@ -313,3 +313,10 @@ a{color:var(--link)}
 .links-close{margin-top:56px;border-top:1px solid var(--line);padding-top:28px}
 .links-close .kicker{margin-top:0}
 .links-decide{font:400 30px/1.2 var(--serif);margin:8px 0 22px}
+/* patterns grid (home, diagnosis) */
+.patterns{display:grid;grid-template-columns:repeat(3,1fr);gap:0 40px;margin-top:48px}
+.patterns li{border-top:1px solid var(--line);padding:24px 0}
+.patterns p{color:var(--ink-soft);margin-top:8px}
+@media (max-width:900px){.patterns{grid-template-columns:1fr}}
+.steps.four{grid-template-columns:repeat(4,1fr)}
+@media (max-width:900px){.steps.four{grid-template-columns:1fr}}
