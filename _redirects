@@ -20,3 +20,15 @@
 /audit            /go/audit/       301
 /archetype        /go/archetype/   301
 /questionnaire    /go/profile/     301
+
+# Old Wix addresses on isfcm.com -> new pages (for when isfcm.com points here)
+/training         /seminars/?utm_source=justdial&utm_medium=listing   301
+/gm-links         /links/               301
+/1on1-call        /request-diagnosis/   301
+/istc-2026        /istc/                301
+/about            /gaurang-misra/       301
+/elearning        /                     301
+/courses-1        /                     301
+/news             /insights/            301
+/acreditations    /gaurang-misra/       301
+/events           /seminars/            301

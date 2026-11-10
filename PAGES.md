@@ -2,7 +2,7 @@
 
 _Written by `python3 tools/build.py` on 2026-11-10. Do not edit by hand; change the page headers instead._
 
-**23 brand · 11 ads · 0 unlisted** · site not launched (nothing indexed) · base https://go.isfcm.com
+**30 brand · 11 ads · 0 unlisted** · site not launched (nothing indexed) · base https://go.isfcm.com
 
 | Zone | Address | For | Rules |
 |---|---|---|---|
@@ -16,10 +16,15 @@ _Written by `python3 tools/build.py` on 2026-11-10. Do not edit by hand; change 
 |---|---|---|---|---|---|
 | / | Gaurang Misra \| Influence and executive presence for founders and senior leaders | Home |  | live | src/pages/home.html |
 | /404/ | Page not found | System page |  | live | src/pages/404.html |
+| /body-language-training/ | Body language training: read people and command a room | Google search, footer |  | live | src/pages/seo-body-language.html |
+| /communication-skills-training-chandigarh/ | Communication skills and public speaking training in Chandigarh | Google search, footer |  | live | src/pages/seo-chandigarh.html |
 | /contact/ | Contact | Footer | enquiry: contact | live | src/pages/contact.html |
+| /corporate-training-chandigarh/ | Corporate soft skills and leadership training in Chandigarh | Google search, footer |  | live | src/pages/seo-corporate.html |
 | /delivery-policy/ | Delivery policy | Footer |  | live | src/pages/delivery.html |
 | /executive/ | Executive programme | Linked from pages | enquiry: executive | live | src/pages/executive.html |
+| /executive-presence-coaching/ | Executive presence coaching for founders and senior leaders | Google search, footer |  | live | src/pages/seo-executive-presence.html |
 | /gaurang-misra/ | About Gaurang Misra | Menu |  | live | src/pages/about.html |
+| /influence-and-persuasion-training/ | Influence and persuasion training, one to one | Google search, footer |  | live | src/pages/seo-influence.html |
 | /insights/ | Insights | Footer |  | live | src/pages/insights.html |
 | /insights/let-me-think-about-it/ | "Let me think about it" is a verdict, not a question | Linked from pages |  | live | src/pages/insight-think.html |
 | /insights/the-deeper-voice-myth/ | The deeper-voice myth | Linked from pages |  | live | src/pages/insight-deeper-voice.html |
@@ -29,6 +34,7 @@ _Written by `python3 tools/build.py` on 2026-11-10. Do not edit by hand; change 
 | /istc/ | ISTC entrance coaching | Footer | enquiry: istc | live | src/pages/istc.html |
 | /links/ | Gaurang Misra \| Links | Instagram and Facebook bio |  | live | src/pages/links.html |
 | /mentorship/ | One-to-one mentorship | Linked from pages | enquiry: mentorship | live | src/pages/mentorship.html |
+| /personality-development-chandigarh/ | Personality development for adults in Chandigarh | Google search, footer |  | live | src/pages/seo-personality.html |
 | /privacypolicy/ | Privacy policy | Footer |  | live | src/pages/privacy.html |
 | /refundpolicy/ | Refund and cancellation policy | Footer |  | live | src/pages/refund.html |
 | /request-diagnosis/ | Private Diagnosis | Menu | Razorpay | live | src/pages/diagnosis.html |
@@ -36,6 +42,7 @@ _Written by `python3 tools/build.py` on 2026-11-10. Do not edit by hand; change 
 | /seminars/ | Seminars for colleges and companies | Menu | enquiry: seminar | live | src/pages/seminars.html |
 | /termsandconditions/ | Terms and conditions | Footer |  | live | src/pages/terms.html |
 | /tonal-authority/ | Tonal Authority: voice training | Footer |  | live | src/pages/tonal-authority.html |
+| /voice-coaching-for-professionals/ | Voice coaching for professionals: sound confident and credible | Google search, footer |  | live | src/pages/seo-voice.html |
 | /work-with-me/ | Work with me | Menu |  | live | src/pages/work.html |
 
 ## Ads
@@ -100,4 +107,16 @@ None yet. Create one with `python3 tools/build.py new "name"`.
 /audit            /go/audit/       301
 /archetype        /go/archetype/   301
 /questionnaire    /go/profile/     301
+
+# Old Wix addresses on isfcm.com -> new pages (for when isfcm.com points here)
+/training         /seminars/?utm_source=justdial&utm_medium=listing   301
+/gm-links         /links/               301
+/1on1-call        /request-diagnosis/   301
+/istc-2026        /istc/                301
+/about            /gaurang-misra/       301
+/elearning        /                     301
+/courses-1        /                     301
+/news             /insights/            301
+/acreditations    /gaurang-misra/       301
+/events           /seminars/            301
 ```
