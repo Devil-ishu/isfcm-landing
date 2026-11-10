@@ -51,35 +51,49 @@ function __am(){var d={};['audit_ctx','diag_ctx'].forEach(function(k){try{var c=
 
 <main id="main">
 <section class="wrap page-head">
-    <h1>Everything starts with a diagnosis.</h1>
-    <p class="lede">What comes after depends on what I find. Some people need one conversation. Some need months of work. A few aren't ready yet, and I'll tell them so.</p>
+    <h1>Which room do you need to win?</h1>
+    <p class="lede">Pick the one closest to your situation. You'll see where to start, how long it takes and what it looks like.</p>
+    <div class="chooser" role="group" aria-label="Your situation">
+      <button type="button" data-k="room" aria-pressed="false">Meetings where I'm overlooked or talked over</button>
+      <button type="button" data-k="deal">Deals, pitches or negotiations I should be closing</button>
+      <button type="button" data-k="lead">A bigger leadership role, or my team</button>
+      <button type="button" data-k="voice">My voice: I sound unsure, rushed or too young</button>
+      <button type="button" data-k="people">People who manipulate or manage me</button>
+      <button type="button" data-k="org">Training for my college or company</button>
+    </div>
+    <div class="pick-out" id="pick" aria-live="polite" hidden></div>
   </section>
 
-  <section class="section" aria-labelledby="method-h">
-    <div class="wrap split">
-      <div>
-        <h2 class="h2" id="method-h">The method: Authority Conditioning</h2>
-        <p class="lede">Training first, so you understand what's happening in a room. Then conditioning, so it holds when the stakes are real and you don't have time to think.</p>
+  <section class="section" aria-labelledby="ways-h">
+    <div class="wrap">
+      <h2 class="h2" id="ways-h">Every way to work together</h2>
+      <div class="table-wrap">
+        <table class="compare">
+          <thead><tr><th scope="col"></th><th scope="col">Format</th><th scope="col">Length</th><th scope="col">For</th><th scope="col"></th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Diagnosis</th><td>One call, video</td><td>45 minutes</td><td>Everyone. The starting point</td><td><a class="link" href="/request-diagnosis/">Book</a></td></tr>
+            <tr><th scope="row">One-to-one mentorship</th><td>2–3 sessions a week, video</td><td>60–90 days</td><td>Professionals and founders who want the full method</td><td><a class="link" href="/mentorship/">Details</a></td></tr>
+            <tr><th scope="row">Executive programme</th><td>Private, one to one</td><td>1 month training + 6 months conditioning</td><td>Founders, CXOs, partners</td><td><a class="link" href="/executive/">Details</a></td></tr>
+            <tr><th scope="row">Tonal Authority</th><td>Voice sessions, video</td><td>Weeks, not months</td><td>Anyone whose voice undercuts their point</td><td><a class="link" href="/tonal-authority/">Details</a></td></tr>
+            <tr><th scope="row">Seminars</th><td>Talk, workshop or intensive</td><td>90 minutes to 2 days</td><td>Colleges and companies</td><td><a class="link" href="/seminars/">Details</a></td></tr>
+          </tbody>
+        </table>
       </div>
-      <ul class="rules">
-        <li><h3 class="h3">Tonal Authority</h3><p>Your voice, tuned to the way each listener hears. Pace, pitch, pauses and weight, without sounding like someone else.</p></li>
-        <li><h3 class="h3">Reading the room</h3><p>The small signals in a face, a posture or a silence that tell you what a person needs to hear, and when.</p></li>
-        <li><h3 class="h3">Presence and body language</h3><p>How you enter, sit, pause and hold attention before you say a word.</p></li>
-        <li><h3 class="h3">Articulation in their terms</h3><p>Putting your thinking across so the other person understands it as their own idea.</p></li>
-      </ul>
     </div>
   </section>
 
-  <section class="section mist" aria-labelledby="ways-h">
-    <div class="wrap">
-      <h2 class="h2" id="ways-h">Ways to work together</h2>
-      <ul class="paths">
-        <li><h3 class="h3">Diagnosis</h3><p>Forty-five minutes, one to one. The starting point for everyone.</p><a class="link go" href="/request-diagnosis/">Details</a></li>
-        <li><h3 class="h3">One-to-one mentorship</h3><p>Personal Authority Conditioning over several weeks, by application after a diagnosis.</p><a class="link go" href="/mentorship/">Details</a></li>
-        <li><h3 class="h3">Tonal Authority</h3><p>Voice training on its own: sound certain without sounding rehearsed.</p><a class="link go" href="/tonal-authority/">Details</a></li>
-        <li><h3 class="h3">Executive programme</h3><p>For founders and CXOs: a month of training, then six months of conditioning.</p><a class="link go" href="/executive/">Details</a></li>
-        <li><h3 class="h3">Seminars</h3><p>Talks and workshops for colleges and companies.</p><a class="link go" href="/seminars/">Details</a></li>
-      </ul>
+  <section class="section mist" aria-labelledby="method-h">
+    <div class="wrap split">
+      <div>
+        <h2 class="h2" id="method-h">One method underneath all of it</h2>
+        <p class="lede">Authority Conditioning. Training first, so you understand what's happening in a room. Then conditioning, so it holds when the stakes are real and there's no time to think.</p>
+      </div>
+      <ol class="rules">
+        <li><h3 class="h3">1 · Identity</h3><p>We strip out the version of you built to be accepted, and keep what actually works.</p></li>
+        <li><h3 class="h3">2 · Body language and voice</h3><p>How you enter, sit, pause and sound before your argument is heard.</p></li>
+        <li><h3 class="h3">3 · Reading and influence</h3><p>Frame control, persuasion, and spotting manipulation while it's happening.</p></li>
+        <li><h3 class="h3">4 · Pull</h3><p>Being the person a room gravitates to: favour in meetings, attention in social settings.</p></li>
+      </ol>
     </div>
   </section>
 
@@ -129,6 +143,26 @@ function __am(){var d={};['audit_ctx','diag_ctx'].forEach(function(k){try{var c=
       <a class="btn" href="/request-diagnosis/" data-cta="work-close">Request a diagnosis</a>
     </div>
   </section>
+
+<script>
+(function(){
+  var R={
+    room:['Diagnosis, then mentorship','Most people who are overlooked are being read as too agreeable, too eager or too easy to place. The diagnosis finds which. Mentorship fixes it over 60 to 90 days.','/request-diagnosis/','Request a diagnosis'],
+    deal:['Diagnosis first','Lost deals usually die on one unspoken objection or one moment of wavering certainty. One 45-minute call is often enough to find it.','/request-diagnosis/','Request a diagnosis'],
+    lead:['The executive programme','A month of private training, then six months of conditioning while you lead. Starts with a selection call.','/executive/','See the programme'],
+    voice:['Tonal Authority','Pace, pitch and silence tuned to the listener, without faking a deeper voice. Hear the before and after.','/tonal-authority/','Hear the difference'],
+    people:['One-to-one mentorship','Recognising manipulation as it happens, holding your position without aggression, and turning the frame back. Starts with a diagnosis.','/mentorship/','See mentorship'],
+    org:['Seminars and workshops','Talks and workshops for students and teams: interviews, leadership presence, negotiation and influence.','/seminars/','See seminars']
+  };
+  var out=document.getElementById('pick'), bs=document.querySelectorAll('.chooser button');
+  bs.forEach(function(b){ b.addEventListener('click',function(){
+    bs.forEach(function(x){x.setAttribute('aria-pressed','false')}); b.setAttribute('aria-pressed','true');
+    var r=R[b.dataset.k]; out.hidden=false;
+    out.innerHTML='<p class="small soft">Where to start</p><h2 class="h2">'+r[0]+'</h2><p>'+r[1]+'</p><a class="btn" href="'+r[2]+'" data-cta="work-'+b.dataset.k+'">'+r[3]+'</a>';
+    try{ fbq('trackCustom','WorkPick',{pick:b.dataset.k}); }catch(e){}
+  });});
+})();
+</script>
 
 </main>
 
