@@ -288,3 +288,17 @@ a{color:var(--link)}
 .link-list span{display:block;font-size:15px;color:var(--ink-soft);margin-top:4px}
 .link-list a.primary span{color:var(--accent-soft)}
 .article ul+p,.article ol+p,.article blockquote+p{margin-top:16px}
+/* links page: bio-link layout */
+.links-head{display:flex;align-items:center;gap:18px}
+.links-head .avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}
+.links-head .handle{margin-top:4px;font-size:15px}
+.links-page .kicker{margin-top:28px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.links-page .kicker+.lede{margin-top:10px}
+.links-h{margin-top:56px;font:400 26px/1.2 var(--serif)}
+.links-quotes figure{border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
+.links-quotes blockquote{font:400 19px/1.45 var(--serif)}
+.links-quotes figcaption{margin-top:10px;font-size:14px;color:var(--ink-soft)}
+.links-page h2+p{margin-top:14px}
+.links-close{margin-top:56px;border-top:1px solid var(--line);padding-top:28px}
+.links-close .kicker{margin-top:0}
+.links-decide{font:400 30px/1.2 var(--serif);margin:8px 0 22px}
