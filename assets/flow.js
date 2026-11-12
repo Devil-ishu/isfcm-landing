@@ -34,3 +34,7 @@
     }
   };
 })();
+
+/* Microsoft Clarity: same project as the voice funnel, tagged so the two funnels can be told apart */
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","z9ggylo1v1");
+try{ clarity('set','funnel','diagnosis'); clarity('set','step',location.pathname.replace(/^\/go\//,'').replace(/\/$/,'')||'landing'); }catch(e){}
