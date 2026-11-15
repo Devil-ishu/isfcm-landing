@@ -8,6 +8,8 @@
 // variables (RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET) and never reach the browser,
 // except the public key id, which Razorpay Checkout needs.
 
+import { browserIds } from '../_lib/meta.js';
+
 const TIERS = { 499: 49900, 999: 99900, 1499: 149900 }; // rupees -> paise
 const AUDIT_PAISE = 199900; // Executive Voice Audit, ₹1,999
 
@@ -90,6 +92,15 @@ export async function onRequestPost({ request, env }) {
   for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']) {
     if (utm[k]) notes[k] = clip(utm[k], 200);
   }
+  // Browser ids for the server-side Purchase (rzp-webhook → Meta Conversions API).
+  // Razorpay allows 15 notes of 256 chars; the audit order uses all 15 at most.
+  const ids = browserIds(request);
+  const fbclid = clip(utm.fbclid || body.fbclid, 200);
+  const fbc = ids.fbc || (fbclid ? 'fb.1.' + Date.now() + '.' + fbclid : '');
+  if (ids.fbp) notes.fbp = clip(ids.fbp, 100);
+  if (fbc) notes.fbc = clip(fbc, 255);
+  if (ids.ip) notes.ip = clip(ids.ip, 60);
+  if (ids.ua) notes.ua = clip(ids.ua, 255);
 
   const r = await rzp(env, '/orders', {
     method: 'POST',

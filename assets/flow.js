@@ -20,6 +20,11 @@
       var s=p.toString(); return path+(s?'?'+s:'');
     },
     go:function(path){ location.href=Flow.url(path); },
+    // Advanced matching: hand the buyer's email/phone (from Razorpay) to the pixel before Purchase.
+    // The pixel hashes them. Razorpay's placeholder void@razorpay.com is skipped.
+    match:function(p){ try{ var d={}, e=String(p.email||'').trim().toLowerCase(), ph=String(p.contact||'').replace(/\D/g,'');
+      if(e&&!/@razorpay\.com$/.test(e)) d.em=e; if(ph.length>=10) d.ph=(ph.length===10?'91':'')+ph;
+      if(Object.keys(d).length) fbq('init','3715194611950305',d); }catch(e){} },
     track:function(n,p,o){ try{ fbq('track',n,p||{},o||{}); }catch(e){} },
     custom:function(n,p){ try{ fbq('trackCustom',n,p||{}); }catch(e){} },
     ga:function(n,p){ try{ gtag('event',n,p||{}); }catch(e){} },

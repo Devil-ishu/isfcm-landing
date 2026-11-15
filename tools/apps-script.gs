@@ -35,7 +35,8 @@ var TABS = {
   istc:          'ISTC Registrations',
   archetype:     'Archetype Test',
   audit:         'Voice Audit Funnel',
-  profile:       'Influence Profile'
+  profile:       'Influence Profile',
+  purchase:      'Purchases'   // one row per captured Razorpay payment (rzp-webhook), both funnels
 };
 
 // Booked diagnosis briefs (form "profile", stage "booked") are emailed as HTML and filed
@@ -67,6 +68,8 @@ function doPost(e) {
     Object.keys(data).forEach(function (k) { if (k.charAt(0) === '_') delete data[k]; });
 
     var tabName = TABS[data.form] || ('Other – ' + data.form);
+    // Razorpay can resend a webhook: one ledger row per payment id.
+    if (data.form === 'purchase' && data.pid && seenPid_(ss, tabName, data.pid)) return out_({ ok: true, duplicate: data.pid });
     // Voice Diagnosis: a manual `outcome` column (show / no-show / closed / not a fit), filled in by hand.
     if (data.form === 'audit' && !('outcome' in data)) data.outcome = '';
     appendByHeader_(ss, tabName, data, LEAD_COLS);
@@ -92,6 +95,17 @@ function doPost(e) {
 
 // Health check (go.isfcm.com/api/questionnaire opens this).
 function doGet() { return out_({ ok: true, service: 'isfcm-forms' }); }
+
+/** True if a row in tabName already has this payment id in its "pid" column. */
+function seenPid_(ss, tabName, pid) {
+  var sh = ss.getSheetByName(tabName);
+  if (!sh || sh.getLastRow() < 2) return false;
+  var headers = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].map(String);
+  var col = headers.indexOf('pid') + 1;
+  if (!col) return false;
+  return sh.getRange(2, col, sh.getLastRow() - 1, 1).getDisplayValues()
+    .some(function (r) { return r[0] === pid; });
+}
 
 /** Append one row, matching keys to header names; adds missing headers. */
 function appendByHeader_(ss, tabName, data, firstCols) {
