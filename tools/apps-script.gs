@@ -355,6 +355,8 @@ function waTestSend() {
 
 /** Razorpay and Cal.id events (posted by the Cloudflare functions). */
 function waEvent_(ss, d) {
+  if (d.event === 'inbound') return waInbound_(ss, d);
+  if (d.event === 'msg_failed') return waFailed_(ss, d);
   if (!WA_PRODUCTS[d.product] && d.uid) {
     // No-show payloads don't say which event type; take it from the booking we already know.
     var seen = waFind_(ss, function (r) { return r.ref === d.uid && r.template === 'booking_confirmed'; });
@@ -515,7 +517,11 @@ function waTick() {
 
 function waProcess_(sh, r) {
   var vars = typeof r.vars === 'string' ? JSON.parse(r.vars || '[]') : (r.vars || []);
-  var res = waApi_(r.phone, r.template, vars, r.button);
+  // Inside the 24-hour window (they messaged us recently) a plain text is free and
+  // isn't blocked by Meta billing problems, so use it instead of the template.
+  var res = waInWindow_(r.phone)
+    ? waTextApi_(r.phone, waRender_(r.template, vars) + (r.button ? '\n\n' + (WA_BUTTON[r.template] || 'Open') + ': ' + waLink_(r.button) : ''))
+    : waApi_(r.phone, r.template, vars, r.button);
   if (res.ok) {
     waSet_(sh, r, { status: 'sent', sent_at: new Date().toISOString(), result: res.id || 'ok' });
     return { ok: true, sent: r.template };
@@ -696,4 +702,95 @@ function waSubject_(template) {
     payment_failed: 'Your payment did not go through', booking_cancelled: 'Your booking was cancelled',
     profile_result: 'Your Influence Profile', enquiry_received: 'We received your enquiry',
     payment_pending: 'Your application is waiting for payment', no_show: 'We missed you on the call' })[template] || 'Update from Gaurang Misra';
+}
+
+
+/* ---------- inbound messages (Kapso webhook → /api/wa-inbound → here) ---------- */
+
+/** Free-form text inside the 24-hour customer-service window. */
+function waTextApi_(phone, body) {
+  var key = PropertiesService.getScriptProperties().getProperty('KAPSO_API_KEY');
+  if (!key) return { ok: false, error: 'KAPSO_API_KEY missing in Script properties' };
+  if (!phone) return { ok: false, error: 'no phone number' };
+  try {
+    var res = UrlFetchApp.fetch(WA_API + WA_PHONE_ID + '/messages', {
+      method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+      headers: { 'X-API-Key': key },
+      payload: JSON.stringify({ messaging_product: 'whatsapp', recipient_type: 'individual', to: phone, type: 'text',
+        text: { body: String(body).slice(0, 4000), preview_url: true } })
+    });
+    var code = res.getResponseCode(), text = res.getContentText();
+    var b = {}; try { b = JSON.parse(text); } catch (e) {}
+    if (code >= 200 && code < 300 && b.messages && b.messages.length) return { ok: true, id: b.messages[0].id };
+    return { ok: false, error: code + ' ' + String((b.error && b.error.message) || text).slice(0, 250) };
+  } catch (e) {
+    return { ok: false, error: 'network: ' + e };
+  }
+}
+
+/** Last time this number wrote to us (only the time is kept, never the text). */
+function waInWindow_(phone) {
+  if (!phone) return false;
+  var t = Number(PropertiesService.getScriptProperties().getProperty('wa_in_' + phone) || 0);
+  return t > 0 && Date.now() - t < 23 * 3600000;
+}
+
+/**
+ * Someone messaged the business number. Note the time (opens the free 24h window) and,
+ * once per booking/payment, send them their details: call time + prepare link, or the
+ * booking link if they paid but haven't booked. Everything else is left to the hourly
+ * AI reply task and to Gaurang.
+ */
+function waInbound_(ss, d) {
+  var phone = waPhone_(d.phone);
+  if (!phone) return { ok: true, ignored: 'no_phone' };
+  PropertiesService.getScriptProperties().setProperty('wa_in_' + phone, String(Date.now()));
+  var sh = waSheet_(ss);
+  var rows = waRows_(sh).filter(function (r) { return r.phone === phone; });
+  var now = Date.now();
+  var booking = null, paid = null;
+  rows.forEach(function (r) {
+    if (r.template === 'booking_confirmed' && waTs_(r.start) > now) {
+      var cancelled = rows.some(function (x) { return x.template === 'booking_cancelled' && x.ref === r.ref; });
+      if (!cancelled && (!booking || waTs_(r.created_at) > waTs_(booking.created_at))) booking = r;
+    }
+    if (r.template === 'payment_confirmed' && (!paid || waTs_(r.created_at) > waTs_(paid.created_at))) paid = r;
+  });
+  var first = waFirst_(d.name || (booking && booking.name) || (paid && paid.name));
+  var P, key, body;
+  if (booking) {
+    P = WA_PRODUCTS[booking.product] || WA_PRODUCTS.diagnosis;
+    key = 'catchup:' + booking.ref;
+    body = 'Hi ' + first + ', you\'re confirmed for your ' + P.label + ' on ' + waWhen_(waTs_(booking.start)) + ' IST.\n\n' +
+      'Before the call: ' + waLink_(booking.button || P.prepare) + '\n\n' +
+      'I\'ll send your joining link here 1 hour before. If anything changes, just reply here.';
+  } else if (paid && waTs_(paid.created_at) > now - 14 * 86400000) {
+    P = WA_PRODUCTS[paid.product] || WA_PRODUCTS.diagnosis;
+    key = 'catchup:' + paid.ref;
+    body = 'Hi ' + first + ', your payment for the ' + P.label + ' is received.\n\n' +
+      'Pick your call time here: ' + waLink_(paid.button || P.book) + '\n\nReply here if you need help.';
+  } else {
+    return { ok: true, window_open: true };
+  }
+  if (rows.some(function (r) { return r.key === key; })) return { ok: true, duplicate: key };
+  var row = waStore_(sh, waRow_({ phone: phone, email: '', name: first, product: booking ? booking.product : paid.product,
+    source: 'inbound', template: 'catchup', key: key, ref: booking ? booking.ref : paid.ref, vars: [], button: '' }));
+  var res = waTextApi_(phone, body);
+  waSet_(sh, row, res.ok ? { status: 'sent', sent_at: new Date().toISOString(), result: res.id }
+                         : { status: 'failed', sent_at: new Date().toISOString(), result: String(res.error).slice(0, 300) });
+  if (!res.ok) waAlert_('WhatsApp reply not sent to ' + first + ' +' + phone, 'Send this by hand:\n\n' + body + '\n\nWhy: ' + res.error);
+  return { ok: res.ok };
+}
+
+/** Meta accepted a message, then failed to deliver it (e.g. billing block). Same fallback as a rejected send. */
+function waFailed_(ss, d) {
+  if (!d.wamid) return { ok: true };
+  var sh = waSheet_(ss);
+  var r = waRows_(sh).filter(function (x) { return x.result === d.wamid; })[0];
+  if (!r || r.status === 'failed') return { ok: true, ignored: 'unknown_or_done' };
+  waSet_(sh, r, { status: 'failed', result: ('delivery failed: ' + (d.error || '')).slice(0, 300) });
+  var vars = []; try { vars = JSON.parse(r.vars || '[]'); } catch (e) {}
+  if (r.template === 'catchup') return { ok: true };
+  waFallback_(r, vars, 'delivery failed: ' + (d.error || 'unknown'));
+  return { ok: true, fallback: r.template };
 }

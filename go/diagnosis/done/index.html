@@ -31,6 +31,9 @@ function __am(){var d={};['audit_ctx','diag_ctx'].forEach(function(k){try{var c=
 .list li{display:flex;gap:10px;color:var(--fg-2);font-size:15px}
 .list li i{font-style:normal;color:var(--green-2);flex:none}
 .warnbook{display:none;margin-top:16px}
+.wacard{margin-top:16px;text-align:center}
+.wacard p{color:var(--fg-2);font-size:15px;margin:0 0 10px}
+.btn.wa{background:#25D366;color:#06210f;border-color:#fff}
 </style>
 </head>
 <body>
@@ -52,6 +55,11 @@ function __am(){var d={};['audit_ctx','diag_ctx'].forEach(function(k){try{var c=
     </ul>
   </div>
 
+  <div class="card wacard">
+    <p><strong style="color:#fff">One tap left:</strong> confirm on WhatsApp. Your call details and the joining link reminder come there.</p>
+    <a class="btn wa" id="wacf" target="_blank" rel="noopener" href="https://wa.me/916284065488?text=CONFIRM%20my%20diagnosis%20call">Confirm On WhatsApp →</a>
+  </div>
+
   <div class="warnbook" id="warnbook">
     <a class="btn ghost" id="bookbtn" href="/go/diagnosis/book/">Didn't get to book your slot? Do it now →</a>
   </div>
@@ -61,6 +69,10 @@ function __am(){var d={};['audit_ctx','diag_ctx'].forEach(function(k){try{var c=
 <script>
 if(Flow.ctx.first){ document.getElementById('hi').innerHTML=Flow.ctx.first.replace(/[<>&"]/g,'')+', You\'re <span class="gold">Ready</span>.'; }
 if(Flow.ctx.booked!=='embed'){ document.getElementById('warnbook').style.display='block'; document.getElementById('bookbtn').href=Flow.url('/go/diagnosis/book/'); }
+(function(){ var n=(Flow.ctx.first||'').replace(/[^\p{L}\p{M} '-]/gu,'').slice(0,30);
+  var t='CONFIRM my diagnosis call'+(n?' – '+n:'');
+  var a=document.getElementById('wacf'); a.href='https://wa.me/916284065488?text='+encodeURIComponent(t);
+  a.addEventListener('click',function(){ Flow.custom('WhatsAppConfirm'); }); })();
 Flow.custom('FlowComplete');
 </script>
 </body>

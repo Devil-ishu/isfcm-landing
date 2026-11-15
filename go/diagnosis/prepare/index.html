@@ -59,11 +59,14 @@ function __am(){var d={};['audit_ctx','diag_ctx'].forEach(function(k){try{var c=
     <a class="btn back" id="back" href="/go/diagnosis/book/">←</a>
     <a class="btn" id="go" href="/go/profile/">Got It — Last Step →</a>
   </div>
+  <p class="small" style="text-align:center;margin-top:14px"><a id="wacf" href="https://wa.me/916284065488?text=CONFIRM%20my%20diagnosis%20call" target="_blank" rel="noopener" style="color:var(--gold)">Confirm your call on WhatsApp</a> to get your details and reminder there.</p>
   <p class="small" style="text-align:center">Next: your influence profile, about 10 minutes, so I walk in already knowing where to look.</p>
 </main>
 <script>
 document.getElementById('go').href=Flow.url('/go/profile/');
 document.getElementById('back').href=Flow.url('/go/diagnosis/book/');
+(function(){ var n=(Flow.ctx.first||'').replace(/[^\p{L}\p{M} '-]/gu,'').slice(0,30);
+  document.getElementById('wacf').href='https://wa.me/916284065488?text='+encodeURIComponent('CONFIRM my diagnosis call'+(n?' – '+n:'')); })();
 Flow.custom('PrepareView');
 </script>
 </body>
