@@ -108,6 +108,8 @@ path: /request-diagnosis/
             <label><input type="radio" name="tier" value="1499"><b>₹1,499</b><span>All in</span></label>
           </div>
         </fieldset>
+        <label class="small soft" for="pay-email" style="display:block;margin-top:18px">Email for your booking link</label>
+        <input type="email" id="pay-email" required autocomplete="email" inputmode="email" placeholder="you@company.com" style="display:block;width:100%;padding:12px 14px;margin:8px 0 14px;border-radius:8px;border:1px solid #bbb;font-size:16px">
         <button class="btn" id="pay" type="button" style="border:0;cursor:pointer">Pay ₹999 and choose a slot</button>
         <p class="form-status error" id="pay-err" role="alert" style="margin-top:14px"></p>
         <p class="small soft" style="margin-top:14px">Secure payment by Razorpay: UPI, cards and net banking. After paying you'll pick your slot straight away.</p>
@@ -151,19 +153,25 @@ path: /request-diagnosis/
   }
   function busy(on){ pay.disabled=on; if(on) pay.textContent='Opening secure checkout…'; else label(); }
 
+  var emIn=document.getElementById('pay-email');
+  try{ var dc=JSON.parse(localStorage.getItem('diag_ctx')||'{}'); if(dc.email&&!/@razorpay\.com$/i.test(dc.email)) emIn.value=dc.email; }catch(e){}
   pay.addEventListener('click',function(){
+    var em=String(emIn.value||'').trim().toLowerCase();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)||/@razorpay\.com$/.test(em)){ err.textContent='Please enter a valid email. Your booking link goes there.'; emIn.focus(); return; }
+    try{ var c=JSON.parse(localStorage.getItem('diag_ctx')||'{}'); c.email=em; localStorage.setItem('diag_ctx',JSON.stringify(c)); }catch(e){}
     var t=tier(); busy(true); err.textContent='';
     fb('InitiateCheckout',{content_name:'Diagnosis Call',value:t,currency:'INR'});
     ga('begin_checkout',{currency:'INR',value:t,cta_location:'site'});
     Promise.all([
-      fetch('/api/order',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({tier:t,cta:'site',utm:utm})}).then(function(r){ return r.json().then(function(j){ if(!r.ok) throw j; return j; }); }),
+      fetch('/api/order',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({tier:t,cta:'site',utm:utm,email:em})}).then(function(r){ return r.json().then(function(j){ if(!r.ok) throw j; return j; }); }),
       loadRzp()
     ]).then(function(x){
       var o=x[0];
       var rz=new Razorpay({
         key:o.key_id, order_id:o.order_id, amount:o.amount, currency:o.currency,
         name:'ISFCM', description:'45-minute private diagnosis with Gaurang Misra',
-        theme:{color:'#E6006F'}, notes:{tier:String(t),source:'site'},
+        theme:{color:'#E6006F'}, notes:{tier:String(t),source:'site',email:em},
+        prefill:{email:em}, readonly:{email:true},
         handler:function(resp){
           fb('AddPaymentInfo',{value:t,currency:'INR'});
           location.href='/go/diagnosis/book/?pid='+encodeURIComponent(resp.razorpay_payment_id)+'&oid='+encodeURIComponent(resp.razorpay_order_id);
@@ -176,6 +184,7 @@ path: /request-diagnosis/
       });
       rz.open();
     }).catch(function(e){
+      if(e&&e.error==='email_required'){ busy(false); err.textContent='Please enter a valid email. Your booking link goes there.'; emIn.focus(); return; }
       fb('CheckoutFallback',{reason:(e&&e.error)||'load'},true);
       location.href=FALLBACK;
     });

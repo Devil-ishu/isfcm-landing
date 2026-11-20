@@ -1,4 +1,4 @@
-// POST /api/order  { tier: 499|999|1499, cta, utm: {...} }  → Diagnosis Call
+// POST /api/order  { tier: 499|999|1499, email, cta, utm: {...} }  → Diagnosis Call (400 email_required without a valid email)
 // POST /api/order  { product: 'audit', name, email, phone, cta, utm }  → Executive Voice Diagnosis (₹1,999)
 //   → { already_paid: true, order_id, payment_id } if this phone already paid in the last 8 days
 // POST /api/order  { product: 'audit', phone, check_only: true }  → { already_paid: true|false } (no order created)
@@ -83,6 +83,16 @@ export async function onRequestPost({ request, env }) {
   if (body.check_only) return json({ already_paid: false });
   const amount = isAudit ? AUDIT_PAISE : TIERS[String(body.tier)];
   if (!amount) return json({ error: 'invalid_tier' }, 400);
+
+  // Diagnosis Call: the booking link and receipt go to this email, so refuse
+  // to create an order without a real one (Razorpay's placeholder doesn't count).
+  if (!isAudit) {
+    const em = String(body.email || '').trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em) || /@razorpay\.com$/.test(em)) {
+      return json({ error: 'email_required' }, 400);
+    }
+    body.email = em;
+  }
 
   const utm = body.utm && typeof body.utm === 'object' ? body.utm : {};
   const notes = isAudit
