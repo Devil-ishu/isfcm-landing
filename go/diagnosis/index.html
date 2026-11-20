@@ -506,6 +506,8 @@ try{ clarity('set','funnel','diagnosis'); clarity('set','step','landing'); var _
       <label class="opt"><input type="radio" name="tier" value="999" checked><b>₹999</b><span>Committed</span></label>
       <label class="opt"><input type="radio" name="tier" value="1499"><b>₹1499</b><span>All In</span></label>
     </div>
+    <label class="em-l" for="pay-email" style="display:block;font-size:13px;color:var(--muted)">Email For Your Booking Link</label>
+    <input type="email" id="pay-email" class="em-i" required autocomplete="email" inputmode="email" placeholder="you@company.com" style="width:100%;padding:12px 14px;margin:8px 0 12px;border-radius:8px;border:1px solid #444;font-size:16px">
     <button type="button" class="btn" id="pay">Pay ₹999 &amp; Secure My Slot →</button>
     <div class="err" id="pay-err" aria-live="polite"></div>
     <div class="fine2">Secure payment by Razorpay · UPI, cards, netbanking · <span class="green">Full Refund</span> If It Doesn't Shift You.</div>
@@ -564,12 +566,17 @@ try{ clarity('set','funnel','diagnosis'); clarity('set','step','landing'); var _
   function busy(on){ pay.disabled=on; if(on) pay.textContent='Opening secure checkout…'; else label(); }
   function fallback(){ location.href=FALLBACK; }
 
+  var emIn=document.getElementById('pay-email');
+  try{ var dc=JSON.parse(localStorage.getItem('diag_ctx')||'{}'); if(dc.email&&!/@razorpay\.com$/i.test(dc.email)) emIn.value=dc.email; }catch(e){}
   pay.addEventListener('click',function(){
+    var em=String(emIn.value||'').trim().toLowerCase();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)||/@razorpay\.com$/.test(em)){ err.textContent='Please enter a valid email. Your booking link goes there.'; emIn.focus(); return; }
+    try{ var c=JSON.parse(localStorage.getItem('diag_ctx')||'{}'); c.email=em; localStorage.setItem('diag_ctx',JSON.stringify(c)); }catch(e){}
     var t=tier(); busy(true); err.textContent='';
     track('InitiateCheckout',{content_name:'Diagnosis Call',value:t,currency:'INR'});
     ga('begin_checkout',{currency:'INR',value:t,cta_location:cta});
     Promise.all([
-      fetch('/api/order',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({tier:t,cta:cta,utm:utm})}).then(function(r){ return r.json().then(function(j){ if(!r.ok) throw j; return j; }); }),
+      fetch('/api/order',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({tier:t,cta:cta,utm:utm,email:em})}).then(function(r){ return r.json().then(function(j){ if(!r.ok) throw j; return j; }); }),
       loadRzp()
     ]).then(function(x){
       var o=x[0];
@@ -578,7 +585,9 @@ try{ clarity('set','funnel','diagnosis'); clarity('set','step','landing'); var _
         name:'ISFCM', description:'45-Minute Private Diagnosis · Gaurang Misra',
         image:location.origin+'/img/logo-white.webp',
         theme:{color:'#CB0000'},
-        notes:{tier:String(t)},
+        notes:{tier:String(t),email:em},
+        prefill:{email:em},
+        readonly:{email:true},
         handler:function(resp){
           track('AddPaymentInfo',{value:t,currency:'INR'});
           location.href='/go/diagnosis/book/?pid='+encodeURIComponent(resp.razorpay_payment_id)+'&oid='+encodeURIComponent(resp.razorpay_order_id);

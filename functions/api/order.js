@@ -88,7 +88,7 @@ export async function onRequestPost({ request, env }) {
   const notes = isAudit
     ? { product: 'Executive Voice Audit', tier: 'audit', cta: clip(body.cta, 40),
         name: clip(body.name, 80), email: clip(body.email, 120), phone: clip(body.phone, 20) }
-    : { product: 'Diagnosis Call', tier: String(body.tier), cta: clip(body.cta, 40) };
+    : { product: 'Diagnosis Call', tier: String(body.tier), cta: clip(body.cta, 40), email: clip(body.email, 120) };
   for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']) {
     if (utm[k]) notes[k] = clip(utm[k], 200);
   }
